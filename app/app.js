@@ -3,16 +3,22 @@
 angular.module('App', [
   'ngRoute',
   'ngCookies',
+  'ngSanitize',
   'App.login',
   'App.admin',
   'App.agent'
 ])
 
 .config(['$locationProvider', '$routeProvider', function($locationProvider, $routeProvider) {
-  $locationProvider.hashPrefix('!');
+    $locationProvider.hashPrefix('!');
+    $routeProvider
 
-  $routeProvider
-  .otherwise({redirectTo: '/'});
+    // .when({'/logout',
+    //     templateUrl: 'login-view/login.html',
+    //     controller: 'LoginCtrl'
+    // })
+
+    .otherwise({redirectTo: '/login'});
 }])
 
 .service('LoginService', function() {

@@ -11,14 +11,14 @@
             <img src="https://cdn4.iconfinder.com/data/icons/miu/22/circle_close_delete_-128.png"></img>
         </span>
 
-        <form name="login-form">
+        <form name="login-form" ng-submit="login()">
             <div class="form-group">
                 <input type="text" class="form-control" ng-model="username">
             </div>
             <div class="form-group">
                 <input type="password" class="form-control" ng-model="password">
             </div>
-            <button type="submit" class="btn btn-success btn-lg btn-block" ng-click="login()" name="button">Login</button>
+            <button type="submit" class="btn btn-success btn-lg btn-block" name="button">Login</button>
             <p class="text-center" id="forgotten">Forgot password</p>
         </form>
 

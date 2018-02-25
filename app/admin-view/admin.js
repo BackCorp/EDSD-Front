@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('App.admin', ['ngRoute', 'ngCookies'])
+angular.module('App.admin', ['ngRoute', 'ngCookies', 'ngSanitize'])
 
 .config(['$routeProvider', function($routeProvider, $location, $cookies, LoginService) {
     $routeProvider.when('/admin', {
@@ -16,7 +16,7 @@ angular.module('App.admin', ['ngRoute', 'ngCookies'])
         },
         templateUrl: 'admin-view/admin.html',
         controller: 'AdminCtrl'
-    }).otherwise({redirectTo: '/'});
+    }).otherwise({redirectTo: '/login'});
 }])
 
 .controller('AdminCtrl', function($scope, $location, $cookies, LoginService) {

@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('App.login', ['ngRoute','ngCookies'])
+angular.module('App.login', ['ngRoute','ngCookies', 'ngSanitize'])
 
 .config(['$routeProvider', function($routeProvider, $location, $cookies) {
     $routeProvider.when('/login', {
@@ -18,8 +18,18 @@ angular.module('App.login', ['ngRoute','ngCookies'])
     });
 }])
 
-.controller('LoginCtrl', function($scope, $location, $cookies, LoginService) {
-    $scope.login = function() {
+.controller('LoginCtrl', function($scope, $location, $cookies, $http, LoginService) {
+        $scope.login = function() {
+            $http.post(url, data, config)
+       .then(
+           function(response){
+             // success callback
+           },
+           function(response){
+             // failure callback
+           }
+        );
+
         if($scope.username === 'admin' && $scope.password === 'admin') {
             LoginService.logInUser();
             LoginService.setName($scope.username );
