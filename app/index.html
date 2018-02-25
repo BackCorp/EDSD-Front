@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html lang="en" ng-app="myApp" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html lang="en" ng-app="myApp" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html lang="en" ng-app="myApp" class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="en" ng-app="App" class="no-js"> <!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>EDSD App</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="lib/css/normalize.css">
+    <link rel="stylesheet" href="lib/css/main.css">
+    <link rel="stylesheet" href="app.css">
+    <link href="lib/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+
+    <!-- <link href="admin-view/sb-admin.css" rel="stylesheet"> -->
+    <link href="lib/vendor/morrisjs/morris.css" rel="stylesheet">
+    <link href="lib/vendor/font-awesome/css/font-awesome.css" rel="stylesheet">
+  <script src="lib/js/modernizr-2.8.3.min.js"></script>
+</head>
+<body>
+
+  <!--[if lt IE 7]>
+      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+  <![endif]-->
+
+    <div ng-view class="ng-cloak"></div>
+
+  <!-- In production use:
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>
+  -->
+    <script src="lib/vendor/jquery/jquery-3.3.1.min.js"></script>
+    <script src="lib/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="lib/vendor/metisMenu/metisMenu.min.js"></script>
+    <script src="lib/vendor/morrisjs/morris.min.js"></script>
+    <script src="lib/js/angular.min.js"></script>
+    <!--<script src="lib/js/angular.min.js.map"></script> -->
+    <script src="lib/js/angular-route.min.js"></script>
+    <script src="lib/js/angular-cookies.min.js"></script>
+    <!--<script src="lib/js/angular-route.min.js.map"></script>-->
+    <script src="app.js"></script>
+    <script src="login-view/login.js"></script>
+    <script src="admin-view/admin.js"></script>
+    <script src="agent-view/agent.js"></script>
+
+</body>
+</html>

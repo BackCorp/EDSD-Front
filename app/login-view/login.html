@@ -1,0 +1,78 @@
+<link rel="stylesheet" href="login-view/login.css">
+<div class="container" ng-controller="LoginCtrl">
+
+    <div id="login-button">
+        <img src="https://dqcgrsy5v35b9.cloudfront.net/cruiseplanner/assets/img/icons/login-w-icon.png"></img>
+    </div>
+
+    <div class="container" id="container">
+        <h1>EDSD</h1>
+        <span class="close-btn">
+            <img src="https://cdn4.iconfinder.com/data/icons/miu/22/circle_close_delete_-128.png"></img>
+        </span>
+
+        <form name="login-form">
+            <div class="form-group">
+                <input type="text" class="form-control" ng-model="username">
+            </div>
+            <div class="form-group">
+                <input type="password" class="form-control" ng-model="password">
+            </div>
+            <button type="submit" class="btn btn-success btn-lg btn-block" ng-click="login()" name="button">Login</button>
+            <p class="text-center" id="forgotten">Forgot password</p>
+        </form>
+
+
+    </div>
+
+    <div ng-show="loginFailed">
+        <!-- <div class="alert alert-danger" alert-dismissable>
+            <a href="#!/" class="close" data-dismiss="alert" aria-label="close">x</a>
+            <strong>Login attempt failed</strong>. Incorrect username or password. Please try again.
+        </div> -->
+        <div class="alert alert-success alert-dismissable">
+          <a href="#!/admin" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+          <strong>Success!</strong> Indicates a successful or positive action.
+        </div>
+    </div>
+
+    <!-- Forgotten Password Container -->
+    <div id="forgotten-container" class="container">
+        <h1>Forgotten</h1>
+        <span class="close-btn">
+            <img src="https://cdn4.iconfinder.com/data/icons/miu/22/circle_close_delete_-128.png"></img>
+        </span>
+        <form>
+            <div class="form-group">
+                <input type="email" class="form-control" id="email-forgot">
+            </div>
+            <button type="submit" class="btn btn-success btn-lg btn-block" name="button">New password</button>
+        </form>
+    </div>
+
+    <script>
+        $('#login-button').click(function(){
+            $('#login-button').fadeOut("slow",function(){
+                $("#container").fadeIn();
+                //TweenMax.from("#container", .4, { scale: 0, ease:Sine.easeInOut});
+                //TweenMax.to("#container", .4, { scale: 1, ease:Sine.easeInOut});
+            });
+        });
+
+        $(".close-btn").click(function(){
+            //TweenMax.from("#container", .4, { scale: 1, ease:Sine.easeInOut});
+            //TweenMax.to("#container", .4, { left:"0px", scale: 0, ease:Sine.easeInOut});
+            $("#container, #forgotten-container").fadeOut(800, function(){
+                $("#login-button").fadeIn(800);
+            });
+        });
+
+        /* Forgotten Password */
+        $('#forgotten').click(function(){
+            $("#container").fadeOut(function(){
+                $("#forgotten-container").fadeIn();
+            });
+        });
+    </script>
+
+</div>
