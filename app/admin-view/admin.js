@@ -28,4 +28,8 @@ angular.module('App.admin', ['ngRoute', 'ngCookies'])
         $location.path("/login");
     };
     $scope.name = LoginService.getName();
+    $scope.adminTemplate = 'admin-view/templates/admin-dashboard.html';
+    $scope.change = function(template){
+        $scope.adminTemplate = "admin-view/templates/" + template;
+    }
 });
