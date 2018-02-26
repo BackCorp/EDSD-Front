@@ -3,6 +3,7 @@
 angular.module('App.login', ['ngRoute','ngCookies', 'ngSanitize'])
 
 .config(['$routeProvider', function($routeProvider, $location, $cookies) {
+
     $routeProvider.when('/login', {
         resolve: {
             check: function($location, $cookies) {
@@ -19,16 +20,28 @@ angular.module('App.login', ['ngRoute','ngCookies', 'ngSanitize'])
 }])
 
 .controller('LoginCtrl', function($scope, $location, $cookies, $http, LoginService) {
-        $scope.login = function() {
-            $http.post(url, data, config)
-       .then(
+    $scope.login = function() {
+        // var config = {
+        //         headers : {
+        //             'Content-Type' : 'application/x-www-form-urlencoded;charset=utf-8'
+        //         }
+        //     }
+
+        var data = {
+            username : "admin",
+            password : "padmin"
+        }
+
+        $http.get("http://localhost:8080/api/admin/users/admin").then(
            function(response){
-             // success callback
+             console.log(response);
            },
            function(response){
-             // failure callback
+             console.log(response);
            }
         );
+
+
 
         if($scope.username === 'admin' && $scope.password === 'admin') {
             LoginService.logInUser();
