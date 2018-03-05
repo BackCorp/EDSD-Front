@@ -2,14 +2,12 @@
 
 angular.module('App.login', ['ngRoute','ngCookies', 'ngSanitize'])
 
-.config(['$routeProvider', function($routeProvider, $location, $cookies) {
+.config(['$routeProvider', function($routeProvider, $location, $cookies, userService) {
 
     $routeProvider.when('/login', {
         resolve: {
             check: function($location, $cookies) {
-                console.log("login: " + $cookies.get('isLoggedIn'))
-                if($cookies.get('isLoggedIn')) {
-                    //$location.path("/login");
+                if(userService.getLoginState()) {
                     $location.path($cookies.get("previousRoute"));
                 }
             },
@@ -19,39 +17,22 @@ angular.module('App.login', ['ngRoute','ngCookies', 'ngSanitize'])
     });
 }])
 
-.controller('LoginCtrl', function($scope, $location, $cookies, $http, LoginService) {
+.controller('LoginCtrl', function($scope, $location, $cookies, $http, userService) {
     $scope.login = function() {
-        // var config = {
-        //         headers : {
-        //             'Content-Type' : 'application/x-www-form-urlencoded;charset=utf-8'
-        //         }
-        //     }
-
-        var data = {
-            username : "admin",
-            password : "padmin"
-        }
-
-        $http.get("http://localhost:8080/api/admin/users/admin").then(
-           function(response){
-             console.log(response);
+        userService.logThisUserIn().get({currentUser: 'user'}).then(
+            function(response){
+                console.log(response);
+                // LoginService.logInUser();
+                // LoginService.setName($scope.username );
+                // $scope.name = LoginService.getName();
+                // $cookies.put('isLoggedIn', true);
+                // $location.path('/admin');
            },
            function(response){
-             console.log(response);
+             // console.log(response);
+             // LoginService.logOutUser();
+             // $scope.loginFailed = true;
            }
         );
-
-
-
-        if($scope.username === 'admin' && $scope.password === 'admin') {
-            LoginService.logInUser();
-            LoginService.setName($scope.username );
-            $scope.name = LoginService.getName();
-            $cookies.put('isLoggedIn', true);
-            $location.path('/admin');
-        } else {
-            LoginService.logOutUser();
-            $scope.loginFailed = true;
-        }
     }
 });
