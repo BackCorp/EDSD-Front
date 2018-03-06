@@ -2,13 +2,13 @@
 
 angular.module('App.login', ['ngRoute','ngCookies', 'ngSanitize'])
 
-.config(['$routeProvider', function($routeProvider, $location, $cookies, userService) {
+.config(['$routeProvider', function($routeProvider, $location, storageService) {
 
     $routeProvider.when('/login', {
         resolve: {
-            check: function($location, $cookies) {
-                if(userService.getLoginState()) {
-                    $location.path($cookies.get("previousRoute"));
+            check: function($location, storageService) {
+                if(storageService.getSession('hasLoggedIn')) {
+                    $location.path(storageService.getSession("previousRoute"));
                 }
             },
         },
@@ -17,22 +17,29 @@ angular.module('App.login', ['ngRoute','ngCookies', 'ngSanitize'])
     });
 }])
 
-.controller('LoginCtrl', function($scope, $location, $cookies, $http, userService) {
+.controller('LoginCtrl', function($scope, $location, $http, headerService, storageService, userService) {
+
     $scope.login = function() {
-        userService.logThisUserIn().get({currentUser: 'user'}).then(
-            function(response){
-                console.log(response);
-                // LoginService.logInUser();
-                // LoginService.setName($scope.username );
-                // $scope.name = LoginService.getName();
-                // $cookies.put('isLoggedIn', true);
-                // $location.path('/admin');
-           },
-           function(response){
-             // console.log(response);
-             // LoginService.logOutUser();
-             // $scope.loginFailed = true;
-           }
-        );
+        if($scope.username && $scope.password) {
+            if(!storageService.getSession('session')){
+                storageService.setSession('session', btoa($scope.username+":"+$scope.password));
+            }
+            headerService.setAuthHeader(storageService.getSession('session'));
+            storageService.setSession('username', $scope.username);
+            userService.authUser().get({currentUser: 'user'}).$promise.then(
+                function(response){
+                    console.log(response);
+                    storageService.setSession('hasLoggedIn', true);
+                    storageService.setSession('firstName', response.principal.firstName);
+                    storageService.setSession('lastName', response.principal.lastName);
+                    $location.path('/admin');
+                },
+                function(response){
+                    //$cookies.remove('session');
+                    storageService.setSession('hasLoggedIn', false);
+                    $scope.loginFailed = true;
+                }
+            );
+        }
     }
 });

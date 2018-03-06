@@ -5,26 +5,77 @@ angular.module('App', [
   'ngCookies',
   'ngSanitize',
   'base64',
+  'services',
   'App.login',
   'App.admin',
   'App.agent'
 ])
 
-.config(['$locationProvider', '$routeProvider', '$httpProvider', '$base64',
-    function($locationProvider, $routeProvider, $httpProvider, $base64) {
-    //$httpProvider.defaults.headers.common['Authorization'] = 'Basic ' + login + ':' +    "padmin";
-    var auth = $base64.encode("admin:padmin");
-    $httpProvider.defaults.headers.common['Authorization'] = 'Basic ' + btoa("agent" + ":" + "pagent");
+.config(['$locationProvider', '$routeProvider', '$httpProvider',
+    function($locationProvider, $routeProvider, $httpProvider) {
+
+    //$httpProvider.defaults.headers.common['Authorization'] = 'Basic ' + btoa('admin' + ":" + 'padmin');
     $httpProvider.defaults.headers.post['Content-Type'] = 'application/json; charset=utf-8';
     $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
 
     $locationProvider.hashPrefix('!');
-    $routeProvider
+    $routeProvider.otherwise({redirectTo: '/login'});
+}])
 
-    // .when({'/logout',
-    //     templateUrl: 'login-view/login.html',
-    //     controller: 'LoginCtrl'
-    // })
+.service('headerService', function($http) {
+    var service = {};
+    this.setAuthHeader = function(auth) {
+        $http.defaults.headers.common['Authorization'] = 'Basic ' + auth;
+    }
+})
 
-    .otherwise({redirectTo: '/login'});
+.factory('storageService',['$window', function($window){
+    return {
+        setLocal: function( key, value ){
+            try{
+                if( $window.Storage ){
+                    $window.localStorage.setItem(key, $window.JSON.stringify(value));
+                    return true;
+                } else {
+                    return false;
+                }
+            } catch( error ){
+                console.error( error, error.message );
+            }
+        },
+        getLocal: function( key ){
+            try{
+                if( $window.Storage ){
+                    return $window.JSON.parse( $window.localStorage.getItem( key ) );
+                } else {
+                    return false;
+                }
+            } catch( error ){
+                console.error( error, error.message );
+            }
+        },
+        setSession: function( key, value ){
+            try{
+                if( $window.Storage ){
+                    $window.sessionStorage.setItem( key, $window.JSON.stringify(value) );
+                    return true;
+                } else {
+                    return false;
+                }
+            } catch( error ){
+                console.error( error, error.message );
+            }
+        },
+        getSession: function( key ){
+            try{
+                if( $window.Storage ){
+                    return $window.JSON.parse( $window.sessionStorage.getItem( key ) );
+                } else {
+                    return false;
+                }
+            } catch( error ){
+                console.error( error, error.message );
+            }
+        }
+    }
 }]);

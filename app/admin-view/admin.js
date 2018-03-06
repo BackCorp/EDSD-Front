@@ -2,15 +2,14 @@
 
 angular.module('App.admin', ['ngRoute', 'ngCookies', 'ngSanitize'])
 
-.config(['$routeProvider', function($routeProvider, $location, $cookies, LoginService) {
+.config(['$routeProvider', function($routeProvider, $location, storageService) {
     $routeProvider.when('/admin', {
         resolve: {
-            check: function($location, $cookies, LoginService) {
-                console.log("Admin: " + $cookies.get('isLoggedIn'))
-                if(!$cookies.get('isLoggedIn')) {
+            check: function($location, $cookies, storageService) {
+                if(!storageService.getSession('hasLoggedIn')) {
                     $location.path("/login");
                 } else {
-                    $cookies.put('previousRoute', '/admin');
+                    storageService.setSession('previousRoute', '/admin');
                 }
             },
         },
@@ -19,15 +18,15 @@ angular.module('App.admin', ['ngRoute', 'ngCookies', 'ngSanitize'])
     }).otherwise({redirectTo: '/login'});
 }])
 
-.controller('AdminCtrl', function($scope, $location, $cookies, LoginService) {
+.controller('AdminCtrl', function($scope, $location, $cookies, storageService) {
     $scope.logout = function() {
-        LoginService.logOutUser();
-        $cookies.put('isLoggedIn', false);
-        $cookies.remove('isLoggedIn');
-        $cookies.remove('previousRoute');
+        storageService.setSession('hasLoggedIn', false);
+        $cookies.remove('XSRF-TOKEN');
         $location.path("/login");
     };
-    $scope.name = LoginService.getName();
+//    console.log("First Name: " + userService.getName().firstName);
+    $scope.firstName = storageService.getSession('firstName');
+    $scope.lastName = storageService.getSession('lastName');
     $scope.adminTemplate = 'admin-view/templates/admin-dashboard.html';
     $scope.change = function(template){
         $scope.adminTemplate = "admin-view/templates/" + template;
