@@ -21,10 +21,10 @@ angular.module('App.admin', ['ngRoute', 'ngCookies', 'ngSanitize'])
 .controller('AdminCtrl', function($scope, $location, $cookies, storageService) {
     $scope.logout = function() {
         storageService.setSession('hasLoggedIn', false);
+        storageService.clear();
         $cookies.remove('XSRF-TOKEN');
         $location.path("/login");
     };
-//    console.log("First Name: " + userService.getName().firstName);
     $scope.firstName = storageService.getSession('firstName');
     $scope.lastName = storageService.getSession('lastName');
     $scope.adminTemplate = 'admin-view/templates/admin-dashboard.html';

@@ -76,6 +76,13 @@ angular.module('App', [
             } catch( error ){
                 console.error( error, error.message );
             }
+        },
+        clear: function(){
+            try{
+                $window.sessionStorage.clear() 
+            } catch( error ){
+                console.error( error, error.message );
+            }
         }
     }
 }]);
