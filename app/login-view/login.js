@@ -21,9 +21,10 @@ angular.module('App.login', ['ngRoute','ngCookies', 'ngSanitize'])
 
     $scope.login = function() {
         if($scope.username && $scope.password) {
-            if(!storageService.getSession('session')){
+            storageService.clear();
+        //    if(!storageService.getSession('session')){
                 storageService.setSession('session', btoa($scope.username+":"+$scope.password));
-            }
+        //    }
             headerService.setAuthHeader(storageService.getSession('session'));
             storageService.setSession('username', $scope.username);
             userService.authUser().get({currentUser: 'user'}).$promise.then(

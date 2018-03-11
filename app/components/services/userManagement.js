@@ -1,7 +1,9 @@
 'use strict';
 angular.module('services.userManagement', [
     'ngResource'
-]).factory('userService', userService);
+])
+.factory('userService', userService)
+.factory('agentService', agentService);
 
 function userService($resource) {
     var service = {};
@@ -46,6 +48,14 @@ function userService($resource) {
     }
     service.logOutUser = function() {
         isLoggedIn = false;
+    }
+    return service;
+}
+
+function agentService($resource) {
+    var service = {};
+    service.getAgents = function() {
+        return $resource('http://localhost:8080/api/agents/');
     }
     return service;
 }

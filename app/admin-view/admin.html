@@ -4,8 +4,6 @@
 <link rel="stylesheet" href="admin-view/sb-admin.css">
 
 <div ng-controller="AdminCtrl" class="">
-    <!-- <p>Welcome {{name}}!</p>
-    <button type="button" class="btn btn-primary" name="button" ng-click="logout()">Log out</button> -->
 
     <div id="wrapper">
 
@@ -236,14 +234,7 @@
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav" id="side-menu">
                         <li class="sidebar-search">
-                            <div class="input-group custom-search-form">
-                                <input type="text" class="form-control" placeholder="Search...">
-                                <span class="input-group-btn">
-                                <button class="btn btn-default" type="button">
-                                    <i class="fa fa-search"></i>
-                                </button>
-                            </span>
-                            </div>
+                            <div><span class="label label-default">Welcome {{firstName}} {{lastName}}!</span></div>
                         </li>
                         <li>
                             <a class="nav-first-level" ng-click="change('admin-dashboard.html')"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>

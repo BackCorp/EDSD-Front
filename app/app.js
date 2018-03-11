@@ -5,6 +5,7 @@ angular.module('App', [
   'ngCookies',
   'ngSanitize',
   'base64',
+  'ui.bootstrap',
   'services',
   'App.login',
   'App.admin',
@@ -13,11 +14,8 @@ angular.module('App', [
 
 .config(['$locationProvider', '$routeProvider', '$httpProvider',
     function($locationProvider, $routeProvider, $httpProvider) {
-
-    //$httpProvider.defaults.headers.common['Authorization'] = 'Basic ' + btoa('admin' + ":" + 'padmin');
     $httpProvider.defaults.headers.post['Content-Type'] = 'application/json; charset=utf-8';
-    $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
-
+    //$httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
     $locationProvider.hashPrefix('!');
     $routeProvider.otherwise({redirectTo: '/login'});
 }])
@@ -54,6 +52,9 @@ angular.module('App', [
                 console.error( error, error.message );
             }
         },
+        removeLocal: function( key ) {
+            $window.localStorage.removeItem(key);
+        },
         setSession: function( key, value ){
             try{
                 if( $window.Storage ){
@@ -77,9 +78,13 @@ angular.module('App', [
                 console.error( error, error.message );
             }
         },
+        removeSession: function( key ) {
+            $window.sessionStorage.removeItem(key);
+        },
         clear: function(){
             try{
-                $window.sessionStorage.clear() 
+                $window.sessionStorage.clear();
+                $window.localStorage.clear();
             } catch( error ){
                 console.error( error, error.message );
             }

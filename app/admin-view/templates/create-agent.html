@@ -1,3 +1,4 @@
+
 <div>
     <div class="row">
         <div class="col-lg-12">
@@ -8,12 +9,24 @@
     <div class="row">
         <div class="col-lg-12">
             <form class="" role="form" name="search-agent">
-                <div class="form-group input-group">
-                    <input type="text" class="form-control" placeholder="Enter employee number">
-                    <span class="input-group-btn">
-                        <button class="btn btn-default" type="button"><i class="fa fa-search"></i>
-                        </button>
-                    </span>
+                <!-- <div class="form-group input-group"> -->
+                    <input type="text" ng-model="selected" placeholder="Enter employee number or first name or last name"
+                        uib-typeahead="agent as agent.name for agent in getAgents($viewValue) | limitTo:8"
+                        typeahead-loading="loadingLocations" class="form-control" ng-model-options="modelOptions"
+                        typeahead-no-results="noResults" typeahead-min-length="1"
+                        typeahead-template-url="aTemplate.html" typeahead-show-hint="true" ng-pattern="/^[a-zA-Z0-9]+$/" required>
+
+                            <!-- <input type="text" ng-model="customSelected" placeholder="Custom template"
+                                uib-typeahead="state as state.name for state in statesWithFlags | filter:{name:$viewValue}"
+                                typeahead-template-url="customTemplate.html" class="form-control" > -->
+
+                    <!-- <span class="input-group-btn">
+                        <button class="btn btn-default" type="button"><i class="fa fa-search"></i></button>
+                    </span> -->
+                <!-- </div> -->
+                <i ng-show="loadingLocations" class="glyphicon glyphicon-refresh"></i>
+                <div ng-show="noResults">
+                    <i class="glyphicon glyphicon-remove"></i> No Results Found
                 </div>
             </form>
             <div class="panel panel-default">
@@ -78,3 +91,18 @@
         </div>
     </div>
 </div>
+
+<script type="text/ng-template" id="aTemplate.html">
+    <a tabindex="-1">
+        <span style="display:block;"
+            ng-bind-html="match.model.name | uibTypeaheadHighlight:query">
+        </span>
+        <span ng-bind-html="match.model.username | uibTypeaheadHighlight:query"></span>&nbsp;&nbsp;
+        <span class="label" ng-class="{ 'label-success':match.model.active, 'label-default':!match.model.active }">
+            <span ng-bind-html="match.model.active | uibTypeaheadHighlight:query"></span>
+        </span>
+    </a>
+    <!-- <span>{{  }}</span> -->
+</script>
+
+<!-- typeahead-template-url="customTemplate.html" -->
