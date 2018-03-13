@@ -1,0 +1,64 @@
+
+<div>
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">Activate Agent</h1>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12">
+            <typeahead-directive-disabled></typeahead-directive-disabled>
+            <br>
+            <div ng-show="disabledSelected">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        Employee details
+                    </div>
+                    <div class="panel-body">
+                        <form role="form" name="activateagent" ng-submit="activateAgent(disabledAgent)">
+                            <div class="row">
+                                <div class="col-xs-12 col-sm-6">
+                                    <div class="form-group">
+                                        <label>Name: </label>
+                                        <p class="form-control-static">{{disabledAgent.firstName}}</p>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Middle Name: </label>
+                                        <p class="form-control-static">{{disabledAgent.midName}}</p>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Last Name: </label>
+                                        <p class="form-control-static">{{disabledAgent.lastName}}</p>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-6">
+                                    <div class="form-group">
+                                        <label>Employee Number/User name: </label>
+                                        <p class="form-control-static">{{disabledAgent.username}}</p>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>E-mail address: </label>
+                                        <p class="form-control-static">{{disabledAgent.email}}</p>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="checkbox" ng-class="enabled ? 'btn btn-success' : 'btn btn-default'">
+                                            <label><input type="checkbox" ng-model="enabled"
+                                                ng-click="setActive(enabled)" required>
+                                                <b>Activate Agent</b></label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+                            <div>
+                                <button type="submit" class="btn btn-lg btn-success text-center"
+                                    ng-disabled="!enabled">Save</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
