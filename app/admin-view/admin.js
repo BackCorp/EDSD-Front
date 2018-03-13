@@ -34,18 +34,12 @@ angular.module('App.admin', ['ngRoute', 'ngCookies', 'ngSanitize'])
 
     $scope.asyncSearch = undefined;
     $scope.selected = undefined;
+    $scope.selectedDisabled = undefined;
     $scope.agent = undefined;
+    $scope.disabledAgent;
     $scope.showRole = undefined;
     $scope.error = {};
     $scope.agents;
-
-    // function checkStorage(search) {
-    //     var results = storageService.getLocal("agents");
-    //     return results.filter(result => {
-    //         return result.name.toLowerCase().search(search)>=0 ||
-    //         result.username.toLowerCase().search(search)>=0;
-    //     });
-    // }
 
     $scope.getAgents = function (search) {
         headerService.setAuthHeader(storageService.getSession('session'));
@@ -61,10 +55,32 @@ angular.module('App.admin', ['ngRoute', 'ngCookies', 'ngSanitize'])
                     username: item.username,
                     firstName: item.firstName,
                     lastName: item.lastName,
-                    middleName: item.midName,
+                    midName: item.midName,
                     email: item.email,
                     roles: item.roles,
-                    active: ((item.active)? "Enabled" : "Disabled")
+                    active: item.active
+                };
+            });
+        });
+    };
+    $scope.getDisabledAgents = function (search) {
+        headerService.setAuthHeader(storageService.getSession('session'));
+        return $http({
+            method: 'GET',
+            url: 'http://localhost:8080/api/agents/disabled/search/'+search
+        }).then(function(response) {
+            console.log(response.data);
+            return response.data.map(function(item) {
+                return {
+                    id: item.userId,
+                    name: item.firstName +" "+ item.lastName,
+                    username: item.username,
+                    firstName: item.firstName,
+                    lastName: item.lastName,
+                    midName: item.midName,
+                    email: item.email,
+                    roles: item.roles,
+                    active: item.active
                 };
             });
         });
@@ -82,7 +98,11 @@ angular.module('App.admin', ['ngRoute', 'ngCookies', 'ngSanitize'])
         $scope.selected = true;
         $scope.agent = $model;
         $scope.showRole = roleSection($model);
-        console.log($scope.asyncSearch);
+    };
+    $scope.onDisabledSelect = function($item, $model, $label, $event) {
+        $scope.disabledSelected = true;
+        $scope.disabledAgent = $model;
+        // $scope.showRole = roleSection($model);
     };
 
     function roleSection(model) {
@@ -101,6 +121,10 @@ angular.module('App.admin', ['ngRoute', 'ngCookies', 'ngSanitize'])
                 return this.checkRadioButton();
             }
         };
+    }
+
+    $scope.setActive = function(enabled) {
+        $scope.disabledAgent.active = enabled;
     }
 
     $scope.createAgent = function(model) {
@@ -122,24 +146,45 @@ angular.module('App.admin', ['ngRoute', 'ngCookies', 'ngSanitize'])
 
     $scope.editAgent = function(model) {
         headerService.setAuthHeader(storageService.getSession('session'));
-        console.log(model);
         $scope.ag = agentService.getAgent().get({username: model.username}, function() {
             $scope.ag.email = model.email;
             $scope.ag.firstName = model.firstName;
             $scope.ag.lastName = model.lastName;
-            $scope.ag.midName = model.middleName;
+            $scope.ag.midName = model.midName;
             $scope.ag.$update(function(updated) {
-                console.log("Edited")
                 console.log(updated);
                 $scope.agent = updated;
             });
         });
+    };
+
+    $scope.activateAgent = function(model) {
+        headerService.setAuthHeader(storageService.getSession('session'));
+        var ag = agentService.getAgent().get({username: model.username}, function(ag) {
+            console.log(ag);
+            ag.active = model.active;
+            ag.$update(function(updated) {
+                console.log("acivated")
+                console.log(updated);
+                $scope.disabledAgent = updated;
+                $scope.disabledSelected = false;
+            });
+        });
     }
+
+
 })
 
 .directive('typeaheadDirective', function() {
     return {
         restrict: 'E',
         templateUrl: 'admin-view/directives/typeahead-directive.html'
+    }
+})
+
+.directive('typeaheadDirectiveDisabled', function() {
+    return {
+        restrict: 'E',
+        templateUrl: 'admin-view/directives/typeahead-directive-disabled.html'
     }
 });
