@@ -121,11 +121,14 @@ angular.module('App.admin', ['ngRoute', 'ngCookies', 'ngSanitize'])
                 return this.checkRadioButton();
             }
         };
-    }
+    };
 
-    $scope.setActive = function(enabled) {
+    $scope.setDisabledActive = function(enabled) {
         $scope.disabledAgent.active = enabled;
-    }
+    };
+    $scope.setActiveDisabled = function(enabled) {
+        $scope.agent.active = !enabled;
+    };
 
     $scope.createAgent = function(model) {
         headerService.setAuthHeader(storageService.getSession('session'));
@@ -170,9 +173,28 @@ angular.module('App.admin', ['ngRoute', 'ngCookies', 'ngSanitize'])
                 $scope.disabledSelected = false;
             });
         });
+    };
+
+    $scope.deactivateAgent = function(model) {
+        headerService.setAuthHeader(storageService.getSession('session'));
+        var ag = agentService.getAgent().get({username: model.username}, function(ag) {
+            console.log(ag);
+            ag.active = model.active;
+            ag.$update(function(updated) {
+                console.log("deacivated")
+                console.log(updated);
+                $scope.agent = updated;
+                $scope.selected = false;
+            });
+        });
+    };
+
+    $scope.getAllAgents = function() {
+        headerService.setAuthHeader(storageService.getSession('session'));
+        agentService.getAgent().query(function(allags) {
+            $scope.allAgents = allags;
+        });
     }
-
-
 })
 
 .directive('typeaheadDirective', function() {
