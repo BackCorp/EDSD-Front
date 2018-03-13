@@ -371,3 +371,15 @@
 </div>
 
 <script src="admin-view/sb-admin.js"></script>
+
+<script type="text/ng-template" id="aTemplate.html">
+    <a tabindex="2" class="uib-typeahead-match" ng-click="selectMatch()">
+        <span style="display:block;"
+            ng-bind-html="match.model.name | uibTypeaheadHighlight:query">
+        </span>
+        <span ng-bind-html="match.model.username | uibTypeaheadHighlight:query"></span>&nbsp;&nbsp;
+        <span class="label" ng-class="{ 'label-success':match.model.active, 'label-default':!match.model.active }">
+            <span ng-bind-html="match.model.active | uibTypeaheadHighlight:query"></span>
+        </span>
+    </a>
+</script>

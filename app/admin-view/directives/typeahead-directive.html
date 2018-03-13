@@ -1,0 +1,15 @@
+
+<form class="" role="form" name="search-agent">
+    <input type="text" ng-model="asyncSearch" placeholder="Enter employee number or first name or last name"
+            uib-typeahead="agent as agent.name for agent in getAgents($viewValue) | limitTo:8"
+            typeahead-wait-ms="1000" ng-model-options="modelOptions"
+            typeahead-loading="loadingAgents" class="form-control"
+            typeahead-no-results="noResults" typeahead-min-length="3"
+            typeahead-template-url="aTemplate.html" typeahead-show-hint="true"
+            typeahead-on-select="onSelect($item, $model, $label, $event)"
+            ng-pattern="/^[a-zA-Z0-9]+$/" required>
+    <i ng-show="loadingAgents" class="glyphicon glyphicon-refresh"></i>
+    <div ng-show="noResults">
+        <i class="glyphicon glyphicon-remove"></i> No Results Found
+    </div>
+</form>

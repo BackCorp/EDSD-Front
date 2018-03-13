@@ -18,12 +18,13 @@ angular.module('App.admin', ['ngRoute', 'ngCookies', 'ngSanitize'])
     }).otherwise({redirectTo: '/login'});
 }])
 
-.controller('AdminCtrl', function($scope, $location, $cookies, $http, headerService, storageService, agentService) {
+.controller('AdminCtrl', function($scope, $location, $cookies, $http, $interval, headerService, storageService, agentService) {
     $scope.logout = function() {
         storageService.clear();
         $cookies.remove('XSRF-TOKEN');
         $location.path("/login");
     };
+
     $scope.firstName = storageService.getSession('firstName');
     $scope.lastName = storageService.getSession('lastName');
     $scope.adminTemplate = 'admin-view/templates/admin-dashboard.html';
@@ -31,78 +32,104 @@ angular.module('App.admin', ['ngRoute', 'ngCookies', 'ngSanitize'])
         $scope.adminTemplate = "admin-view/templates/" + template;
     };
 
+    $scope.asyncSearch = undefined;
     $scope.selected = undefined;
-
-    // $scope.getLocation = function(val) {
-    //     //$http.defaults.headers.common["X-Requested-With"] = '';
-    //     console.log($http.defaults.headers)
-    //     return $http({
-    //         method: 'GET',
-    //         url: '//maps.googleapis.com/maps/api/geocode/json',
-    //         params: {
-    //             address: val,
-    //             sensor: false
-    //         }
-    //     }
-    // ).then(function(response){
-    //     console.log(response);
-    //     return response.data.results.map(function(item){
-    //             return item.formatted_address;
-    //         });
-    //     });
-    // };
-
+    $scope.agent = undefined;
+    $scope.showRole = undefined;
+    $scope.error = {};
     $scope.agents;
-    $scope.getAgents = function(search) {
+
+    // function checkStorage(search) {
+    //     var results = storageService.getLocal("agents");
+    //     return results.filter(result => {
+    //         return result.name.toLowerCase().search(search)>=0 ||
+    //         result.username.toLowerCase().search(search)>=0;
+    //     });
+    // }
+
+    $scope.getAgents = function (search) {
         headerService.setAuthHeader(storageService.getSession('session'));
-        var token = search.trim().toLowerCase();
-        if(token.length == 2) {
-            return findAgents(token);
-        } else if(token.length > 2) {
-            return checkStorage(token);
-        } else if(token.length < 2) {
-            storageService.removeLocal("agents");
-        }
-    };
-
-    function checkStorage(search) {
-        var results = storageService.getLocal("agents");
-        return results.filter(result => {
-            return result.name.toLowerCase().search(search)>=0 ||
-            result.username.toLowerCase().search(search)>=0;
-        });
-    }
-
-    function findAgents(search) {
-        var agents = $http({
+        return $http({
             method: 'GET',
-            url: 'http://localhost:8080/api/agents/'+search
+            url: 'http://localhost:8080/api/agents/search/'+search
+        }).then(function(response) {
+            console.log(response.data);
+            return response.data.map(function(item) {
+                return {
+                    id: item.userId,
+                    name: item.firstName +" "+ item.lastName,
+                    username: item.username,
+                    firstName: item.firstName,
+                    lastName: item.lastName,
+                    middleName: item.midName,
+                    email: item.email,
+                    roles: item.roles,
+                    active: ((item.active)? "Enabled" : "Disabled")
+                };
+            });
         });
-
-        agents.then(function(response) {
-            console.log(response);
-            storageService.setLocal(
-                "agents",
-                response.data.map(function(item) {
-                    return {
-                        id: item.userId,
-                        name: item.firstName +" "+ item.lastName,
-                        username: item.username,
-                        active: ((item.active)? "Enabled" : "Disabled")
-                    }
-                })
-            );
-        });
-        console.log(storageService.getLocal("agents"))
-        return storageService.getLocal("agents");
-    }
+    };
 
     $scope.modelOptions = {
         debounce: {
-        default: 1500,
-        blur: 500
+            default: 500,
+            blur: 500
         },
         getterSetter: false
     };
 
+    $scope.onSelect = function($item, $model, $label, $event) {
+        $scope.selected = true;
+        $scope.agent = $model;
+        $scope.showRole = roleSection($model);
+        console.log($scope.asyncSearch);
+    };
+
+    function roleSection(model) {
+        return {
+            section: function() {
+                return model.roles.every(item => {
+                    return item.role !== "ADMIN";
+                });
+            },
+            checkRadioButton: function() {
+                return model.roles.some(item => {
+                    return item.role === "AGENT";
+                });
+            },
+            disableButton: function() {
+                return this.checkRadioButton();
+            }
+        };
+    }
+
+    $scope.createAgent = function(model) {
+        headerService.setAuthHeader(storageService.getSession('session'));
+        if(!model.roles.some(role => {
+            return role.role === "AGENT";
+        })) {
+            console.log("Agent created");
+            $scope.ag = agentService.getAgent().get({username: model.username}, function() {
+                $scope.ag.roles = [{ roles: "AGENT" }];
+                $scope.ag.$update(function(updated) {
+                    $scope.agent = updated;
+                    $scope.showRole = roleSection($scope.agent);
+                    console.log(updated);
+                });
+            });
+        } else {
+            $scope.error.createagent = model.name +" has the AGENT role already";
+        }
+    };
+
+    $scope.editAgent = function(model) {
+        
+    }
+})
+
+.directive('typeaheadDirective', function() {
+    return {
+        restrict: 'E',
+        templateUrl: 'admin-view/directives/typeahead-directive.html'
+    }
 });
