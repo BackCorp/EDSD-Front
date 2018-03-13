@@ -108,13 +108,11 @@ angular.module('App.admin', ['ngRoute', 'ngCookies', 'ngSanitize'])
         if(!model.roles.some(role => {
             return role.role === "AGENT";
         })) {
-            console.log("Agent created");
             $scope.ag = agentService.getAgent().get({username: model.username}, function() {
                 $scope.ag.roles = [{ roles: "AGENT" }];
                 $scope.ag.$update(function(updated) {
                     $scope.agent = updated;
                     $scope.showRole = roleSection($scope.agent);
-                    console.log(updated);
                 });
             });
         } else {
@@ -123,7 +121,19 @@ angular.module('App.admin', ['ngRoute', 'ngCookies', 'ngSanitize'])
     };
 
     $scope.editAgent = function(model) {
-        
+        headerService.setAuthHeader(storageService.getSession('session'));
+        console.log(model);
+        $scope.ag = agentService.getAgent().get({username: model.username}, function() {
+            $scope.ag.email = model.email;
+            $scope.ag.firstName = model.firstName;
+            $scope.ag.lastName = model.lastName;
+            $scope.ag.midName = model.middleName;
+            $scope.ag.$update(function(updated) {
+                console.log("Edited")
+                console.log(updated);
+                $scope.agent = updated;
+            });
+        });
     }
 })
 

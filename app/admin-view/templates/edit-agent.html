@@ -35,7 +35,7 @@
                                 <div class="col-xs-12 col-sm-6">
                                     <div class="form-group">
                                         <label>Employee Number/User name: </label>
-                                        <input type="text" class="form-control" ng-model="agent.username">
+                                        <p class="form-control-static">{{agent.username}}</p>
                                     </div>
                                     <div class="form-group">
                                         <label>E-mail address: </label>
@@ -50,7 +50,7 @@
                             <hr>
                             <div>
                                 <button type="submit" class="btn btn-lg btn-success text-center"
-                                    ng-disabled="!editagent.$dirty">Create</button>
+                                    ng-disabled="!editagent.$dirty">Save</button>
                             </div>
                         </form>
                     </div>
