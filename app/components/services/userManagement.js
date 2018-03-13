@@ -57,7 +57,7 @@ function agentService($resource) {
     // service.getAgents = function() {
     //     return $resource('http://localhost:8080/api/agents/:username');
     // },
-    service.getAgents = function() {
+    service.getAgent = function() {
         return $resource('http://localhost:8080/api/agents/:username', {username: '@username'},{
             update: {
                 method: 'PUT'

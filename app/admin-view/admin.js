@@ -20,10 +20,11 @@ angular.module('App.admin', ['ngRoute', 'ngCookies', 'ngSanitize'])
 
 .controller('AdminCtrl', function($scope, $location, $cookies, $http, $interval, headerService, storageService, agentService) {
     $scope.logout = function() {
-        //storageService.clear();
-        // $cookies.remove('XSRF-TOKEN');
+        storageService.clear();
+        $cookies.remove('XSRF-TOKEN');
         $location.path("/login");
     };
+
     $scope.firstName = storageService.getSession('firstName');
     $scope.lastName = storageService.getSession('lastName');
     $scope.adminTemplate = 'admin-view/templates/admin-dashboard.html';
@@ -46,17 +47,19 @@ angular.module('App.admin', ['ngRoute', 'ngCookies', 'ngSanitize'])
     //     });
     // }
 
-    $scope.getAgent = function (search) {
+    $scope.getAgents = function (search) {
         headerService.setAuthHeader(storageService.getSession('session'));
         return $http({
             method: 'GET',
             url: 'http://localhost:8080/api/agents/search/'+search
         }).then(function(response) {
+            console.log(response.data);
             return response.data.map(function(item) {
                 return {
                     id: item.userId,
                     name: item.firstName +" "+ item.lastName,
                     username: item.username,
+                    firstName: item.firstName,
                     lastName: item.lastName,
                     middleName: item.midName,
                     email: item.email,
@@ -106,16 +109,27 @@ angular.module('App.admin', ['ngRoute', 'ngCookies', 'ngSanitize'])
             return role.role === "AGENT";
         })) {
             console.log("Agent created");
-            $scope.ag = agentService.getAgents().get({username: model.username}, function() {
-                var id = $scope.ag.roles.length;
-                $scope.ag.roles.push({id: ++id, role: "AGENT"});
-                console.log($scope.ag);
-                $scope.ag.$update(function(up) {
-                    console.log(up);
+            $scope.ag = agentService.getAgent().get({username: model.username}, function() {
+                $scope.ag.roles = [{ roles: "AGENT" }];
+                $scope.ag.$update(function(updated) {
+                    $scope.agent = updated;
+                    $scope.showRole = roleSection($scope.agent);
+                    console.log(updated);
                 });
             });
         } else {
             $scope.error.createagent = model.name +" has the AGENT role already";
         }
     };
+
+    $scope.editAgent = function(model) {
+        
+    }
+})
+
+.directive('typeaheadDirective', function() {
+    return {
+        restrict: 'E',
+        templateUrl: 'admin-view/directives/typeahead-directive.html'
+    }
 });

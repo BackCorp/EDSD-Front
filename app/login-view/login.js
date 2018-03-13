@@ -22,11 +22,10 @@ angular.module('App.login', ['ngRoute','ngCookies', 'ngSanitize'])
     $scope.login = function() {
         if($scope.username && $scope.password) {
             storageService.clear();
-        //    if(!storageService.getSession('session')){
-                storageService.setSession('session', btoa($scope.username+":"+$scope.password));
-        //    }
+            storageService.setSession('session', btoa($scope.username+":"+$scope.password));
             headerService.setAuthHeader(storageService.getSession('session'));
             storageService.setSession('username', $scope.username);
+
             userService.authUser().get({currentUser: 'user'}).$promise.then(
                 function(response){
                     console.log(response);
@@ -36,7 +35,6 @@ angular.module('App.login', ['ngRoute','ngCookies', 'ngSanitize'])
                     $location.path('/admin');
                 },
                 function(response){
-                    //$cookies.remove('session');
                     storageService.setSession('hasLoggedIn', false);
                     $scope.loginFailed = true;
                 }
