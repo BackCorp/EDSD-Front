@@ -18,7 +18,7 @@ angular.module('App.admin', ['ngRoute', 'ngCookies', 'ngSanitize'])
     }).otherwise({redirectTo: '/login'});
 }])
 
-.controller('AdminCtrl', function($scope, $location, $cookies, $http, $interval, headerService, storageService, agentService) {
+.controller('AdminCtrl', function($scope, $location, $cookies, $http, headerService, storageService, agentService) {
     $scope.logout = function() {
         storageService.clear();
         $cookies.remove('XSRF-TOKEN');
@@ -102,7 +102,6 @@ angular.module('App.admin', ['ngRoute', 'ngCookies', 'ngSanitize'])
     $scope.onDisabledSelect = function($item, $model, $label, $event) {
         $scope.disabledSelected = true;
         $scope.disabledAgent = $model;
-        // $scope.showRole = roleSection($model);
     };
 
     function roleSection(model) {
