@@ -194,7 +194,18 @@ angular.module('App.admin', ['ngRoute', 'ngCookies', 'ngSanitize'])
         agentService.getAgent().query(function(allags) {
             $scope.allAgents = allags;
         });
-    }
+    };
+
+    headerService.setAuthHeader(storageService.getSession('session'));
+    $http.get("http://localhost:8080/api/stats").then(
+        function(response){
+            $scope.stats = response.data;
+            console.log($scope.stats);
+        },
+        function(response) {
+            console.log(response);
+        }
+    );
 })
 
 .directive('typeaheadDirective', function() {
