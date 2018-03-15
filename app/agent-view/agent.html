@@ -74,15 +74,13 @@
 
 <script src="admin-view/sb-admin.js"></script>
 
-<script type="text/ng-template" id="aTemplate.html">
+<script type="text/ng-template" id="requesterTemplate.html">
     <a tabindex="2" class="uib-typeahead-match" ng-click="selectMatch()">
         <span style="display:block;"
             ng-bind-html="match.model.name | uibTypeaheadHighlight:query">
         </span>
-        <span ng-bind-html="match.model.username | uibTypeaheadHighlight:query"></span>&nbsp;&nbsp;
-        <span class="label" ng-class="{ 'label-success':match.model.active, 'label-default':!match.model.active }">
-            <span ng-show="match.model.active">Enabled</span>
-            <span ng-show="!match.model.active">Disabled</span>
-        </span>
+        <span ng-bind-html="match.model.accountNumber | uibTypeaheadHighlight:query"></span>&nbsp;&nbsp;
+        <span ng-bind-html="match.model.currentGrade | uibTypeaheadHighlight:query"></span>&nbsp;&nbsp;
+        <span ng-bind-html="match.model.status | uibTypeaheadHighlight:query"></span>&nbsp;&nbsp;
     </a>
 </script>

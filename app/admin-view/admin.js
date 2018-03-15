@@ -6,7 +6,8 @@ angular.module('App.admin', ['ngRoute', 'ngCookies', 'ngSanitize'])
     $routeProvider.when('/admin', {
         resolve: {
             check: function($location, $cookies, storageService) {
-                if(!storageService.getSession('hasLoggedIn')) {
+                if(!storageService.getSession('hasLoggedIn') ||
+                (storageService.getSession('hasLoggedIn') && storageService.getSession('role')!=="ADMIN")) {
                     $location.path("/login");
                 } else {
                     storageService.setSession('previousRoute', '/admin');
@@ -46,22 +47,28 @@ angular.module('App.admin', ['ngRoute', 'ngCookies', 'ngSanitize'])
         return $http({
             method: 'GET',
             url: 'http://localhost:8080/api/agents/search/'+search
-        }).then(function(response) {
-            console.log(response.data);
-            return response.data.map(function(item) {
-                return {
-                    id: item.userId,
-                    name: item.firstName +" "+ item.lastName,
-                    username: item.username,
-                    firstName: item.firstName,
-                    lastName: item.lastName,
-                    midName: item.midName,
-                    email: item.email,
-                    roles: item.roles,
-                    active: item.active
-                };
-            });
-        });
+        }).then(
+            function(response) {
+                console.log(response.data);
+                return response.data.map(function(item) {
+                    item.name = item.firstName +" "+ item.lastName;
+                    return item;
+                        // id: item.userId,
+                        // name:
+                        // username: item.username,
+                        // firstName: item.firstName,
+                        // lastName: item.lastName,
+                        // midName: item.midName,
+                        // email: item.email,
+                        // roles: item.roles,
+                        // active: item.active
+
+                });
+            },
+            function(error) {
+
+            }
+        );
     };
     $scope.getDisabledAgents = function (search) {
         headerService.setAuthHeader(storageService.getSession('session'));

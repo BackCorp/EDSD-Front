@@ -3,7 +3,8 @@ angular.module('services.userManagement', [
     'ngResource'
 ])
 .factory('userService', userService)
-.factory('agentService', agentService);
+.factory('agentService', agentService)
+.factory('requesterService', requesterService);
 
 function userService($resource) {
     var service = {};
@@ -54,15 +55,20 @@ function userService($resource) {
 
 function agentService($resource) {
     var service = {};
-    // service.getAgents = function() {
-    //     return $resource('http://localhost:8080/api/agents/:username');
-    // },
     service.getAgent = function() {
         return $resource('http://localhost:8080/api/agents/:username', {username: '@username'},{
             update: {
                 method: 'PUT'
             }
         });
+    }
+    return service;
+}
+
+function requesterService($resource) {
+    var service = {};
+    service.getRequesters = function() {
+        return $resource('http://localhost:8080/api/requesters');
     }
     return service;
 }

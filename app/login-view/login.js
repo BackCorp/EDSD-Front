@@ -36,8 +36,10 @@ angular.module('App.login', ['ngRoute','ngCookies', 'ngSanitize'])
                         return role.role === "ADMIN";
                     })) {
                         $location.path('/admin');
+                        storageService.setSession('role', "ADMIN");
                     } else {
                         $location.path('/agent');
+                        storageService.remove('role');
                     }
                 },
                 function(response){

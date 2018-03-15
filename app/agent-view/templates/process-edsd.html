@@ -1,86 +1,272 @@
+<link rel="stylesheet" href="agent-view/agent.css">
+
 <div>
     <div class="row">
         <div class="col-lg-12">
             <h3 class="page-header">Process EDSD</h3>
         </div>
-        <!-- /.col-lg-12 -->
     </div>
 
     <div class="row">
         <div class="col-lg-12">
-            <typeahead-find-user></typeahead-find-user>
-            <br>
+            <typeahead-find-requester></typeahead-find-requester>
+            <br><br>
             <div ng-show="selected">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        Employee details
+                <div class="row collapse-margin">
+                    <div class="col-xs-12 col-sm-6">
+                        <div class="form-group">
+                            <label>Account number: </label>
+                            <span class="form-control-static">{{requester.accountNumber}}</span>
+                        </div>
+                        <div class="form-group">
+                            <label>First name: </label>
+                            <span class="form-control-static">{{requester.firstName}}</span>
+                        </div>
+                        <div class="form-group">
+                            <label>Last name: </label>
+                            <span class="form-control-static">{{requester.lastName}}</span>
+                        </div>
                     </div>
-                    <div class="panel-body">
-                        <form role="form" name="createagent" ng-submit="createAgent(agent)">
-                            <div class="row">
-                                <div class="col-xs-12 col-sm-6">
-                                    <div class="form-group">
-                                        <label>Name: </label>
-                                        <p class="form-control-static">{{agent.name}}</p>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Middle Name: </label>
-                                        <p class="form-control-static">{{agent.midName}}</p>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Last Name: </label>
-                                        <p class="form-control-static">{{agent.lastName}}</p>
-                                    </div>
-                                </div>
-                                <div class="col-xs-12 col-sm-6">
-                                    <div class="form-group">
-                                        <label>Employee Number/User name: </label>
-                                        <p class="form-control-static">{{agent.username}}</p>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>E-mail address: </label>
-                                        <p class="form-control-static">{{agent.email}}</p>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Active: </label>
-                                        <p class="form-control-static label label-success">{{agent.active}}</p>
-                                    </div>
-                                </div>
+                    <div class="col-xs-12 col-sm-6">
+                        <div class="form-group">
+                            <label>Sex: </label>
+                            <span class="form-control-static">{{requester.genre}}</span>
+                        </div>
+                        <div class="form-group">
+                            <label>Date of birth: </label>
+                            <span class="form-control-static">{{requester.dob | date:'MMM d, y'}}</span>
+                        </div>
+                        <div class="form-group">
+                            <label>Occupied organic position: </label>
+                            <span class="form-control-static">{{requester.occupiedOrganicPosition}}</span>
+                        </div>
+                    </div><br>
+                </div>
+                <div>
+                    <div class="panel-group">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a data-toggle="collapse" href="/agent#birth-info">
+                                        Birth information
+                                    </a>
+                                </h4>
                             </div>
-                            <hr>
-                            <div ng-show="showRole.section()">
-                                <div class="row">
+                            <div id="birth-info" class="panel-collapse collapse">
+                                <br>
+                                <div class="row collapse-margin">
                                     <div class="col-xs-12 col-sm-6">
-                                        <div class="form-group" >
-                                            <label>Roles</label>
-                                            <div class="radio">
-                                                <label>
-                                                    <input type="radio" name="roles" id="role-agent"
-                                                    ng-checked="showRole.checkRadioButton()" value="agent" required>AGENT
-                                                </label>
-                                            </div>
-                                            <div class="radio" ng-if="false">
-                                                <label>
-                                                    <input type="radio" name="roles" id="role-admin">Admin
-                                                </label>
-                                            </div>
+                                        <div class="form-group">
+                                            <label>Date of birth: </label>
+                                            <span class="form-control-static">{{requester.dob | date:'MMM d, y'}}</span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Place of birth: </label>
+                                            <span class="form-control-static">{{requester.placeOfBirth}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-6">
+                                        <div class="form-group">
                                         </div>
                                     </div>
                                 </div>
-                                <div>
-                                    <!-- <div style="color:red; font-weight: bold;" ng-show="showRole.checkRadioButton()">
-                                        <span >AGENT role must be selected in order to create a new agent.</span>
-                                    </div> -->
-                                </div>
-                                <hr>
-                                <button type="submit" class="btn btn-lg btn-success text-center"
-                                    ng-disabled="showRole.disableButton()">Create</button>
                             </div>
-                            <div style="color:red; font-weight: bold;" ng-show="showRole.disableButton()">
-                                <span>{{ error.createagent }}</span>
-                            </div>
-                        </form>
+                        </div>
                     </div>
+                    <div class="panel-group">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a data-toggle="collapse" href="/agent#employment-info">
+                                        Employment information
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="employment-info" class="panel-collapse collapse">
+                                <br>
+                                <div class="row collapse-margin">
+                                    <div class="col-xs-12 col-sm-6">
+                                        <div class="form-group">
+                                            <label>Appointment type: </label>
+                                            <span class="form-control-static">{{requester.appointmentType}}</span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Category at recruitment: </label>
+                                            <span class="form-control-static">{{requester.categoryAtRecruitment}}</span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Current Category: </label>
+                                            <span class="form-control-static">{{requester.currentCategory}}</span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Current grade: </label>
+                                            <span class="form-control-static">{{requester.currentGrade}}</span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Current index: </label>
+                                            <span class="form-control-static">{{requester.currentIndex}}</span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Current situation: </label>
+                                            <span class="form-control-static">{{requester.currentSituation}}</span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Date of appointment or assignment: </label>
+                                            <span class="form-control-static">{{requester.dateOfAppointmentOrAssignment | date: 'MMM d, y'}}</span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Field of work: </label>
+                                            <span class="form-control-static">{{requester.fieldOfWork}}</span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Structure: </label>
+                                            <span class="form-control-static wrap">{{requester.structure}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-6">
+                                        <div class="form-group">
+                                            <label>Gade at recruitment: </label>
+                                            <span class="form-control-static">{{requester.gradeAtRecruitment}}</span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Health District: </label>
+                                            <span class="form-control-static">{{requester.healthDistrict}}</span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Occupied organic position: </label>
+                                            <span class="form-control-static">{{requester.occupiedOrganicPosition}}</span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Rank position: </label>
+                                            <span class="form-control-static">{{requester.rankPosition}}</span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Recruitment date: </label>
+                                            <span class="form-control-static">{{requester.recruitmentDate | date: 'MMM d, y'}}</span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Reference appointment or assignment: </label>
+                                            <span class="form-control-static">{{requester.referenceAppointmentOrAssignment}}</span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Region: </label>
+                                            <span class="form-control-static">{{requester.region}}</span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Status: </label>
+                                            <span class="form-control-static">{{requester.status}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <div class="edsd-section">
+                    <br>
+                    <form action="" name="edsd" ng-submit="processEdsd()">
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12 col-md-4">
+                                <div class="form-group">
+                                    <select class="form-control" id="sel1">
+                                        <option>Select category</option>
+                                        <option>2</option>
+                                        <option>3</option>
+                                        <option>4</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-4">
+                                <div class="form-group">
+                                    <select class="form-control" id="sel1">
+                                        <option>Select class</option>
+                                        <option>2</option>
+                                        <option>3</option>
+                                        <option>4</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-4">
+                                <div class="form-group">
+                                    <select class="form-control" id="sel1">
+                                        <option>Select index</option>
+                                        <option>2</option>
+                                        <option>3</option>
+                                        <option>4</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12 col-md-4">
+                                <p class="input-group">
+                                    <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="dt" is-open="popup1.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" />
+                                    <span class="input-group-btn">
+                                    <button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
+                                </span>
+                                </p>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-4">
+
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-4">
+                                <p class="input-group">
+                                    <input type="text" class="form-control" uib-datepicker-popup ng-model="dt" is-open="popup2.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-default" ng-click="open2()"><i class="glyphicon glyphicon-calendar"></i></button>
+                                    </span>
+                                </p>
+                            </div>
+                        </div>
+                        <hr><br>
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12 col-md-3">
+                                <div class="form-group">
+                                    <button type="button" ng-model="primes"
+                                        class="btn btn-default btn-block"
+                                        ng-class="primes ? 'btn btn-success' : 'btn btn-default'">
+                                        <label><input type="checkbox" ng-model="primes" ng-click="">
+                                            <b>Primes</b></label>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-3">
+                                <div class="form-group">
+                                    <button type="button" class="btn btn-default btn-block disabled"
+                                        ng-class="rappelSalaires ? 'btn btn-success' : 'btn btn-default'">
+                                        <label><input type="checkbox" ng-model="rappelSalaires" disabled>
+                                            <b>Rappels Salaires</b></label>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-3">
+                                <div class="form-group">
+                                    <button type="button" class="btn btn-default btn-block disabled"
+                                        ng-class="nonLogements ? 'btn btn-success' : 'btn btn-default'">
+                                        <label><input type="checkbox" ng-model="nonLogements" disabled>
+                                            <b>Non Logements</b></label>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-3">
+                                <div class="form-group">
+                                    <button type="button" class="btn btn-default btn-block disabled"
+                                        ng-class="retunues ? 'btn btn-success' : 'btn btn-default'">
+                                        <label><input type="checkbox" ng-model="retunues" disabled>
+                                            <b>Retenues</b></label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr><br>
+                        <div>
+                            <button type="submit" class="btn btn-lg text-center"
+                                ng-class="primes ? 'btn btn-success' : 'btn btn-default'"
+                                ng-disabled="!primes">Process EDSD</button>
+                        </div>
+                    </form>
+                    <br><br><br><br><br><br><br><br><br>
                 </div>
             </div>
         </div>

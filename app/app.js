@@ -3,6 +3,7 @@
 angular.module('App', [
   'ngRoute',
   'ngCookies',
+  'ngAnimate',
   'ngSanitize',
   'base64',
   'ui.bootstrap',
