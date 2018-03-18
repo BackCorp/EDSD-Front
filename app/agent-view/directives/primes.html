@@ -1,0 +1,94 @@
+<div class="width-90">
+    <h4>Selectionnez les dates</h4>
+    <hr>
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-4">
+            <label for="start-date">Start date: </label>
+            <p class="input-group">
+                <input type="text" class="form-control" uib-datepicker-popup="{{format}}"
+                    ng-model="primes.startDate" is-open="popup1.opened" datepicker-options="dateOptions"
+                    name="start-date" id="start-date" ng-required="true" close-text="Close"
+                    alt-input-formats="altInputFormats"/>
+                <span class="input-group-btn">
+                <button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
+            </span>
+            </p>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-4"></div>
+        <div class="col-xs-12 col-sm-12 col-md-4">
+            <label for="end-date">End date: </label>
+            <p class="input-group">
+                <input type="text" class="form-control" uib-datepicker-popup="{{format}}"
+                ng-model="primes.endDate" is-open="popup2.opened" datepicker-options="dateOptions"
+                name="end-date" id="end-date" ng-required="true" close-text="Close"
+                alt-input-formats="altInputFormats"/>
+                <span class="input-group-btn">
+                    <button type="button" class="btn btn-default" ng-click="open2()"><i class="glyphicon glyphicon-calendar"></i></button>
+                </span>
+            </p>
+        </div>
+    </div><br><br>
+    <h4>Primes liees au grade/categorie</h4>
+    <hr>
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-4">
+            <div class="form-group">
+                <label for="grade-category">Grade/Categorie: </label>
+                <select class="form-control" id="grade-category"
+                    ng-model="primes.grade"
+                    ng-options="grade for grade in gradeOrCategoriesPrimes" required>
+                </select>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-4">
+            <div class="form-group">
+                <label for="classe1">Classe: </label>
+                <select class="form-control" id="classe1"
+                    ng-model="primes.classeGrade"
+                    ng-options="classeGrade for classeGrade in classeGradeOrCatPrimes" required>
+                </select>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-4">
+            <div class="form-group">
+                <label for="indemnite">Indemnite: </label>
+                <select class="form-control" id="indemnite"
+                    ng-model="indemniteGradePrimes"
+                    ng-options="indemniteGradePrimes for indemniteGradePrimes in indemniteGradeOrCatPrimes">
+                </select>
+            </div>
+        </div>
+    </div>
+    <br><br>
+    <h4>Primes liees aux indices</h4>
+    <hr>
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-4">
+            <div class="form-group">
+                <label for="groupe">Groupe: </label>
+                <select class="form-control" id="groupe"
+                    ng-model="primes.groupIndices"
+                    ng-options="groupIndices for groupIndices in groupeIndicesPrimes" ng-required="true">
+                </select>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-4">
+            <div class="form-group">
+                <label for="classe2">Classe: </label>
+                <select class="form-control" id="class2"
+                    ng-model="primes.classIndices"
+                    ng-options="classIndices for classIndices in classeIndicesPrimes" ng-required="true">
+                </select>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-4">
+            <div class="form-group">
+                <label for="indemnite">Indemnite: </label>
+                <select class="form-control" id="indemnite"
+                    ng-model="primes.indemniteIndex"
+                    ng-options="indemniteIndex for indemniteIndex in indemniteIndicesPrimes" ng-required="true">
+                </select>
+            </div>
+        </div>
+    </div>
+</div>

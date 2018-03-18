@@ -163,111 +163,44 @@
                     </div>
                 </div>
                 <hr>
-                <div class="edsd-section">
-                    <br>
-                    <form action="" name="edsd" ng-submit="processEdsd()">
-                        <div class="row">
-                            <div class="col-xs-12 col-sm-12 col-md-4">
-                                <div class="form-group">
-                                    <select class="form-control" id="sel1">
-                                        <option>Select category</option>
-                                        <option>2</option>
-                                        <option>3</option>
-                                        <option>4</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-xs-12 col-sm-12 col-md-4">
-                                <div class="form-group">
-                                    <select class="form-control" id="sel1">
-                                        <option>Select class</option>
-                                        <option>2</option>
-                                        <option>3</option>
-                                        <option>4</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-xs-12 col-sm-12 col-md-4">
-                                <div class="form-group">
-                                    <select class="form-control" id="sel1">
-                                        <option>Select index</option>
-                                        <option>2</option>
-                                        <option>3</option>
-                                        <option>4</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-xs-12 col-sm-12 col-md-4">
-                                <p class="input-group">
-                                    <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="dt" is-open="popup1.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" />
-                                    <span class="input-group-btn">
-                                    <button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
-                                </span>
-                                </p>
-                            </div>
-                            <div class="col-xs-12 col-sm-12 col-md-4">
+                <section>
+                    <div class="edsd-section">
+                        <br>
+                        <form class="" name="edsdForm" ng-submit="processEdsd()">
+                            <div>
+                                <!-- Nav tabs -->
+                                <ul class="nav nav-tabs" role="tablist">
+                                    <li role="presentation" class="active">
+                                        <a href="/agent#primes-tab" aria-controls="primes-tab" role="tab" data-toggle="tab">Primes</a>
+                                    </li>
+                                    <li role="presentation">
+                                        <a href="/agent#rappels-salaires-tab" aria-controls="rappels-salaires-tab" role="tab" data-toggle="tab">Rappels Salaires</a>
+                                    </li>
+                                </ul>
 
-                            </div>
-                            <div class="col-xs-12 col-sm-12 col-md-4">
-                                <p class="input-group">
-                                    <input type="text" class="form-control" uib-datepicker-popup ng-model="dt" is-open="popup2.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
-                                    <span class="input-group-btn">
-                                        <button type="button" class="btn btn-default" ng-click="open2()"><i class="glyphicon glyphicon-calendar"></i></button>
-                                    </span>
-                                </p>
-                            </div>
-                        </div>
-                        <hr><br>
-                        <div class="row">
-                            <div class="col-xs-12 col-sm-12 col-md-3">
-                                <div class="form-group">
-                                    <button type="button" ng-model="primes"
-                                        class="btn btn-default btn-block"
-                                        ng-class="primes ? 'btn btn-success' : 'btn btn-default'">
-                                        <label><input type="checkbox" ng-model="primes" ng-click="">
-                                            <b>Primes</b></label>
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="col-xs-12 col-sm-12 col-md-3">
-                                <div class="form-group">
-                                    <button type="button" class="btn btn-default btn-block disabled"
-                                        ng-class="rappelSalaires ? 'btn btn-success' : 'btn btn-default'">
-                                        <label><input type="checkbox" ng-model="rappelSalaires" disabled>
-                                            <b>Rappels Salaires</b></label>
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="col-xs-12 col-sm-12 col-md-3">
-                                <div class="form-group">
-                                    <button type="button" class="btn btn-default btn-block disabled"
-                                        ng-class="nonLogements ? 'btn btn-success' : 'btn btn-default'">
-                                        <label><input type="checkbox" ng-model="nonLogements" disabled>
-                                            <b>Non Logements</b></label>
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="col-xs-12 col-sm-12 col-md-3">
-                                <div class="form-group">
-                                    <button type="button" class="btn btn-default btn-block disabled"
-                                        ng-class="retunues ? 'btn btn-success' : 'btn btn-default'">
-                                        <label><input type="checkbox" ng-model="retunues" disabled>
-                                            <b>Retenues</b></label>
+                                <!-- Tab panes -->
+                                <div class="tab-content">
+                                    <div role="tabpanel" class="tab-pane fade in active" id="primes-tab">
+                                        <br><br>
+                                        <primes></primes>
+                                    </div>
+                                    <div role="tabpanel" class="tab-pane fade" id="rappels-salaires-tab">
+                                        <br><br>
+                                        <rappels-salaires></rappels-salaires>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <hr><br>
-                        <div>
-                            <button type="submit" class="btn btn-lg text-center"
-                                ng-class="primes ? 'btn btn-success' : 'btn btn-default'"
-                                ng-disabled="!primes">Process EDSD</button>
-                        </div>
-                    </form>
-                    <br><br><br><br><br><br><br><br><br>
-                </div>
+                            <br>
+                            <hr><br><br>
+                            <div>
+                                <button type="submit" class="btn btn-lg text-center"
+                                    ng-class="false ? 'btn btn-success' : 'btn btn-default'"
+                                    ng-disabled="">Process EDSD</button>
+                            </div>
+                            <br><br><br>
+                        </form>
+                    </div>
+                </section>
             </div>
         </div>
     </div>

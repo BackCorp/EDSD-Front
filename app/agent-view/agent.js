@@ -70,16 +70,18 @@ angular.module('App.agent', ['ngRoute', 'ngCookies', 'ngSanitize'])
         // $scope.showRole = roleSection($model);
     }
 
-
-
     //-------------- Date --------------//
+    $scope.dt1;
     $scope.today = function() {
-      $scope.dt = new Date();
+        $scope.dt1 = new Date();
+        $scope.dt2 = new Date();
     };
-    $scope.today();
 
-    $scope.clear = function() {
-      $scope.dt = null;
+    $scope.clear1 = function() {
+      $scope.dt1 = null;
+    };
+    $scope.clear2 = function() {
+      $scope.dt2 = null;
     };
 
     $scope.inlineOptions = {
@@ -89,7 +91,7 @@ angular.module('App.agent', ['ngRoute', 'ngCookies', 'ngSanitize'])
     };
 
     $scope.dateOptions = {
-      dateDisabled: disabled,
+      // dateDisabled: ,
       formatYear: 'yy',
       maxDate: new Date(2020, 5, 22),
       minDate: new Date(),
@@ -98,14 +100,14 @@ angular.module('App.agent', ['ngRoute', 'ngCookies', 'ngSanitize'])
 
     // Disable weekend selection
     function disabled(data) {
-      var date = data.date,
+        var date = data.date,
         mode = data.mode;
-      return mode === 'day' && (date.getDay() === 0 || date.getDay() === 6);
+        return mode === 'day' && (date.getDay() === 0 || date.getDay() === 6);
     }
 
     $scope.toggleMin = function() {
-      $scope.inlineOptions.minDate = $scope.inlineOptions.minDate ? null : new Date();
-      $scope.dateOptions.minDate = $scope.inlineOptions.minDate;
+        $scope.inlineOptions.minDate = $scope.inlineOptions.minDate ? null : new Date();
+        $scope.dateOptions.minDate = $scope.inlineOptions.minDate;
     };
 
     $scope.toggleMin();
@@ -119,7 +121,10 @@ angular.module('App.agent', ['ngRoute', 'ngCookies', 'ngSanitize'])
     };
 
     $scope.setDate = function(year, month, day) {
-      $scope.dt = new Date(year, month, day);
+        $scope.dt1 = new Date(year, month, day);
+    };
+    $scope.setDate = function(year, month, day) {
+        $scope.dt2 = new Date(year, month, day);
     };
 
     $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
@@ -139,14 +144,14 @@ angular.module('App.agent', ['ngRoute', 'ngCookies', 'ngSanitize'])
     var afterTomorrow = new Date();
     afterTomorrow.setDate(tomorrow.getDate() + 1);
     $scope.events = [
-      {
-        date: tomorrow,
-        status: 'full'
-      },
-      {
-        date: afterTomorrow,
-        status: 'partially'
-      }
+        {
+            date: tomorrow,
+            status: 'full'
+        },
+        {
+            date: afterTomorrow,
+            status: 'partially'
+        }
     ];
 
     function getDayClass(data) {
@@ -163,10 +168,36 @@ angular.module('App.agent', ['ngRoute', 'ngCookies', 'ngSanitize'])
           }
         }
       }
-
       return '';
     }
 
+    /* -------- Primes Form ---------- */
+    $scope.gradeOrCategoriesPrimes = ["A1","A2","B1","B2"];
+    $scope.classeGradeOrCatPrimes = ["Classe 1","Classe 2","Classe exceptionnelle"];
+    $scope.indemniteGradeOrCatPrimes = ["technicite"];
+    $scope.groupeIndicesPrimes = ["I","II","III","IV"];
+    $scope.classeIndicesPrimes = [
+        "Indice inferieur a 196",
+        "Egal ou superieur a 196 et inferieur a 530",
+        "Egal ou superieur a 530 et inferieur a 870",
+        "Egal ou superieur a 870"
+    ];
+    $scope.indemniteIndicesPrimes = ["Sante publique","Astreinte"];
+
+    $scope.areAllFieldsSelected = function() {
+        return false;
+    };
+
+    $scope.primes={};
+
+    $scope.processEdsd = function() {
+        console.log($scope.primes);
+
+    };
+
+    $scope.onDateChange = function(startDate) {
+
+    };
 
 }])
 
@@ -174,5 +205,19 @@ angular.module('App.agent', ['ngRoute', 'ngCookies', 'ngSanitize'])
     return {
         restrict: 'E',
         templateUrl: 'agent-view/directives/typeahead-find-requester.html'
+    }
+})
+
+.directive('primes', function() {
+    return {
+        restrict: 'E',
+        templateUrl: 'agent-view/directives/primes.html'
+    }
+})
+
+.directive('rappelsSalaires', function() {
+    return {
+        restrict: 'E',
+        templateUrl: 'agent-view/directives/rappels-salaires.html'
     }
 });
