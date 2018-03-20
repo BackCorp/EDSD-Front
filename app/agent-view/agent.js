@@ -174,25 +174,45 @@ angular.module('App.agent', ['ngRoute', 'ngCookies', 'ngSanitize'])
     /* -------- Primes Form ---------- */
     $scope.gradeOrCategoriesPrimes = ["A1","A2","B1","B2"];
     $scope.classeGradeOrCatPrimes = ["Classe 1","Classe 2","Classe exceptionnelle"];
-    $scope.indemniteGradeOrCatPrimes = ["technicite"];
-    $scope.groupeIndicesPrimes = ["I","II","III","IV"];
-    $scope.classeIndicesPrimes = [
-        "Indice inferieur a 196",
-        "Egal ou superieur a 196 et inferieur a 530",
-        "Egal ou superieur a 530 et inferieur a 870",
-        "Egal ou superieur a 870"
-    ];
-    $scope.indemniteIndicesPrimes = ["Sante publique","Astreinte"];
+    $scope.groupeIndicesPrimes = [
+        {groupe: "I", classe: "Egal ou superieur a 870"},
+        {groupe: "II", classe: "Egal ou superieur a 530 et inferieur a 870"},
+        {groupe: "III", classe: "Egal ou superieur a 196 et inferieur a 530"},
+        {groupe: "IV", classe: "Indice inferieur a 196"}];
+
+    $scope.classeIndicesPrimes = [];
 
     $scope.areAllFieldsSelected = function() {
         return false;
     };
 
-    $scope.primes={};
+    $scope.primesGrade={};
+    $scope.primesIndices={};
+
+    $scope.checkDates = function() {
+
+    }
+
+    $scope.setGroupeAndClasse = function(indicesPrimes) {
+        $scope.primesIndices.classe = indicesPrimes.classe;
+        $scope.primesIndices.groupe = indicesPrimes.groupe;
+    }
 
     $scope.processEdsd = function() {
-        console.log($scope.primes);
-
+        $scope.primesIndices.startDate = $scope.primesGrade.startDate;
+        $scope.primesIndices.endDate = $scope.primesGrade.endDate;
+        console.log($scope.primesIndices);
+        $http({
+            method: 'POST',
+            url: 'http://localhost:8080/api/edsd/primes/test/',
+            data: { primesGrade: $scope.primesGrade, primesIndices: $scope.primesIndices }
+        }).then(
+            function(resp) {
+                console.log(resp);
+            }, function(resp) {
+                console.log(resp);
+            }
+        );
     };
 
     $scope.onDateChange = function(startDate) {

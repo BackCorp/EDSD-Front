@@ -25,5 +25,10 @@
 }
 
 .uib-typeahead-match:hover {
-    cursor: pointer !important; 
+    cursor: pointer !important;
+}
+
+.error {
+    color: red;
+    font-weight: bold;
 }
