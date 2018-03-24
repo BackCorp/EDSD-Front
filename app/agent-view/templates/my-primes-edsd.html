@@ -1,0 +1,153 @@
+
+<div ng-controller="MyEdsdCtrl">
+    <div class="row">
+        <div class="col-xs-12">
+            <h3 class="page-header">My EDSD</h3>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12">
+		    <table st-table="primes" st-safe-src="getPrimesEdsds" class="table table-stroped table-hover">
+    			<thead>
+        			<tr>
+        				<th st-sort="createdDate">Created date</th>
+        				<th st-sort="firstName">First name</th>
+        				<th st-sort="lastName">Last name</th>
+        				<th st-sort="accountName">Account number</th>
+        				<th st-sort="computedPrimes">Computed primes</th>
+        				<th st-sort="startDate">Start date</th>
+        				<th st-sort="endDate">End date</th>
+        			</tr>
+        			<tr>
+        				<th colspan="9"><input st-search="" class="form-control" placeholder="search ..." type="text"/></th>
+        			</tr>
+    			</thead>
+    			<tbody>
+        			<tr ng-repeat="prime in primes" class="primes-table" ng-click="showDetails($event, prime);">
+        				<td><a>{{prime.createdDate | date:'MMM d, y h:mm a'}}</a></td>
+        				<td><a>{{prime.belongsToRequester.firstName}}</a></td>
+        				<td><a>{{prime.belongsToRequester.lastName}}</a></td>
+        				<td><a>{{prime.belongsToRequester.accountNumber}}</a></td>
+        				<td><a>{{prime.computedPrimes | currency : "FCFA " : 3}}</a></td>
+        				<td><a>{{prime.startDate | date: 'mediumDate'}}</a></td>
+        				<td><a>{{prime.endDate | date: 'MMM d, y'}}</a></td>
+        			</tr>
+    			</tbody>
+		    </table>
+        </div>
+	</div>
+</div>
+
+<script type="text/ng-template" id="modal-primes-content.html">
+    <div class="modal-header">
+        <h3 class="modal-title" id="modal-title">
+            Primes -
+            {{ selectedPrime.belongsToRequester.firstName }} {{ selectedPrime.belongsToRequester.lastName }},
+            {{ selectedPrime.belongsToRequester.accountNumber }}
+        </h3>
+    </div>
+    <div class="modal-body" id="modal-body">
+        <div class="row">
+            <div class="col-xs-12">
+                <h4>Primes Liees au grade: </h4>
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-xs-12 col-sm-6 col-md-4">
+                <div class="form-group">
+                    <label>Created on: </label>
+                    <span class="form-control-static">{{ selectedPrime.createdDate | date:'MMM d, y h:mm a' }}</span>
+                </div>
+                <div class="form-group">
+                    <label>Satrt date: </label>
+                    <span class="form-control-static">{{ selectedPrime.startDate | date: 'MMM d, y' }}</span>
+                </div>
+                <div class="form-group">
+                    <label>End date: </label>
+                    <span class="form-control-static">{{ selectedPrime.endDate | date: 'MMM d, y'}}</span>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-4">
+                <div class="form-group">
+                    <label>Mois: </label>
+                    <span class="form-control-static">{{ selectedPrime.numberOfPrimesMonths | number : 3 }}</span>
+                </div>
+                <div class="form-group">
+                    <label>Grade/Categorie: </label>
+                    <span class="form-control-static">{{ selectedPrime.grade }}</span>
+                </div>
+                <div class="form-group">
+                    <label>Classe: </label>
+                    <span class="form-control-static">{{ selectedPrime.classeLieeAuGrade }}</span>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-4">
+                <div class="form-group">
+                    <label>Indemnite: </label>
+                    <span class="form-control-static">{{ selectedPrime.indemniteLieeAuGradeTechnicite | currency : "FCFA " : 3 }}</span>
+                </div>
+                <div class="form-group">
+                    <label>Montant de la prime: </label>
+                    <span class="form-control-static">{{ selectedPrime.computedPrimesGrade | currency : "FCFA " : 3 }}</span>
+                </div>
+            </div>
+        </div>
+        <hr />
+        <div class="row">
+            <div class="col-xs-12">
+                <h4>Primes Liees aux indices: </h4>
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-xs-12 col-sm-6 col-md-4">
+                <div class="form-group">
+                    <label>Created on: </label>
+                    <span class="form-control-static">{{ selectedPrime.createdDate | date:'MMM d, y h:mm a' }}</span>
+                </div>
+                <div class="form-group">
+                    <label>Satrt date: </label>
+                    <span class="form-control-static">{{ selectedPrime.startDate | date: 'MMM d, y'}}</span>
+                </div>
+                <div class="form-group">
+                    <label>End date: </label>
+                    <span class="form-control-static">{{ selectedPrime.endDate | date: 'MMM d, y'}}</span>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-4">
+                <div class="form-group">
+                    <label>Mois: </label>
+                    <span class="form-control-static">{{ selectedPrime.numberOfPrimesMonths | number : 3 }}</span>
+                </div>
+                <div class="form-group">
+                    <label>Groupe: </label>
+                    <span class="form-control-static">{{ selectedPrime.groupe }}</span>
+                </div>
+                <div class="form-group">
+                    <label>Classe: </label>
+                    <span class="form-control-static">{{ selectedPrime.classeLieeAuxIndices }}</span>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-4">
+                <div class="form-group">
+                    <label>Indemnite astreinte: </label>
+                    <span class="form-control-static">{{ selectedPrime.indemniteLieeAuxIndicesAstreinte | currency : "FCFA " : 2 }}</span>
+                </div>
+                <div class="form-group">
+                    <label>Indemnite sante publique: </label>
+                    <span class="form-control-static">{{ selectedPrime.indemniteLieeAuxIndicesSantePublique | currency : "FCFA " : 2 }}</span>
+                </div>
+                <div class="form-group">
+                    <label>Montant de la prime: </label>
+                    <span class="form-control-static">{{ selectedPrime.computedPrimesIndices | currency : "FCFA " : 2 }}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-success" type="button" ng-click="ok()">OK</button>
+        <!-- <button class="btn btn-" type="button" ng-click="cancel()">Cancel</button> -->
+    </div>
+</script>

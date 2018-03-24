@@ -32,3 +32,7 @@
     color: red;
     font-weight: bold;
 }
+
+.nav-second-level, .nav-first-level, .dropdown-user.li, .primes-table{
+    cursor: pointer;
+}

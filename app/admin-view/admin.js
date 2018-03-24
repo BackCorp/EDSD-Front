@@ -53,16 +53,6 @@ angular.module('App.admin', ['ngRoute', 'ngCookies', 'ngSanitize'])
                 return response.data.map(function(item) {
                     item.name = item.firstName +" "+ item.lastName;
                     return item;
-                        // id: item.userId,
-                        // name:
-                        // username: item.username,
-                        // firstName: item.firstName,
-                        // lastName: item.lastName,
-                        // midName: item.midName,
-                        // email: item.email,
-                        // roles: item.roles,
-                        // active: item.active
-
                 });
             },
             function(error) {

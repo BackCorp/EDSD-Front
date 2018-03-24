@@ -29,6 +29,7 @@ angular.module('App.agent', ['ngRoute', 'ngCookies', 'ngSanitize', 'smart-table'
 
     $scope.firstName = storageService.getSession('firstName');
     $scope.lastName = storageService.getSession('lastName');
+    $scope.username = storageService.getSession('username');
     $scope.agentTemplate = 'agent-view/templates/process-edsd.html';
     $scope.change = function(template){
         $scope.agentTemplate = "agent-view/templates/" + template;
@@ -225,47 +226,49 @@ angular.module('App.agent', ['ngRoute', 'ngCookies', 'ngSanitize', 'smart-table'
 
 }])
 
-.controller('MyEdsdCtrl', ['$scope', function($scope) {
-    var firstnames = ['Laurent', 'Blandine', 'Olivier', 'Max'];
-    var lastnames = ['Renard', 'Faivre', 'Frere', 'Eponge'];
-    var dates = ['1987-05-21', '1987-04-25', '1955-08-27', '1966-06-06'];
-    var id = 1;
+.controller('MyEdsdCtrl', ['$scope', '$http', '$log', '$uibModal', 'edsdService', 'headerService', 'storageService',
+    function($scope, $http, $log, $uibModal, edsdService, headerService, storageService) {
 
-    function generateRandomItem(id) {
+    headerService.setAuthHeader(storageService.getSession('session'));
+    $scope.getPrimesEdsds = edsdService.getPrimesEdsd().query(function(primesEdsd) {
+        console.log(primesEdsd);
+    });
 
-        var firstname = firstnames[Math.floor(Math.random() * 3)];
-        var lastname = lastnames[Math.floor(Math.random() * 3)];
-        var birthdate = dates[Math.floor(Math.random() * 3)];
-        var balance = Math.floor(Math.random() * 2000);
+    $scope.showDetails = function($event, prime) {
+        $event.preventDefault();
+        var modalInstance = $uibModal.open({
+            animation: true,
+            templateUrl: 'modal-primes-content.html',
+            controller: 'ModalInstanceCtrl',
+            size: 'lg',
+            resolve: {
+                items: function () {
+                    return prime;
+                }
+            }
+        });
 
-        return {
-            id: id,
-            firstName: firstname,
-            lastName: lastname,
-            birthDate: new Date(birthdate),
-            balance: balance
-        }
+        modalInstance.result.then(function (selectedItem) {
+            // $scope.selectedPrime = selectedItem;
+            // $log.info(selectedItem);
+        }, function () {
+            $log.info('Modal dismissed at: ' + new Date());
+        });
     }
 
-    $scope.rowCollection = [];
+}])
 
-    for (id; id < 5; id++) {
-        $scope.rowCollection.push(generateRandomItem(id));
-    }
-
-    //add to the real data holder
-    $scope.addRandomItem = function addRandomItem() {
-        $scope.rowCollection.push(generateRandomItem(id));
-        id++;
+.controller('ModalInstanceCtrl', ['$scope','$uibModalInstance', 'items', function($scope, $uibModalInstance, items) {
+    $scope.ok = function () {
+        $uibModalInstance.close();
     };
 
-    //remove to the real data holder
-    $scope.removeItem = function removeItem(row) {
-        var index = $scope.rowCollection.indexOf(row);
-        if (index !== -1) {
-            $scope.rowCollection.splice(index, 1);
-        }
-    }
+    console.log(items);
+    $scope.selectedPrime = items;
+
+    $scope.cancel = function () {
+        $uibModalInstance.dismiss();
+    };
 }])
 
 .directive('typeaheadFindRequester', function() {
