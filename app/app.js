@@ -22,9 +22,14 @@ angular.module('App', [
 }])
 
 .service('headerService', function($http) {
-    var service = {};
     this.setAuthHeader = function(auth) {
         $http.defaults.headers.common['Authorization'] = 'Basic ' + auth;
+    }
+})
+
+.service('writtenNumberService', function() {
+    this.getWrittenNumber = function(number, lang) {
+        return writtenNumber(number, {lang: lang});
     }
 })
 

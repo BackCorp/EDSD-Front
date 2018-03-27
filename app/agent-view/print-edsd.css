@@ -1,0 +1,27 @@
+
+@media print {
+    div.container {
+        color: red !important;
+        margin: 100px !important;
+    }
+    header nav, footer {
+        display: none;
+    }
+    img {
+        max-width: 500px;
+    }
+
+    * {
+          -webkit-print-color-adjust: exact;
+          print-color-adjust: exact;
+   }
+
+   div.buttons {
+       display: none !important;
+   }
+
+   body {
+    font: 12pt Georgia, "Times New Roman", Times, serif;
+    line-height: 1.3;
+    }
+}

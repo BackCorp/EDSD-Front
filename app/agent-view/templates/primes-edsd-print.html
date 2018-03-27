@@ -1,0 +1,268 @@
+
+<div class="">
+
+    <div class="row">
+        <div class="col-xs-12 col-md-4 text-center">
+            <p>REPUBLIQUE DU CAMEROUN</p>
+            <span>Paix-Travail-Patrie</span>
+            <p>MINISTERE DE LA SANTE REPUBLIQUE</p>
+            <p>SECRETARIAT GENERAL</p>
+            <P>DIRECTION DES RESOURCES HUMAINES</P>
+            <p>SOUS-DIRECTION DE LA SOLDE ET DES PENSIONS</p>
+            <p>SERVICE DE LA SOLDE ET DES PRESTATIONS DIVERSES</p>
+        </div>
+        <div class="col-xs-12 col-md-4 text-center">
+        </div>
+        <div class="col-xs-12 col-md-4 text-center">
+            <p>REPUBLIC OF CAMEROON</p>
+            <span>Peace-Work-Fatherland</span>
+            <p>MINISTRY OF PUBLIC HEALTH</p>
+            <P>GENERAL SECRETARIAT</P>
+            <P>DEPARTMENT OF HUMAN RESOURCES</P>
+            <P>SUB-DEPARTMENT OF SALARIES AND PENSIONS</P>
+            <P>OFFICE OF SALARIES AND DIVERS SERVICES </P>
+        </div>
+    </div>
+    <hr><br />
+    <section class="text-center">
+        <h4>ETATS DES SOMMES DUES N ___________ MINSANTE/SG/DRH/SDSP/BSPFPD</h4>
+    </section>
+    <br />
+    <section id="recap">
+        <div>
+            <p style="text-indent:50px;">
+                A Monsieur {{ requester.firstName }} {{ requester.midName }} {{ requester.lastName }},
+                {{ requester.currentGrade }}, Mle {{ requester.accountNumber }},
+                en service au Ministere de la Sante Publique pour la mandatement
+                des primes conformement aux pieces jointes en souche.
+            </p>
+        </div>
+    </section>
+    <br />
+    <div class="text-center">
+        <h5>A Savoir</h5>
+    </div><br />
+    <section id="primes" ng-if="edsdModules.primes">
+        <p>Mandatement des differentes primes de sante du {{ primesGrade.startDate | date: 'd/M/y' }}
+            au {{ primesGrade.endDate | date: 'd/M/y' }} soit
+            {{ (primesGrade.endDate - primesGrade.startDate + 1)/(24*3600000) | number: 0 }} jours.</p>
+        <div class="">
+            <table class="table table-striped" style="width: 80%;">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Prime Tech corps sante</td>
+                        <td>{{ primesGrade.montant }}</td>
+                    </tr>
+                    <tr>
+                        <td>Prime sante publique</td>
+                        <td>{{ primesIndices.indemnites[0].montant }}</td>
+                    </tr>
+                    <tr>
+                        <td>Prime astreinte sante</td>
+                        <td>{{ primesIndices.indemnites[1].montant }}</td>
+                    </tr>
+                    <tr>
+                        <td>TP (5.28%)</td>
+                        <td>- {{ (primesGrade.montant + primesIndices.indemnites[0].montant + primesIndices.indemnites[1].montant)*(5.28/100) | number: 2}}</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>{{ (primesGrade.montant + primesIndices.indemnites[0].montant + primesIndices.indemnites[1].montant)*(1 - 5.28/100.0) | number: 2 }} x {{ (primesGrade.endDate - primesGrade.startDate + 1)/(24*3600000) | number: 0 }}/30 </td>
+                    </tr>
+                    <tr>
+                        <td>Total des Primes</td>
+                        <td>= {{ (primesGrade.montant + primesIndices.indemnites[0].montant + primesIndices.indemnites[1].montant)*(1 - 5.28/100) * (primesGrade.endDate - primesGrade.startDate + 1)/(24*3600000*30.0) | number: 2}} </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <hr />
+    </section>
+
+    <section id="nonLogement" ng-if="edsdModules.nonLogement">
+        <p>Mandatement de l'indemnite de logement non percue du {{ primesGrade.startDate | date: 'd/M/y' }}
+            au {{ primesGrade.endDate | date: 'd/M/y' }} soit
+            {{ (primesGrade.endDate - primesGrade.startDate + 1)/(24*3600000) | number: 0 }} jours.</p>
+            <div class="">
+                <table class="table table-striped" style="width: 80%;">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Ind. de logt. indice {{ requester.currentIndex }}</td>
+                            <td>{{ nonLogement.montant | number: 2 }}</td>
+                        </tr>
+
+                        <tr>
+                            <td></td>
+                            <td>{{ nonLogement.montant | number: 2 }} x {{ (primesGrade.endDate - primesGrade.startDate + 1)/(24*3600000) | number: 0 }}/30 </td>
+                        </tr>
+                        <tr>
+                            <td>Total du non logement</td>
+                            <td> = {{ nonLogement.montant * (primesGrade.endDate - primesGrade.startDate + 1)/(24*3600000*30.0) | number: 2}} </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <hr />
+    </section>
+
+    <section id="retenues" ng-if="edsdModules.retenues">
+        <p>Deduction faite du rappel du code 242 percue a tort du {{ primesGrade.startDate | date: 'd/M/y' }}
+            au {{ primesGrade.endDate | date: 'd/M/y' }} soit
+            {{ (primesGrade.endDate - primesGrade.startDate + 1)/(24*3600000) | number: 0 }} jours.</p>
+            <div class="">
+                <table class="table table-striped" style="width: 80%;">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="primesPercue in primesPercues">
+                            <td>Retenue {{$index+1}}</td>
+                            <td>{{ primesPercue.montant | number: 2 }}</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>{{ getSumOfPrimesPercues() | number: 2 }} x {{ (primesGrade.endDate - primesGrade.startDate + 1)/(24*3600000) | number: 0 }}/30 </td>
+                        </tr>
+                        <tr>
+                            <td>Total des retenues</td>
+                            <td> = {{ getSumOfPrimesPercues() * (primesGrade.endDate - primesGrade.startDate + 1)/(24*3600000*30.0) | number: 2}} </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <hr />
+    </section>
+
+    <section id="total" ng-if="edsdModules.primes || edsdModules.nonLogement || edsdModules.retenues">
+        <br /><p>Net a mandater: </p>
+        <div class="">
+            <table class="table table-striped" style="width: 80%;">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-if="edsdModules.primes">
+                        <td>Primes</td>
+                        <td>{{ (primesGrade.montant + primesIndices.indemnites[0].montant + primesIndices.indemnites[1].montant)*(1 - 5.28/100) * (primesGrade.endDate - primesGrade.startDate + 1)/(24*3600000*30.0) | number: 2}}</td>
+                    </tr>
+                    <tr ng-if="edsdModules.nonLogement">
+                        <td>Non logement</td>
+                        <td >{{ nonLogement.montant * (primesGrade.endDate - primesGrade.startDate + 1)/(24*3600000*30.0) | number: 2}}</td>
+                    </tr>
+                    <tr ng-if="edsdModules.retenues">
+                        <td>Retenues</td>
+                        <td>{{ getSumOfPrimesPercues() * (primesGrade.endDate - primesGrade.startDate + 1)/(24*3600000*30.0) | number: 2}} </td>
+                    </tr>
+                    <tr>
+                        <td>Total </td>
+                        <td ng-if="edsdModules.primes && !(edsdModules.nonLogement || edsdModules.retenues)">{{ round((primesGrade.montant + primesIndices.indemnites[0].montant + primesIndices.indemnites[1].montant)*(1 - 5.28/100) * (primesGrade.endDate - primesGrade.startDate + 1)/(24*3600000*30.0)) | number: 0}} </td>
+                        <td ng-if="edsdModules.nonLogement && !(edsdModules.primes || edsdModules.retenues)">{{ round(nonLogement.montant * (primesGrade.endDate - primesGrade.startDate + 1)/(24*3600000*30.0)) | number: 0 }}</td>
+                        <td ng-if="edsdModules.retenues && !(edsdModules.primes || edsdModules.nonLogement)">{{ round(getSumOfPrimesPercues() * (primesGrade.endDate - primesGrade.startDate + 1)/(24*3600000*30.0)) | number: 0 }}</td>
+
+                        <td ng-if="edsdModules.primes && edsdModules.nonLogement && !edsdModules.retenues">
+                            {{ (primesGrade.montant + primesIndices.indemnites[0].montant + primesIndices.indemnites[1].montant)*(1 - 5.28/100) * (primesGrade.endDate - primesGrade.startDate + 1)/(24*3600000*30.0) | number: 2}}
+                                + {{ nonLogement.montant * (primesGrade.endDate - primesGrade.startDate + 1)/(24*3600000*30.0) | number: 2}} =
+                            {{ (primesGrade.montant + primesIndices.indemnites[0].montant + primesIndices.indemnites[1].montant)*(1 - 5.28/100) * (primesGrade.endDate - primesGrade.startDate + 1)/(24*3600000*30.0)
+                                + nonLogement.montant * (primesGrade.endDate - primesGrade.startDate + 1)/(24*3600000*30.0) | number: 2}}
+                                soit {{ (primesGrade.montant + primesIndices.indemnites[0].montant + primesIndices.indemnites[1].montant)*(1 - 5.28/100) * (primesGrade.endDate - primesGrade.startDate + 1)/(24*3600000*30.0)
+                                    + nonLogement.montant * (primesGrade.endDate - primesGrade.startDate + 1)/(24*3600000*30.0) | number: 0}}
+                        </td>
+                        <td ng-if="edsdModules.primes && edsdModules.retenues && !edsdModules.nonLogement">
+                            {{ (primesGrade.montant + primesIndices.indemnites[0].montant + primesIndices.indemnites[1].montant)*(1 - 5.28/100) * (primesGrade.endDate - primesGrade.startDate + 1)/(24*3600000*30.0) | number: 2}}
+                                - {{ getSumOfPrimesPercues() * (primesGrade.endDate - primesGrade.startDate + 1)/(24*3600000*30.0) | number: 2 }} =
+                            {{ (primesGrade.montant + primesIndices.indemnites[0].montant + primesIndices.indemnites[1].montant)*(1 - 5.28/100) * (primesGrade.endDate - primesGrade.startDate + 1)/(24*3600000*30.0)
+                                - getSumOfPrimesPercues() * (primesGrade.endDate - primesGrade.startDate + 1)/(24*3600000*30.0) | number: 2 }}
+                                soit {{ (primesGrade.montant + primesIndices.indemnites[0].montant + primesIndices.indemnites[1].montant)*(1 - 5.28/100) * (primesGrade.endDate - primesGrade.startDate + 1)/(24*3600000*30.0)
+                                    - getSumOfPrimesPercues() * (primesGrade.endDate - primesGrade.startDate + 1)/(24*3600000*30.0) | number: 0 }}
+                        </td>
+
+                        <td ng-if="edsdModules.nonLogement && edsdModules.retenues && !edsdModules.primes">
+                            {{ nonLogement.montant * (primesGrade.endDate - primesGrade.startDate + 1)/(24*3600000*30.0) | number: 2 }}
+                                - {{ getSumOfPrimesPercues() * (primesGrade.endDate - primesGrade.startDate + 1)/(24*3600000*30.0) | number: 2}} =
+                            {{ nonLogement.montant * (primesGrade.endDate - primesGrade.startDate + 1)/(24*3600000*30.0)
+                                - getSumOfPrimesPercues() * (primesGrade.endDate - primesGrade.startDate + 1)/(24*3600000*30.0) | number: 2 }}
+                                soit {{ nonLogement.montant * (primesGrade.endDate - primesGrade.startDate + 1)/(24*3600000*30.0)
+                                    - getSumOfPrimesPercues() * (primesGrade.endDate - primesGrade.startDate + 1)/(24*3600000*30.0) | number: 0 }}
+                        </td>
+
+                        <td ng-if="edsdModules.primes && edsdModules.nonLogement && edsdModules.retenues">
+                            {{ (primesGrade.montant + primesIndices.indemnites[0].montant + primesIndices.indemnites[1].montant)*(1 - 5.28/100) * (primesGrade.endDate - primesGrade.startDate + 1)/(24*3600000*30.0) | number: 2 }}
+                                + {{ nonLogement.montant * (primesGrade.endDate - primesGrade.startDate + 1)/(24*3600000*30.0) | number: 2 }}
+                                - {{ getSumOfPrimesPercues() * (primesGrade.endDate - primesGrade.startDate + 1)/(24*3600000*30.0) | number: 2 }} =
+                            {{ (primesGrade.montant + primesIndices.indemnites[0].montant + primesIndices.indemnites[1].montant)*(1 - 5.28/100) * (primesGrade.endDate - primesGrade.startDate + 1)/(24*3600000*30.0)
+                                + nonLogement.montant * (primesGrade.endDate - primesGrade.startDate + 1)/(24*3600000*30.0)
+                                - getSumOfPrimesPercues() * (primesGrade.endDate - primesGrade.startDate + 1)/(24*3600000*30.0) | number: 2 }}
+                                soit {{ (primesGrade.montant + primesIndices.indemnites[0].montant + primesIndices.indemnites[1].montant)*(1 - 5.28/100) * (primesGrade.endDate - primesGrade.startDate + 1)/(24*3600000*30.0)
+                                    + nonLogement.montant * (primesGrade.endDate - primesGrade.startDate + 1)/(24*3600000*30.0)
+                                    - getSumOfPrimesPercues() * (primesGrade.endDate - primesGrade.startDate + 1)/(24*3600000*30.0) | number: 0 }}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <p>Arrete le present etat a la somme de:
+            <b ng-if="edsdModules.primes && !(edsdModules.nonLogement || edsdModules.retenues)" class="text-uppercase">
+                <em>{{ getWrittenNumber((primesGrade.montant + primesIndices.indemnites[0].montant + primesIndices.indemnites[1].montant)*(1 - 5.28/100) * (primesGrade.endDate - primesGrade.startDate + 1)/(24*3600000*30.0), 'fr') }}</em>
+            </b>
+            <b ng-if="edsdModules.nonLogement && !(edsdModules.primes || edsdModules.retenues)" class="text-uppercase">
+                <em>{{ getWrittenNumber(nonLogement.montant * (primesGrade.endDate - primesGrade.startDate + 1)/(24*3600000*30.0), 'fr') }}</em>
+            </b>
+            <b ng-if="edsdModules.retenues && !(edsdModules.primes || edsdModules.nonLogement)" class="text-uppercase">
+                <em>{{ getWrittenNumber(getSumOfPrimesPercues() * (primesGrade.endDate - primesGrade.startDate + 1)/(24*3600000*30.0), 'fr') }}</em>
+            </b>
+
+            <b ng-if="edsdModules.primes && edsdModules.nonLogement && !edsdModules.retenues" class="text-uppercase">
+                <em>{{ getWrittenNumber((primesGrade.montant + primesIndices.indemnites[0].montant + primesIndices.indemnites[1].montant)*(1 - 5.28/100) * (primesGrade.endDate - primesGrade.startDate + 1)/(24*3600000*30.0)
+                    + nonLogement.montant * (primesGrade.endDate - primesGrade.startDate + 1)/(24*3600000*30.0), 'fr') }}</em>
+            </b>
+            <b ng-if="edsdModules.primes && edsdModules.retenues && !edsdModules.nonLogement" class="text-uppercase">
+                <em>{{ getWrittenNumber(primesGrade.montant + primesIndices.indemnites[0].montant + primesIndices.indemnites[1].montant)*(1 - 5.28/100) * (primesGrade.endDate - primesGrade.startDate + 1)/(24*3600000*30.0)
+                    - getSumOfPrimesPercues() * (primesGrade.endDate - primesGrade.startDate + 1)/(24*3600000*30.0), 'fr') }}</em>
+            </b>
+            <b ng-if="edsdModules.nonLogement && edsdModules.retenues && !edsdModules.primes" class="text-uppercase">
+                <em>{{ getWrittenNumber(nonLogement.montant * (primesGrade.endDate - primesGrade.startDate + 1)/(24*3600000*30.0)
+                    - getSumOfPrimesPercues() * (primesGrade.endDate - primesGrade.startDate + 1)/(24*3600000*30.0), 'fr') }}</em>
+            </b>
+            <b ng-if="edsdModules.primes && edsdModules.nonLogement && edsdModules.retenues" class="text-uppercase">
+                <em>{{ getWrittenNumber((primesGrade.montant + primesIndices.indemnites[0].montant + primesIndices.indemnites[1].montant)*(1 - 5.28/100) * (primesGrade.endDate - primesGrade.startDate + 1)/(24*3600000*30.0)
+                    + nonLogement.montant * (primesGrade.endDate - primesGrade.startDate + 1)/(24*3600000*30.0)
+                    - getSumOfPrimesPercues() * (primesGrade.endDate - primesGrade.startDate + 1)/(24*3600000*30.0), 'fr') }} FRANCS CFA</em>
+            </b>
+        </p>
+        </p>
+    </section>
+
+    <hr /><br />
+    <div ng-if="primes.message" class="alert alert-warning">
+        {{ primes.message }}
+    </div>
+    <div class="buttons">
+        <button type="submit" class="btn btn-lg text-center"
+            ng-class="true ? 'btn btn-success' : 'btn btn-default'"
+            ng-disabled="" ng-click="confirm()">Confirm
+        </button>
+        <button type="submit" class="btn btn-lg text-center"
+            ng-class="false ? 'btn btn-success' : 'btn btn-default'"
+            ng-disabled="" ng-click="cancelEdsdProcess()">Cancel
+        </button>
+    </div>
+    <br /><br />
+</div>

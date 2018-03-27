@@ -18,8 +18,10 @@ angular.module('App.agent', ['ngRoute', 'ngCookies', 'ngSanitize', 'smart-table'
     }).otherwise({redirectTo: '/login'});
 }])
 
-.controller('AgentCtrl', ['$scope','$location','$cookies','$http','headerService','storageService','requesterService',
-    function($scope, $location, $cookies, $http, headerService, storageService, requesterService) {
+.controller('AgentCtrl', ['$scope','$location','$cookies','$http','$sce','$templateCache','$uibModal',
+    'headerService','storageService','requesterService','primesDataService','writtenNumberService',
+    function($scope, $location, $cookies, $http, $sce, $templateCache, $uibModal,
+        headerService, storageService, requesterService, primesDataService, writtenNumberService) {
 
     $scope.logout = function() {
         storageService.clear();
@@ -37,6 +39,13 @@ angular.module('App.agent', ['ngRoute', 'ngCookies', 'ngSanitize', 'smart-table'
 
     $scope.asyncSearch = undefined;
     $scope.selected = undefined;
+    $scope.edsdModules={};
+    $scope.primesGrade={};
+    $scope.primesIndices={};
+    $scope.nonLogement={};
+    $scope.retenues={};
+    $scope.retenues.montants=[];
+    $scope.date={};
 
     $scope.modelOptions = {
         debounce: {
@@ -173,36 +182,47 @@ angular.module('App.agent', ['ngRoute', 'ngCookies', 'ngSanitize', 'smart-table'
     }
 
     /* -------- Primes Form ---------- */
-    $scope.gradeOrCategoriesPrimes = ["A1","A2","B1","B2"];
-    $scope.classeGradeOrCatPrimes = ["Classe 1","Classe 2","Classe exceptionnelle"];
-    $scope.groupeIndicesPrimes = [
-        {groupe: "I", classe: "Egal ou superieur a 870"},
-        {groupe: "II", classe: "Egal ou superieur a 530 et inferieur a 870"},
-        {groupe: "III", classe: "Egal ou superieur a 196 et inferieur a 530"},
-        {groupe: "IV", classe: "Indice inferieur a 196"}];
-
-    $scope.classeIndicesPrimes = [];
+    $scope.primesLieesAuGrade = primesDataService.getPrimesLieesAuGrade();
+    $scope.primesLieesAuxIndices = primesDataService.getPrimesLieesAuxIndices();
 
     $scope.areAllFieldsSelected = function() {
         return false;
     };
 
-    $scope.primesGrade={};
-    $scope.primesIndices={};
-
     $scope.checkDates = function() {
 
     }
 
-    $scope.setGroupeAndClasse = function(indicesPrimes) {
-        $scope.primesIndices.classe = indicesPrimes.classe;
-        $scope.primesIndices.groupe = indicesPrimes.groupe;
+    $scope.setPrimesAndIndices = function(primesGrade, primesIndices, selectedPrimesGrade) {
+        $scope.primesGrade = primesGrade;
+        $scope.primesIndices = primesIndices;
+        $scope.primesGrade.grade = selectedPrimesGrade;
     }
 
-    $scope.processEdsd = function() {
-        $scope.primesIndices.startDate = $scope.primesGrade.startDate;
-        $scope.primesIndices.endDate = $scope.primesGrade.endDate;
-        console.log($scope.primesIndices);
+    $scope.processEdsd = function($event, primesGrade) {
+        $scope.primesIndices.startDate = $scope.date.startDate;
+        $scope.primesGrade.startDate = $scope.date.startDate;
+        $scope.primesIndices.endDate = $scope.date.endDate;
+        $scope.primesGrade.endDate = $scope.date.endDate;
+        $scope.change("primes-edsd-print.html");
+    };
+
+    $scope.cancelEdsdProcess = function() {
+        $scope.change("process-edsd.html");
+    }
+
+    $scope.primes = {};
+    $scope.primes.message = null;
+
+    $scope.getWrittenNumber = function(number, lang) {
+        return writtenNumberService.getWrittenNumber($scope.round(number), lang);
+    }
+
+    $scope.round = function(number) {
+        return Math.round(number);
+    }
+
+    $scope.confirm = function () {
         $http({
             method: 'POST',
             url: 'http://localhost:8080/api/edsd/primes/',
@@ -213,15 +233,20 @@ angular.module('App.agent', ['ngRoute', 'ngCookies', 'ngSanitize', 'smart-table'
             }
         }).then(
             function(resp) {
-                console.log(resp);
+                if(resp.data) {
+                    console.log(resp);
+                    $scope.change("process-edsd.html");
+                    $scope.primesGrade={};
+                    $scope.primesIndices={};
+                    $scope.requester={};
+                    $scope.selected = false;
+                } else {
+                    $scope.primes.message = "The current requester has been processed already."
+                }
             }, function(resp) {
                 console.log(resp);
             }
         );
-    };
-
-    $scope.onDateChange = function(startDate) {
-
     };
 
 }])
@@ -239,7 +264,8 @@ angular.module('App.agent', ['ngRoute', 'ngCookies', 'ngSanitize', 'smart-table'
         var modalInstance = $uibModal.open({
             animation: true,
             templateUrl: 'modal-primes-content.html',
-            controller: 'ModalInstanceCtrl',
+            controller: 'PrimesEdsdDetailsCtrl',
+            backdrop: 'static',
             size: 'lg',
             resolve: {
                 items: function () {
@@ -254,16 +280,15 @@ angular.module('App.agent', ['ngRoute', 'ngCookies', 'ngSanitize', 'smart-table'
         }, function () {
             $log.info('Modal dismissed at: ' + new Date());
         });
-    }
+    };
 
 }])
 
-.controller('ModalInstanceCtrl', ['$scope','$uibModalInstance', 'items', function($scope, $uibModalInstance, items) {
+.controller('PrimesEdsdDetailsCtrl', ['$scope','$uibModalInstance', 'items', function($scope, $uibModalInstance, items) {
     $scope.ok = function () {
         $uibModalInstance.close();
     };
 
-    console.log(items);
     $scope.selectedPrime = items;
 
     $scope.cancel = function () {
@@ -278,10 +303,30 @@ angular.module('App.agent', ['ngRoute', 'ngCookies', 'ngSanitize', 'smart-table'
     }
 })
 
+.directive('datePicker', function() {
+    return {
+        restrict: 'E',
+        templateUrl: 'agent-view/directives/date-picker.html'
+    }
+})
+
+
 .directive('primes', function() {
     return {
         restrict: 'E',
         templateUrl: 'agent-view/directives/primes.html'
+    }
+})
+.directive('nonLogement', function() {
+    return {
+        restrict: 'E',
+        templateUrl: 'agent-view/directives/non-logement.html'
+    }
+})
+.directive('retenues', function() {
+    return {
+        restrict: 'E',
+        templateUrl: 'agent-view/directives/retenues.html'
     }
 })
 

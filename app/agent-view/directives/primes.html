@@ -1,82 +1,67 @@
-<div class="width-90">
-    <h4>Selectionnez les dates</h4>
-    <hr>
-    <div class="row">
-        <div class="col-xs-12 col-sm-12 col-md-4">
-            <label for="start-date">Start date: </label>
-            <p class="input-group">
-                <input type="text" class="form-control" uib-datepicker-popup="{{format}}"
-                    ng-model="primesGrade.startDate" is-open="popup1.opened" datepicker-options="dateOptions"
-                    name="start-date" id="start-date" ng-required="true" close-text="Close" ng-change="checkDates()"
-                    alt-input-formats="altInputFormats"/>
-                <span class="input-group-btn">
-                <button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
-            </span>
-            </p>
-        </div>
-        <div class="col-xs-12 col-sm-12 col-md-4"></div>
-        <div class="col-xs-12 col-sm-12 col-md-4">
-            <label for="end-date">End date: </label>
-            <p class="input-group">
-                <input type="text" class="form-control" uib-datepicker-popup="{{format}}"
-                ng-model="primesGrade.endDate" is-open="popup2.opened" datepicker-options="dateOptions"
-                name="end-date" id="end-date" ng-required="true" close-text="Close" ng-change="checkDates()"
-                alt-input-formats="altInputFormats"/>
-                <span class="input-group-btn">
-                    <button type="button" class="btn btn-default" ng-click="open2()"><i class="glyphicon glyphicon-calendar"></i></button>
-                </span>
-            </p>
-        </div>
-        <p class="error" ng-show="primesGrade.startDate && primesGrade.endDate && (primesGrade.startDate - primesGrade.endDate >= 0)">
-            "Start date" should not be equal to or greater than "End date"
-        </p>
-    </div><br><br>
-    <h4>Primes liees au grade/categorie</h4>
-    <hr>
-    <div class="row">
-        <div class="col-xs-12 col-sm-12 col-md-6">
-            <div class="form-group">
-                <label for="grade-category">Grade/Categorie: </label>
-                <select class="form-control" id="grade-category"
-                    ng-model="primesGrade.grade"
-                    ng-options="grade for grade in gradeOrCategoriesPrimes" required>
-                    <option></option>
-                </select>
+<div class="">
+    <h3>Primes</h3>
+    <hr />
+    <div class="width-90">
+        <h4>Primes liees au grade/categorie</h4>
+        <hr>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-4">
+                <div class="form-group">
+                    <label for="grade-category">Grade/Categorie: </label>
+                    <select class="form-control" id="grade-category"
+                        ng-model="selectedPrimesGrade"
+                        ng-options="primesByGrade.grade for primesByGrade in primesLieesAuGrade" required>
+                        <option></option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-4">
+                <div class="form-group">
+                    <label for="classe1">Classe: </label>
+                    <select class="form-control" id="classe1"
+                        ng-model="primesGrade" ng-change="setPrimesAndIndices(primesGrade, primesIndices, selectedPrimesGrade.grade)"
+                        ng-options="classes.classe for classes in selectedPrimesGrade.classes" required>
+                        <option></option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-4">
+                <div class="form-group">
+                    <label for="classe2">Montant: </label>
+                    <p class="form-control-static">{{ primesGrade.montant }}</p>
+                </div>
             </div>
         </div>
-        <div class="col-xs-12 col-sm-12 col-md-6">
-            <div class="form-group">
-                <label for="classe1">Classe: </label>
-                <select class="form-control" id="classe1"
-                    ng-model="primesGrade.classe"
-                    ng-options="classe for classe in classeGradeOrCatPrimes" required>
-                    <option></option>
-                </select>
+        <br>
+        <h4>Primes liees aux indices</h4>
+        <hr>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-4">
+                <div class="form-group" >
+                    <label for="groupe">Classe: </label>
+                    <select class="form-control" id="groupe"
+                        ng-model="primesIndices" ng-change="setPrimesAndIndices(primesGrade, primesIndices, selectedPrimesGrade.grade)"
+                        ng-options="indices.classe for indices in primesLieesAuxIndices" required>
+                        <option></option>
+                    </select>
+                </div>
             </div>
-        </div>
-    </div>
-    <br><br>
-    <h4>Primes liees aux indices</h4>
-    <hr>
-    <div class="row">
-        <div class="col-xs-12 col-sm-12 col-md-6">
-            <div class="form-group" >
-                <label for="groupe">Groupe: </label>
-                <select class="form-control" id="groupe"
-                    ng-model="indicesPrimes" ng-change="setGroupeAndClasse(indicesPrimes)"
-                    ng-options="groupe.groupe for groupe in groupeIndicesPrimes" ng-required="true">
-                    <option></option>
-                </select>
+            <div class="col-xs-12 col-sm-12 col-md-4">
+                <div class="form-group">
+                    <label for="classe2">Groupe: </label>
+                    <p class="form-control-static">{{primesIndices.groupe}}</p>
+                </div>
             </div>
-        </div>
-        <div class="col-xs-12 col-sm-12 col-md-6">
-            <div class="form-group">
-                <label for="classe2">Classe: </label>
-                <p class="form-control-static">{{ primesIndices.classe }}</p>
+            <div class="col-xs-12 col-sm-12 col-md-4">
+                <div class="form-group">
+                    <label for="classe2">Montant: </label>
+                    <div ng-repeat="indemnite in primesIndices.indemnites">
+                        <p class="form-control-static">{{ indemnite.name }}: {{ indemnite.montant }}</p>
+                    </div>
+
+                </div>
             </div>
         </div>
     </div>
-    <p class="error" ng-show="required">
-        "Start date" should not be equal to or greater than "End date"
-    </p>
+
 </div>

@@ -161,39 +161,65 @@
                         </div>
                     </div>
                 </div>
-                <hr>
+
                 <section>
                     <div class="edsd-section">
                         <br>
-                        <form class="" name="edsdForm" ng-submit="processEdsd()">
-                            <div>
-                                <!-- Nav tabs -->
-                                <ul class="nav nav-tabs" role="tablist">
-                                    <li role="presentation" class="active">
-                                        <a href="/agent#primes-tab" aria-controls="primes-tab" role="tab" data-toggle="tab">Primes</a>
-                                    </li>
-                                    <li role="presentation">
-                                        <a href="/agent#rappels-salaires-tab" aria-controls="rappels-salaires-tab" role="tab" data-toggle="tab">Rappels Salaires</a>
-                                    </li>
-                                </ul>
+                        <form class="" name="edsdForm" ng-submit="processEdsd($event)">
 
-                                <!-- Tab panes -->
-                                <div class="tab-content">
-                                    <div role="tabpanel" class="tab-pane fade in active" id="primes-tab">
-                                        <br><br>
-                                        <primes></primes>
-                                    </div>
-                                    <div role="tabpanel" class="tab-pane fade" id="rappels-salaires-tab">
-                                        <br><br>
-                                        <rappels-salaires></rappels-salaires>
+                            <date-picker></date-picker>
+
+                            <h4>Selectionnez le(s) EDSD a calculer</h4>
+                            <hr />
+                            <div class="row" style="margin: 0 auto;">
+                                <div class="col-xs-12 col-md-4">
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" name="primesModule"
+                                            ng-model="edsdModules.primes">Primes
+                                    </label>
+                                </div>
+                                <div class="col-xs-12 col-md-4">
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" name="nonLogementModule"
+                                            ng-model="edsdModules.nonLogement" >Non logement
+                                    </label>
+                                </div>
+                                <div class="col-xs-12 col-md-4">
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" >Rappels salaire
+                                    </label>
+                                </div>
+                            </div>
+                            <div ng-if="edsdModules.primes">
+                                <hr />
+                                <div class="row" style="margin: 0 auto;">
+                                    <div class="col-xs-12 col-md-3">
+                                        <label class="checkbox-inline">
+                                            <input type="checkbox" name="retenuesModule"
+                                                ng-model="edsdModules.retenues" ng-checked="false"><b>Avec retenues</b>
+                                        </label>
                                     </div>
                                 </div>
                             </div>
+                            <hr />
+                            <div class="" ng-if="edsdModules.primes">
+                                <br />
+                                <primes></primes>
+                            </div>
+                            <div class="" ng-if="edsdModules.primes && edsdModules.retenues">
+                                <br />
+                                <retenues></retenues>
+                            </div>
+                            <div class="" ng-if="edsdModules.nonLogement">
+                                <br />
+                                <non-logement></non-logement>
+                            </div>
                             <br>
-                            <hr><br><br>
-                            <div>
+                            <br><br>
+                            <div ng-if="edsdModules.primes || edsdModules.nonLogement">
+                                <hr />
                                 <button type="submit" class="btn btn-lg text-center"
-                                    ng-class="false ? 'btn btn-success' : 'btn btn-default'"
+                                    ng-class="true ? 'btn btn-success' : 'btn btn-default'"
                                     ng-disabled="">Process EDSD</button>
                             </div>
                             <br><br><br>
@@ -204,3 +230,80 @@
         </div>
     </div>
 </div>
+
+<!-- <script type="text/ng-template" id="modal-primesToBeProcessed-content.html">
+    <div class="modal-header">
+        <h3 class="modal-title" id="modal-title">
+            Primes
+        </h3>
+    </div>
+    <div class="modal-body" id="modal-body">
+        <div class="row">
+            <div class="col-xs-12">
+                <h4><b>Requester</b>: {{ requester.firstName }} {{ requester.lastName }}, {{ requester.accountNumber }}</h4>
+            </div>
+        </div>
+        <hr />
+        <div class="row">
+            <div class="col-xs-12">
+                <h4>Primes Liees au grade: </h4>
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-xs-12 col-sm-6 col-md-6">
+                <div class="form-group">
+                    <label>Satrt date: </label>
+                    <span class="form-control-static">{{ primesGrade.startDate | date: 'MMM d, y' }}</span>
+                </div>
+                <div class="form-group">
+                    <label>End date: </label>
+                    <span class="form-control-static">{{ primesGrade.endDate | date: 'MMM d, y'}}</span>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-6">
+                <div class="form-group">
+                    <label>Grade/Categorie: </label>
+                    <span class="form-control-static">{{ primesGrade.grade }}</span>
+                </div>
+                <div class="form-group">
+                    <label>Classe: </label>
+                    <span class="form-control-static">{{ primesGrade.classe }}</span>
+                </div>
+            </div>
+        </div>
+        <hr />
+        <div class="row">
+            <div class="col-xs-12">
+                <h4>Primes Liees aux indices: </h4>
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-xs-12 col-sm-6 col-md-6">
+                <div class="form-group">
+                    <label>Satrt date: </label>
+                    <span class="form-control-static">{{ primesIndices.startDate | date: 'MMM d, y'}}</span>
+                </div>
+                <div class="form-group">
+                    <label>End date: </label>
+                    <span class="form-control-static">{{ primesIndices.endDate | date: 'MMM d, y'}}</span>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-6">
+                <div class="form-group">
+                    <label>Groupe: </label>
+                    <span class="form-control-static">{{ primesIndices.groupe }}</span>
+                </div>
+                <div class="form-group">
+                    <label>Classe: </label>
+                    <span class="form-control-static">{{ primesIndices.classe }}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-success" type="button" ng-click="submit()">Submit</button>
+        <button class="btn btn-default" type="button" ng-click="cancel()">Cancel</button>
+    </div>
+</script> -->
