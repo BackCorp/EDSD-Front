@@ -204,6 +204,7 @@ angular.module('App.agent', ['ngRoute', 'ngCookies', 'ngSanitize', 'smart-table'
         $scope.primesGrade.startDate = $scope.date.startDate;
         $scope.primesIndices.endDate = $scope.date.endDate;
         $scope.primesGrade.endDate = $scope.date.endDate;
+
         $scope.change("primes-edsd-print.html");
     };
 
@@ -221,6 +222,14 @@ angular.module('App.agent', ['ngRoute', 'ngCookies', 'ngSanitize', 'smart-table'
     $scope.round = function(number) {
         return Math.round(number);
     }
+
+    /*--------- Calculations for Edsd preprint ---------*/
+    function getNumberOfDays(startDate, endDate) {
+        return (endDate - startDate + 1)/(24*3600000);
+    }
+    // function
+
+
 
     $scope.confirm = function () {
         $http({

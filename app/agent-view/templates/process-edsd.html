@@ -181,12 +181,13 @@
                                 <div class="col-xs-12 col-md-4">
                                     <label class="checkbox-inline">
                                         <input type="checkbox" name="nonLogementModule"
-                                            ng-model="edsdModules.nonLogement" >Non logement
+                                            ng-model="edsdModules.nonLogement">Non logement
                                     </label>
                                 </div>
                                 <div class="col-xs-12 col-md-4">
                                     <label class="checkbox-inline">
-                                        <input type="checkbox" >Rappels salaire
+                                        <input type="checkbox" name="rappelsSalairesModule"
+                                        ng-model="edsdModules.rappelsSalaires">Rappels salaires
                                     </label>
                                 </div>
                             </div>
@@ -196,7 +197,8 @@
                                     <div class="col-xs-12 col-md-3">
                                         <label class="checkbox-inline">
                                             <input type="checkbox" name="retenuesModule"
-                                                ng-model="edsdModules.retenues" ng-checked="false"><b>Avec retenues</b>
+                                                ng-model="edsdModules.retenues" ng-checked="false">
+                                                <b>Avec retenues</b>
                                         </label>
                                     </div>
                                 </div>
@@ -214,9 +216,13 @@
                                 <br />
                                 <non-logement></non-logement>
                             </div>
+                            <div class="" ng-if="edsdModules.rappelsSalaires">
+                                <br />
+                                <rappels-salaires></rappels-salaires>
+                            </div>
                             <br>
                             <br><br>
-                            <div ng-if="edsdModules.primes || edsdModules.nonLogement">
+                            <div ng-if="edsdModules.primes || edsdModules.nonLogement || edsdModules.rappelsSalaires">
                                 <hr />
                                 <button type="submit" class="btn btn-lg text-center"
                                     ng-class="true ? 'btn btn-success' : 'btn btn-default'"
