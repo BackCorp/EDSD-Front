@@ -6,9 +6,10 @@
         <div class="row" >
             <div class="col-xs-12 col-md-4">
                 <div class="form-group" lang="fr">
-                    <label for="non-logement">Salaire de base: </label>
-                    <input type="text" ng-min="0" class="form-control"
-                        name="rappelsSalaires" ng-model="rappelsSalaires.montant" step="any" required>
+                    <label for="rappels-salaires">Salaire de base: </label>
+                    <input type="number" ng-min="0" class="form-control"
+                        name="rappelsSalaires" ng-model="rappelsSalaires.salaireDeBase"
+                        ng-change="bindSalaires(rappelsSalaires.salaireDeBase)" step="any" required>
                 </div>
             </div>
         </div>

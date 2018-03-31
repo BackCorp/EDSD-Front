@@ -4,12 +4,12 @@
     <div class="width-90">
         <br />
         <div class="row" >
-            <div class="col-xs-12 col-md-4">
+            <div class="col-xs-12 col-sm-6 col-md-4">
                 <div class="form-group" lang="fr">
                     <label for="non-logement">Salaire de base: </label>
-                    <input type="text" ng-min="0" class="form-control"
-                        name="nonLogement" ng-model="nonLogement.montant" step="any"
-                         required>
+                    <input type="number" ng-min="0" class="form-control"
+                        name="nonLogement" ng-model="nonLogement.salaireDeBase"
+                        step="any" ng-change="bindSalaires(nonLogement.salaireDeBase)" required>
                 </div>
             </div>
         </div>

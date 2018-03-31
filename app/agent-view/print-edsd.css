@@ -4,24 +4,30 @@
         color: red !important;
         margin: 100px !important;
     }
-    header nav, footer {
+    header nav, footer, .error, #last-line {
         display: none;
     }
     img {
         max-width: 500px;
     }
-
-    * {
-          -webkit-print-color-adjust: exact;
-          print-color-adjust: exact;
-   }
-
-   div.buttons {
-       display: none !important;
-   }
-
-   body {
-    font: 12pt Georgia, "Times New Roman", Times, serif;
-    line-height: 1.3;
+    *{
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+    div.buttons {
+        display: none !important;
+    }
+    body {
+        font: 11pt Helvetica, "Times New Roman", Times, sans-serif;
+        line-height: 1;
+    }
+    .head {
+        font-size: 8pt !important;
+    }
+    .main-title {
+        font-size: 9pt !important;
+    }
+    hr {
+        border: 0.39px solid #F7F7F7 !important;
     }
 }

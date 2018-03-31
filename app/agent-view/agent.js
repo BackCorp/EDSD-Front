@@ -18,9 +18,9 @@ angular.module('App.agent', ['ngRoute', 'ngCookies', 'ngSanitize', 'smart-table'
     }).otherwise({redirectTo: '/login'});
 }])
 
-.controller('AgentCtrl', ['$scope','$location','$cookies','$http','$sce','$templateCache','$uibModal',
-    'headerService','storageService','requesterService','primesDataService','writtenNumberService',
-    function($scope, $location, $cookies, $http, $sce, $templateCache, $uibModal,
+.controller('AgentCtrl', ['$scope','$location','$cookies','$http','$sce','$templateCache',
+    '$window','$uibModal','headerService','storageService','requesterService','primesDataService','writtenNumberService',
+    function($scope, $location, $cookies, $http, $sce, $templateCache,$window,$uibModal,
         headerService, storageService, requesterService, primesDataService, writtenNumberService) {
 
     $scope.logout = function() {
@@ -44,7 +44,8 @@ angular.module('App.agent', ['ngRoute', 'ngCookies', 'ngSanitize', 'smart-table'
     $scope.primesIndices={};
     $scope.nonLogement={};
     $scope.retenues={};
-    $scope.retenues.montants=[];
+    $scope.rappelsSalaires={};
+    $scope.print={};
     $scope.date={};
 
     $scope.modelOptions = {
@@ -201,54 +202,93 @@ angular.module('App.agent', ['ngRoute', 'ngCookies', 'ngSanitize', 'smart-table'
 
     $scope.processEdsd = function($event, primesGrade) {
         $scope.primesIndices.startDate = $scope.date.startDate;
-        $scope.primesGrade.startDate = $scope.date.startDate;
         $scope.primesIndices.endDate = $scope.date.endDate;
         $scope.primesGrade.endDate = $scope.date.endDate;
-
+        $scope.primesGrade.startDate = $scope.date.startDate;
+        $scope.nonLogement.startDate = $scope.date.startDate;
+        $scope.nonLogement.endDate = $scope.date.endDate;
+        $scope.rappelsSalaires.startDate = $scope.date.startDate;
+        $scope.rappelsSalaires.endDate = $scope.date.endDate;
+        $scope.retenues.startDate = $scope.date.startDate;
+        $scope.retenues.endDate = $scope.date.endDate;
+        $scope.print = setEdsdPrint();
         $scope.change("primes-edsd-print.html");
     };
 
     $scope.cancelEdsdProcess = function() {
         $scope.change("process-edsd.html");
-    }
+    };
 
     $scope.primes = {};
     $scope.primes.message = null;
 
     $scope.getWrittenNumber = function(number, lang) {
         return writtenNumberService.getWrittenNumber($scope.round(number), lang);
-    }
+    };
 
     $scope.round = function(number) {
         return Math.round(number);
-    }
+    };
+
+    $scope.bindSalaires = function(salaires) {
+        $scope.nonLogement.salaireDeBase = salaires;
+        $scope.rappelsSalaires.salaireDeBase = salaires;
+    };
 
     /*--------- Calculations for Edsd preprint ---------*/
     function getNumberOfDays(startDate, endDate) {
         return (endDate - startDate + 1)/(24*3600000);
     }
-    // function
 
+    function setEdsdPrint() {
+        var obj =  {
+            startDate: $scope.date.startDate,
+            endDate: $scope.date.endDate,
+            period: $scope.round(($scope.date.endDate - $scope.date.startDate + 1)/(24*3600000)),
+        };
+        if($scope.edsdModules.primes) {
+            obj.primes = {
+                techniciteMontant: $scope.primesGrade.montant || 0,
+                publicSanteMontant: $scope.primesIndices.indemnites[0].montant || 0,
+                astreinteSanteMontant: $scope.primesIndices.indemnites[1].montant || 0,
+                taxTP: ($scope.primesGrade.montant + $scope.primesIndices.indemnites[0].montant + $scope.primesIndices.indemnites[1].montant)*(5.28/100) || 0,
+                afterTax: function() { return (this.taxTP/(5.28/100)) * (1 - 5.28/100) || 0 }
+            };
+        }
+        if($scope.edsdModules.nonLogement) {
+            obj.nonLogement = { montant: $scope.nonLogement.salaireDeBase };
+        }
+        if($scope.edsdModules.retenues) {
+            obj.retenues = { montant: $scope.retenues.montant };
+        }
+        if($scope.edsdModules.rappelsSalaires) {
+            obj.rappelsSalaires = { montant: $scope.rappelsSalaires.salaireDeBase };
+        }
+        return obj;
+    }
 
-
-    $scope.confirm = function () {
+    $scope.imprimer = function () {
+        // $window.print();
         $http({
             method: 'POST',
             url: 'http://localhost:8080/api/edsd/primes/',
             data: {
-                primesGrade: $scope.primesGrade,
-                primesIndices: $scope.primesIndices,
+                primesGrade: ($scope.edsdModules.primes) ? $scope.primesGrade : null,
+                primesIndices: ($scope.edsdModules.primes) ? $scope.primesIndices : null,
+                nonLogement: ($scope.edsdModules.nonLogement) ? $scope.nonLogement : null,
+                rappelsSalaires: ($scope.edsdModules.rappelsSalaires) ? $scope.rappelsSalaires : null,
+                retenues: ($scope.edsdModules.retenues) ? $scope.retenues.montant : 0.0,
                 requesterAccountNumber: $scope.requester.accountNumber
             }
         }).then(
             function(resp) {
                 if(resp.data) {
                     console.log(resp);
-                    $scope.change("process-edsd.html");
-                    $scope.primesGrade={};
-                    $scope.primesIndices={};
-                    $scope.requester={};
-                    $scope.selected = false;
+                    // $scope.change("process-edsd.html");
+                    // $scope.primesGrade={};
+                    // $scope.primesIndices={};
+                    // $scope.requester={};
+                    // $scope.selected = false;
                 } else {
                     $scope.primes.message = "The current requester has been processed already."
                 }

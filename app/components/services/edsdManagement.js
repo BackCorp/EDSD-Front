@@ -52,17 +52,17 @@ angular.module('services.edsdManagement', [
                 indemnites:[{name: 'Sante Publique', montant: 10000},{name: 'Astreinte', montant: 6000}]
             },
             {
-                classe: "Egual ou superieur a 196 et inferieur a 530",
+                classe: "Egal ou superieur a 196 et inferieur a 530",
                 groupe: 'III',
                 indemnites:[{name: 'Sante Publique', montant: 15000},{name: 'Astreinte', montant: 8000}],
             },
             {
-                classe: "Egual ou superieur a 530 et inferieur a 870",
+                classe: "Egal ou superieur a 530 et inferieur a 870",
                 groupe: 'II',
                 indemnites:[{name: 'Sante Publique', montant: 21000},{name: 'Astreinte', montant: 10000}],
             },
             {
-                classe: "Egual ou superieur a 870",
+                classe: "Egal ou superieur a 870",
                 groupe: 'I',
                 indemnites:[{name: 'Sante Publique', montant: 30000},{name: 'Astreinte', montant: 12000}],
             }
