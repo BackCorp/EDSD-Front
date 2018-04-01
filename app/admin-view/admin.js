@@ -193,7 +193,7 @@ angular.module('App.admin', ['ngRoute', 'ngCookies', 'ngSanitize'])
     };
 
     headerService.setAuthHeader(storageService.getSession('session'));
-    $http.get("http://localhost:8080/api/stats").then(
+    $http.get("http://localhost:8080/api/admin/stats").then(
         function(response){
             $scope.stats = response.data;
             console.log($scope.stats);

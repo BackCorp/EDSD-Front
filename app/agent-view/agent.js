@@ -325,17 +325,17 @@ angular.module('App.agent', ['ngRoute', 'ngCookies', 'ngSanitize', 'smart-table'
         console.log(rappelsSalaires);
     });
 
-    $scope.showDetails = function($event, prime) {
+    $scope.showDetails = function($event, edsd, template) {
         $event.preventDefault();
         var modalInstance = $uibModal.open({
             animation: true,
-            templateUrl: 'modal-primes-content.html',
-            controller: 'PrimesEdsdDetailsCtrl',
+            templateUrl: template,
+            controller: 'EdsdDetailsCtrl',
             backdrop: 'static',
             size: 'lg',
             resolve: {
                 items: function () {
-                    return prime;
+                    return edsd;
                 }
             }
         });
@@ -349,12 +349,12 @@ angular.module('App.agent', ['ngRoute', 'ngCookies', 'ngSanitize', 'smart-table'
 
 }])
 
-.controller('PrimesEdsdDetailsCtrl', ['$scope','$uibModalInstance', 'items', function($scope, $uibModalInstance, items) {
+.controller('EdsdDetailsCtrl', ['$scope','$uibModalInstance', 'items', function($scope, $uibModalInstance, items) {
     $scope.ok = function () {
         $uibModalInstance.close();
     };
 
-    $scope.selectedPrime = items;
+    $scope.selectedItem = items;
 
     $scope.cancel = function () {
         $uibModalInstance.dismiss();

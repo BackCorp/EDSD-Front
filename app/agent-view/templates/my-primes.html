@@ -24,7 +24,7 @@
         			</tr>
     			</thead>
     			<tbody>
-        			<tr ng-repeat="prime in primes" class="primes-table" ng-click="showDetails($event, prime);">
+        			<tr ng-repeat="prime in primes" class="primes-table" ng-click="showDetails($event, prime, 'modal-primes-content.html');">
         				<td><a>{{prime.createdDate | date:'MMM d, y h:mm a'}}</a></td>
         				<td><a>{{prime.belongsToRequester.firstName}}</a></td>
         				<td><a>{{prime.belongsToRequester.lastName}}</a></td>
@@ -43,8 +43,8 @@
     <div class="modal-header">
         <h3 class="modal-title" id="modal-title">
             Primes -
-            {{ selectedPrime.belongsToRequester.firstName }} {{ selectedPrime.belongsToRequester.lastName }},
-            {{ selectedPrime.belongsToRequester.accountNumber }}
+            {{ selectedItem.belongsToRequester.firstName }} {{ selectedItem.belongsToRequester.lastName }},
+            {{ selectedItem.belongsToRequester.accountNumber }}
         </h3>
     </div>
     <div class="modal-body" id="modal-body">
@@ -58,39 +58,39 @@
             <div class="col-xs-12 col-sm-6 col-md-4">
                 <div class="form-group">
                     <label>Created on: </label>
-                    <span class="form-control-static">{{ selectedPrime.createdDate | date:'MMM d, y h:mm a' }}</span>
+                    <span class="form-control-static">{{ selectedItem.createdDate | date:'MMM d, y h:mm a' }}</span>
                 </div>
                 <div class="form-group">
                     <label>Satrt date: </label>
-                    <span class="form-control-static">{{ selectedPrime.startDate | date: 'MMM d, y' }}</span>
+                    <span class="form-control-static">{{ selectedItem.startDate | date: 'MMM d, y' }}</span>
                 </div>
                 <div class="form-group">
                     <label>End date: </label>
-                    <span class="form-control-static">{{ selectedPrime.endDate | date: 'MMM d, y'}}</span>
+                    <span class="form-control-static">{{ selectedItem.endDate | date: 'MMM d, y'}}</span>
                 </div>
             </div>
             <div class="col-xs-12 col-sm-6 col-md-4">
                 <div class="form-group">
                     <label>Mois: </label>
-                    <span class="form-control-static">{{ selectedPrime.numberOfPrimesMonths | number : 3 }}</span>
+                    <span class="form-control-static">{{ selectedItem.numberOfPrimesMonths | number : 3 }}</span>
                 </div>
                 <div class="form-group">
                     <label>Grade/Categorie: </label>
-                    <span class="form-control-static">{{ selectedPrime.grade }}</span>
+                    <span class="form-control-static">{{ selectedItem.grade }}</span>
                 </div>
                 <div class="form-group">
                     <label>Classe: </label>
-                    <span class="form-control-static">{{ selectedPrime.classeLieeAuGrade }}</span>
+                    <span class="form-control-static">{{ selectedItem.classeLieeAuGrade }}</span>
                 </div>
             </div>
             <div class="col-xs-12 col-sm-6 col-md-4">
                 <div class="form-group">
                     <label>Indemnite: </label>
-                    <span class="form-control-static">{{ selectedPrime.indemniteLieeAuGradeTechnicite | currency : "FCFA " : 3 }}</span>
+                    <span class="form-control-static">{{ selectedItem.indemniteLieeAuGradeTechnicite | currency : "FCFA " : 3 }}</span>
                 </div>
                 <div class="form-group">
                     <label>Montant de la prime: </label>
-                    <span class="form-control-static">{{ selectedPrime.computedPrimesGrade | currency : "FCFA " : 3 }}</span>
+                    <span class="form-control-static">{{ selectedItem.computedPrimesGrade | currency : "FCFA " : 3 }}</span>
                 </div>
             </div>
         </div>
@@ -105,43 +105,43 @@
             <div class="col-xs-12 col-sm-6 col-md-4">
                 <div class="form-group">
                     <label>Created on: </label>
-                    <span class="form-control-static">{{ selectedPrime.createdDate | date:'MMM d, y h:mm a' }}</span>
+                    <span class="form-control-static">{{ selectedItem.createdDate | date:'MMM d, y h:mm a' }}</span>
                 </div>
                 <div class="form-group">
                     <label>Satrt date: </label>
-                    <span class="form-control-static">{{ selectedPrime.startDate | date: 'MMM d, y'}}</span>
+                    <span class="form-control-static">{{ selectedItem.startDate | date: 'MMM d, y'}}</span>
                 </div>
                 <div class="form-group">
                     <label>End date: </label>
-                    <span class="form-control-static">{{ selectedPrime.endDate | date: 'MMM d, y'}}</span>
+                    <span class="form-control-static">{{ selectedItem.endDate | date: 'MMM d, y'}}</span>
                 </div>
             </div>
             <div class="col-xs-12 col-sm-6 col-md-4">
                 <div class="form-group">
                     <label>Mois: </label>
-                    <span class="form-control-static">{{ selectedPrime.numberOfPrimesMonths | number : 3 }}</span>
+                    <span class="form-control-static">{{ selectedItem.numberOfPrimesMonths | number : 3 }}</span>
                 </div>
                 <div class="form-group">
                     <label>Groupe: </label>
-                    <span class="form-control-static">{{ selectedPrime.groupe }}</span>
+                    <span class="form-control-static">{{ selectedItem.groupe }}</span>
                 </div>
                 <div class="form-group">
                     <label>Classe: </label>
-                    <span class="form-control-static">{{ selectedPrime.classeLieeAuxIndices }}</span>
+                    <span class="form-control-static">{{ selectedItem.classeLieeAuxIndices }}</span>
                 </div>
             </div>
             <div class="col-xs-12 col-sm-6 col-md-4">
                 <div class="form-group">
                     <label>Indemnite astreinte: </label>
-                    <span class="form-control-static">{{ selectedPrime.indemniteLieeAuxIndicesAstreinte | currency : "FCFA " : 2 }}</span>
+                    <span class="form-control-static">{{ selectedItem.indemniteLieeAuxIndicesAstreinte | currency : "FCFA " : 2 }}</span>
                 </div>
                 <div class="form-group">
                     <label>Indemnite sante publique: </label>
-                    <span class="form-control-static">{{ selectedPrime.indemniteLieeAuxIndicesSantePublique | currency : "FCFA " : 2 }}</span>
+                    <span class="form-control-static">{{ selectedItem.indemniteLieeAuxIndicesSantePublique | currency : "FCFA " : 2 }}</span>
                 </div>
                 <div class="form-group">
                     <label>Montant de la prime: </label>
-                    <span class="form-control-static">{{ selectedPrime.computedPrimesIndices | currency : "FCFA " : 2 }}</span>
+                    <span class="form-control-static">{{ selectedItem.computedPrimesIndices | currency : "FCFA " : 2 }}</span>
                 </div>
             </div>
         </div>
