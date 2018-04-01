@@ -278,13 +278,13 @@
                             = {{ (print.nonLogement.montant * 20/100.0 + print.rappelsSalaires.montant - print.retenues.montant) * print.period/30.0 | number: 2 }}
                                 soit {{ (print.nonLogement.montant * 20/100.0 + print.rappelsSalaires.montant - print.retenues.montant) * print.period/30.0 | number: 0 }}</b></td>
 
-                        <td ng-if="edsdModules.primes && edsdModules.nonLogement && edsdModules.retenues && edsdModules.rappelsSalaires">
+                        <td ng-if="edsdModules.primes && edsdModules.nonLogement && edsdModules.rappelsSalaires && edsdModules.retenues">
                             <b>{{ print.primes.afterTax() * print.period/30.0 | number: 2 }}
                                 + {{ print.nonLogement.montant * 20/100.0 * print.period/30.0 | number: 2 }}
                                 + {{ print.rappelsSalaires.montant * print.period/30.0 | number: 2 }}
                                 - {{ print.retenues.montant * print.period/30.0 | number: 2 }} =
-                            {{ (print.primes.afterTax() + nonLogement.montant * 20/100.0 - print.retenues.montant) * print.period/30.0 | number: 2 }}
-                                soit {{ (print.primes.afterTax() + nonLogement.montant * 20/100.0 + print.rappelsSalaires.montant * print.period/30.0 - print.retenues.montant) * print.period/30.0 | number: 0 }}</b></td>
+                            {{ (print.primes.afterTax() + print.nonLogement.montant * 20/100.0 + print.rappelsSalaires.montant - print.retenues.montant) * print.period/30.0 | number: 2 }}
+                                soit {{ (print.primes.afterTax() + print.nonLogement.montant * 20/100.0 + print.rappelsSalaires.montant - print.retenues.montant) * print.period/30.0 | number: 0 }}</b></td>
                     </tr>
                 </tbody>
             </table>

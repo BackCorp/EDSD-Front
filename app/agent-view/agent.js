@@ -216,6 +216,7 @@ angular.module('App.agent', ['ngRoute', 'ngCookies', 'ngSanitize', 'smart-table'
     };
 
     $scope.cancelEdsdProcess = function() {
+        $scope.edsdModules.retenues = false;
         $scope.change("process-edsd.html");
     };
 
@@ -223,6 +224,9 @@ angular.module('App.agent', ['ngRoute', 'ngCookies', 'ngSanitize', 'smart-table'
     $scope.primes.message = null;
 
     $scope.getWrittenNumber = function(number, lang) {
+        if(number < 0) {
+            return "Moins " + writtenNumberService.getWrittenNumber($scope.round(Math.abs(number)), lang);
+        }
         return writtenNumberService.getWrittenNumber($scope.round(number), lang);
     };
 
@@ -271,7 +275,7 @@ angular.module('App.agent', ['ngRoute', 'ngCookies', 'ngSanitize', 'smart-table'
         // $window.print();
         $http({
             method: 'POST',
-            url: 'http://localhost:8080/api/edsd/primes/',
+            url: 'http://localhost:8080/api/edsd',
             data: {
                 primesGrade: ($scope.edsdModules.primes) ? $scope.primesGrade : null,
                 primesIndices: ($scope.edsdModules.primes) ? $scope.primesIndices : null,
@@ -289,11 +293,10 @@ angular.module('App.agent', ['ngRoute', 'ngCookies', 'ngSanitize', 'smart-table'
                     // $scope.primesIndices={};
                     // $scope.requester={};
                     // $scope.selected = false;
-                } else {
-                    $scope.primes.message = "The current requester has been processed already."
                 }
             }, function(resp) {
                 console.log(resp);
+                $scope.primes.message = 
             }
         );
     };

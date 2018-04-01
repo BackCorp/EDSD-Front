@@ -9,10 +9,9 @@ angular.module('services.edsdManagement', [
             {
                 grade: 'A1',
                 classes: [
-                    {classe: 'Classe 1',indemnite:'Technicite',montant: 15000},
-                    {classe: 'Classe 2',indemnite:'Technicite',montant: 12500},
-                    {classe: 'Classe exceptionnelle',indemnite:'Technicite',montant: 30000},
-                    {classe: 'Hors echelle',indemnite:'Technicite',montant: 30000},
+                    {classe: 'Classe 1',indemnite:'Technicite',montant: 12500},
+                    {classe: 'Classe 2',indemnite:'Technicite',montant: 10000},
+                    {classe: 'Classe exceptionnelle',indemnite:'Technicite',montant: 25000},
                 ]
             },
             {
@@ -27,19 +26,17 @@ angular.module('services.edsdManagement', [
             {
                 grade: 'B1',
                 classes: [
-                    {classe: 'Classe 1',indemnite:'Technicite',montant: 15000},
-                    {classe: 'Classe 2',indemnite:'Technicite',montant: 12500},
-                    {classe: 'Classe exceptionnelle',indemnite:'Technicite',montant: 30000},
-                    {classe: 'Hors echelle',indemnite:'Technicite',montant: 30000},
+                    {classe: 'Classe 1',indemnite:'Technicite',montant: 6000},
+                    {classe: 'Classe 2',indemnite:'Technicite',montant: 5000},
+                    {classe: 'Classe exceptionnelle',indemnite:'Technicite',montant: 10000}
                 ]
             },
             {
                 grade: 'B2',
                 classes: [
-                    {classe: 'Classe 1',indemnite:'Technicite',montant: 15000},
-                    {classe: 'Classe 2',indemnite:'Technicite',montant: 12500},
-                    {classe: 'Classe exceptionnelle',indemnite:'Technicite',montant: 30000},
-                    {classe: 'Hors echelle',indemnite:'Technicite',montant: 30000},
+                    {classe: 'Classe 1',indemnite:'Technicite',montant: 10000},
+                    {classe: 'Classe 2',indemnite:'Technicite',montant: 6000},
+                    {classe: 'Classe exceptionnelle',indemnite:'Technicite',montant: 18000}
                 ]
             }
         ];
