@@ -12,7 +12,7 @@
                 <p>SERVICE DES REQUETES</p></b>
             </div>
             <div class="col-xs-2 text-center" style="height:100%; margin-top:25px;">
-                <img src="img/logo-EDSD.png" align="middle" class="img-resposive" alt="">
+                <img src="img/logo-edsd.png" align="middle" class="img-resposive" alt="">
             </div>
             <div class="col-xs-2 text-center" style="height:100%; margin-top:25px;">
                 <img src="img/logo-armoirie.png" align="middle" class="img-resposive" alt="">
@@ -353,8 +353,11 @@
     </section>
 
     <hr id="last-line"/><br />
-    <div ng-if="primes.message" class="alert alert-warning error">
-        {{ primes.message }}
+    <div ng-if="edsdModules.error" class="alert alert-danger error">
+        {{ edsdModules.error }}
+    </div>
+    <div ng-if="edsdModules.print" class="alert alert-success error">
+        {{ edsdModules.print }}
     </div>
     <div class="buttons">
         <button type="submit" class="btn btn-lg text-center"

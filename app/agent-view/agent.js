@@ -18,9 +18,9 @@ angular.module('App.agent', ['ngRoute', 'ngCookies', 'ngSanitize', 'smart-table'
     }).otherwise({redirectTo: '/login'});
 }])
 
-.controller('AgentCtrl', ['$scope','$location','$cookies','$http','$sce','$templateCache',
+.controller('AgentCtrl', ['$scope','$location','$cookies','$http','$sce','$templateCache','$timeout',
     '$window','$uibModal','headerService','storageService','requesterService','primesDataService','writtenNumberService',
-    function($scope, $location, $cookies, $http, $sce, $templateCache,$window,$uibModal,
+    function($scope, $location, $cookies, $http, $sce, $templateCache,$timeout,$window,$uibModal,
         headerService, storageService, requesterService, primesDataService, writtenNumberService) {
 
     $scope.logout = function() {
@@ -217,6 +217,7 @@ angular.module('App.agent', ['ngRoute', 'ngCookies', 'ngSanitize', 'smart-table'
 
     $scope.cancelEdsdProcess = function() {
         $scope.edsdModules.retenues = false;
+        $scope.primes.message = false;
         $scope.change("process-edsd.html");
     };
 
@@ -272,7 +273,7 @@ angular.module('App.agent', ['ngRoute', 'ngCookies', 'ngSanitize', 'smart-table'
     }
 
     $scope.imprimer = function () {
-        // $window.print();
+        headerService.setAuthHeader(storageService.getSession('session'));
         $http({
             method: 'POST',
             url: 'http://localhost:8080/api/edsd',
@@ -286,17 +287,24 @@ angular.module('App.agent', ['ngRoute', 'ngCookies', 'ngSanitize', 'smart-table'
             }
         }).then(
             function(resp) {
-                if(resp.data) {
-                    console.log(resp);
-                    // $scope.change("process-edsd.html");
-                    // $scope.primesGrade={};
-                    // $scope.primesIndices={};
-                    // $scope.requester={};
-                    // $scope.selected = false;
-                }
+                console.log(resp);
+                $scope.edsdModules.print = "Your EDSD has been successfully processed.";
+                $scope.edsdModules.error = false;
+                $window.print();
+                $timeout( function(){
+                    $scope.primesGrade={};
+                    $scope.primesIndices={};
+                    $scope.nonLogement={};
+                    $scope.rappelsSalaires={}
+                    $scope.retenues=null;
+                    $scope.requester={};
+                    $scope.edsdModules={};
+                    $scope.selected = false;
+                    $scope.change('my-primes-edsd.html');
+                }, 8000 );
             }, function(resp) {
                 console.log(resp);
-                $scope.primes.message = 
+                $scope.edsdModules.error = resp.data.body;
             }
         );
     };
@@ -309,6 +317,12 @@ angular.module('App.agent', ['ngRoute', 'ngCookies', 'ngSanitize', 'smart-table'
     headerService.setAuthHeader(storageService.getSession('session'));
     $scope.getPrimesEdsds = edsdService.getPrimesEdsd().query(function(primesEdsd) {
         console.log(primesEdsd);
+    });
+    $scope.getNonLogementEdsds = edsdService.getNonLogementEdsd().query(function(nonLogement) {
+        console.log(nonLogement);
+    });
+    $scope.getRappelsSalairesEdsds = edsdService.getRappelsSalairesEdsd().query(function(rappelsSalaires) {
+        console.log(rappelsSalaires);
     });
 
     $scope.showDetails = function($event, prime) {
@@ -327,8 +341,7 @@ angular.module('App.agent', ['ngRoute', 'ngCookies', 'ngSanitize', 'smart-table'
         });
 
         modalInstance.result.then(function (selectedItem) {
-            // $scope.selectedPrime = selectedItem;
-            // $log.info(selectedItem);
+
         }, function () {
             $log.info('Modal dismissed at: ' + new Date());
         });
