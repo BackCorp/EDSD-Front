@@ -19,7 +19,8 @@ angular.module('App.admin', ['ngRoute', 'ngCookies', 'ngSanitize'])
     }).otherwise({redirectTo: '/login'});
 }])
 
-.controller('AdminCtrl', function($scope, $location, $cookies, $http, headerService, storageService, agentService) {
+.controller('AdminCtrl', function($scope, $location, $cookies, $http, $timeout,
+    headerService, storageService, agentService) {
     $scope.logout = function() {
         storageService.clear();
         $cookies.remove('XSRF-TOKEN');
@@ -40,6 +41,7 @@ angular.module('App.admin', ['ngRoute', 'ngCookies', 'ngSanitize'])
     $scope.disabledAgent;
     $scope.showRole = undefined;
     $scope.error = {};
+    $scope.success={};
     $scope.agents;
 
     $scope.getAgents = function (search) {
@@ -160,13 +162,14 @@ angular.module('App.admin', ['ngRoute', 'ngCookies', 'ngSanitize'])
     $scope.activateAgent = function(model) {
         headerService.setAuthHeader(storageService.getSession('session'));
         var ag = agentService.getAgent().get({username: model.username}, function(ag) {
-            console.log(ag);
             ag.active = model.active;
             ag.$update(function(updated) {
-                console.log("acivated")
-                console.log(updated);
-                $scope.disabledAgent = updated;
-                $scope.disabledSelected = false;
+                $scope.success.message = true;
+                $timeout(function(){
+                    $scope.disabledAgent = updated;
+                    $scope.disabledSelected = false;
+                    $scope.success.message = false;
+                }, 5000);
             });
         });
     };
@@ -177,10 +180,12 @@ angular.module('App.admin', ['ngRoute', 'ngCookies', 'ngSanitize'])
             console.log(ag);
             ag.active = model.active;
             ag.$update(function(updated) {
-                console.log("deacivated")
-                console.log(updated);
-                $scope.agent = updated;
-                $scope.selected = false;
+                $scope.success.message = true;
+                $timeout(function(){
+                    $scope.agent = updated;
+                    $scope.selected = false;
+                    $scope.success.message = false;
+                }, 5000);
             });
         });
     };
@@ -189,6 +194,7 @@ angular.module('App.admin', ['ngRoute', 'ngCookies', 'ngSanitize'])
         headerService.setAuthHeader(storageService.getSession('session'));
         agentService.getAgent().query(function(allags) {
             $scope.allAgents = allags;
+            console.log(allags);
         });
     };
 

@@ -42,7 +42,7 @@
                                         <p class="form-control-static">{{agent.email}}</p>
                                     </div>
                                     <div class="form-group">
-                                        <div class="checkbox" ng-class="enabled ? 'btn btn-default' : 'btn btn-success'">
+                                        <div class="checkbox" ng-class="enabled ? 'btn btn-success' : 'btn btn-default'">
                                             <label><input type="checkbox" ng-model="enabled"
                                                 ng-click="setActiveDisabled(enabled)" required>
                                                 <b>Deactivate Agent</b></label>
@@ -50,10 +50,12 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="alert alert-success" ng-if="success.message">
+                                {{agent.firstName}} {{agent.lastName}}'s agent account has been deactivated.
+                            </div>
                             <hr>
-                            <div>
-                                <button type="submit" class="btn btn-lg btn-success text-center"
-                                    ng-disabled="!enabled">Save</button>
+                            <div ng-if="enabled">
+                                <button type="submit" class="btn btn-lg btn-success text-center">Save</button>
                             </div>
                         </form>
                     </div>
