@@ -1,7 +1,7 @@
 
 <form class="" role="form" name="search-agent">
     <input type="text" ng-model="asyncSearch" placeholder="Enter employee number or first name or last name"
-            uib-typeahead="agent as agent.name for agent in getDisabledAgents($viewValue) | limitTo:8"
+            uib-typeahead="disabledAagent as disabledAagent.name for disabledAagent in getDisabledAgents($viewValue) | limitTo:8"
             typeahead-wait-ms="1000" ng-model-options="modelOptions"
             typeahead-loading="loadingAgents" class="form-control"
             typeahead-no-results="noResults" typeahead-min-length="3"

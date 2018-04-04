@@ -1,7 +1,3 @@
 html {
     background: #f9fbe7 !important;
 }
-
-.nav-second-level, .nav-first-level, .dropdown-user.li{
-    cursor: pointer;
-}

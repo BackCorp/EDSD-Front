@@ -1,0 +1,192 @@
+
+<div >
+    <div class="row">
+        <div class="col-xs-12">
+            <h3 class="page-header">Primes EDSD</h3>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12">
+		    <table st-table="primes" st-safe-src="getPrimesEdsds" class="table table-stroped table-hover">
+    			<thead>
+        			<tr>
+        				<th ng-if="createdByField" st-sort="createdBy">Created By</th>
+        				<th st-sort="createdDate">Created date</th>
+        				<th st-sort="firstName">First name</th>
+        				<th st-sort="lastName">Last name</th>
+        				<th st-sort="accountName">Matricule</th>
+        				<th st-sort="computedPrimes">Computed primes</th>
+        				<th st-sort="startDate">Start date</th>
+        				<th st-sort="endDate">End date</th>
+        			</tr>
+        			<tr>
+        				<th colspan="9"><input st-search="" class="form-control" placeholder="search ..." type="text"/></th>
+        			</tr>
+    			</thead>
+    			<tbody>
+                    <tr ng-repeat="prime in primes" class="primes-table" ng-click="showDetails($event, prime, 'modal-primes-content.html')">
+        				<td ng-if="prime.createdByFirstName"><a>
+                            {{ prime.createdByFirstName }}
+                            {{ prime.createdByLastName }},
+                            {{ prime.createdByUsername }}
+                        </a></td>
+        				<td><a>{{prime.edsd.createdDate || prime.createdDate | date:'d MMM, y h:mm a'}}</a></td>
+        				<td><a>{{prime.edsd.belongsToRequester.firstName || prime.belongsToRequester.firstName}}</a></td>
+        				<td><a>{{prime.edsd.belongsToRequester.lastName || prime.belongsToRequester.lastName}}</a></td>
+        				<td><a>{{prime.edsd.belongsToRequester.accountNumber || prime.belongsToRequester.accountNumber}}</a></td>
+        				<td><a>{{prime.edsd.computedPrimes || prime.computedPrimes | currency : "FCFA " : 2}}</a></td>
+        				<td><a>{{prime.edsd.startDate || prime.startDate | date: 'mediumDate'}}</a></td>
+        				<td><a>{{prime.edsd.endDate || prime.endDate | date: 'mediumDate'}}</a></td>
+        			</tr>
+    			</tbody>
+		    </table>
+        </div>
+	</div>
+</div>
+
+<script type="text/ng-template" id="modal-primes-content.html">
+    <div class="modal-header">
+        <h3 class="modal-title" id="modal-title">
+            Primes -
+            {{ selectedItem.belongsToRequester.firstName || selectedItem.edsd.belongsToRequester.firstName }}
+            {{ selectedItem.belongsToRequester.lastName || selectedItem.edsd.belongsToRequester.lastName}},
+            {{ selectedItem.belongsToRequester.accountNumber || selectedItem.edsd.belongsToRequester.accountNumber }}
+        </h3>
+    </div>
+    <div class="modal-body" id="modal-body">
+        <div class="row">
+            <div class="col-xs-12">
+                <h4>Primes Liees au grade: </h4>
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-xs-12 col-sm-6 col-md-4">
+                <div class="form-group">
+                    <label>Created on: </label>
+                    <span class="form-control-static">
+                        {{ selectedItem.createdDate || selectedItem.edsd.createdDate | date:'MMM d, y h:mm a' }}
+                    </span>
+                </div>
+                <div class="form-group">
+                    <label>Satrt date: </label>
+                    <span class="form-control-static">
+                        {{ selectedItem.startDate || selectedItem.edsd.startDate | date: 'MMM d, y' }}
+                    </span>
+                </div>
+                <div class="form-group">
+                    <label>End date: </label>
+                    <span class="form-control-static">
+                        {{ selectedItem.endDate || selectedItem.edsd.endDate | date: 'MMM d, y'}}
+                    </span>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-4">
+                <div class="form-group">
+                    <label>Mois: </label>
+                    <span class="form-control-static">
+                        {{ selectedItem.numberOfMonths || selectedItem.edsd.numberOfMonths | number : 3 }}
+                    </span>
+                </div>
+                <div class="form-group">
+                    <label>Grade/Categorie: </label>
+                    <span class="form-control-static">
+                        {{ selectedItem.grade || selectedItem.edsd.grade }}
+                    </span>
+                </div>
+                <div class="form-group">
+                    <label>Classe: </label>
+                    <span class="form-control-static">
+                        {{ selectedItem.classeLieeAuGrade || selectedItem.edsd.classeLieeAuGrade }}
+                    </span>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-4">
+                <div class="form-group">
+                    <label>Indemnite: </label>
+                    <span class="form-control-static">
+                        {{ selectedItem.indemniteLieeAuGradeTechnicite || selectedItem.edsd.indemniteLieeAuGradeTechnicite | currency : "FCFA " : 3 }}
+                    </span>
+                </div>
+                <div class="form-group">
+                    <label>Montant de la prime: </label>
+                    <span class="form-control-static">
+                        {{ selectedItem.computedPrimesGrade || selectedItem.edsd.computedPrimesGrade | currency : "FCFA " : 3 }}
+                    </span>
+                </div>
+            </div>
+        </div>
+        <hr />
+        <div class="row">
+            <div class="col-xs-12">
+                <h4>Primes Liees aux indices: </h4>
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-xs-12 col-sm-6 col-md-4">
+                <div class="form-group">
+                    <label>Created on: </label>
+                    <span class="form-control-static">
+                        {{ selectedItem.createdDate || selectedItem.edsd.createdDate | date:'MMM d, y h:mm a' }}
+                    </span>
+                </div>
+                <div class="form-group">
+                    <label>Satrt date: </label>
+                    <span class="form-control-static">
+                        {{ selectedItem.startDate || selectedItem.edsd.startDate | date: 'MMM d, y'}}
+                    </span>
+                </div>
+                <div class="form-group">
+                    <label>End date: </label>
+                    <span class="form-control-static">
+                        {{ selectedItem.endDate || selectedItem.edsd.endDate | date: 'MMM d, y'}}
+                    </span>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-4">
+                <div class="form-group">
+                    <label>Mois: </label>
+                    <span class="form-control-static">
+                        {{ selectedItem.numberOfMonths || selectedItem.edsd.numberOfMonths | number : 3 }}
+                    </span>
+                </div>
+                <div class="form-group">
+                    <label>Groupe: </label>
+                    <span class="form-control-static">
+                        {{ selectedItem.groupe || selectedItem.edsd.groupe }}
+                    </span>
+                </div>
+                <div class="form-group">
+                    <label>Classe: </label>
+                    <span class="form-control-static">
+                        {{ selectedItem.classeLieeAuxIndices || selectedItem.edsd.classeLieeAuxIndices }}
+                    </span>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-4">
+                <div class="form-group">
+                    <label>Indemnite astreinte: </label>
+                    <span class="form-control-static">
+                        {{ selectedItem.indemniteLieeAuxIndicesAstreinte || selectedItem.edsd.indemniteLieeAuxIndicesAstreinte | currency : "FCFA " : 2 }}
+                    </span>
+                </div>
+                <div class="form-group">
+                    <label>Indemnite sante publique: </label>
+                    <span class="form-control-static">
+                        {{ selectedItem.indemniteLieeAuxIndicesSantePublique || selectedItem.edsd.indemniteLieeAuxIndicesSantePublique | currency : "FCFA " : 2 }}</span>
+                </div>
+                <div class="form-group">
+                    <label>Montant de la prime: </label>
+                    <span class="form-control-static">
+                        {{ selectedItem.computedPrimesIndices || selectedItem.edsd.computedPrimesIndices | currency : "FCFA " : 2 }}
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-success" type="button" ng-click="ok()">OK</button>
+    </div>
+</script>

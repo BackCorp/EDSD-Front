@@ -1,0 +1,14 @@
+
+span.wrap {
+    width:300px;
+    word-wrap:break-word;
+}
+
+.collapse-margin {
+    margin-left: 5px;
+}
+
+.width-90 {
+    width: 90% !important;
+    margin: auto !important;
+}

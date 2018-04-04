@@ -50,10 +50,15 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="alert alert-success" ng-if="success.message ">
+                                <p>{{ disabledAgent.firstName }} {{ disabledAgent.lastName }}'s account has been activated </p>
+                            </div>
+                            <!-- <div class="alert alert-success" ng-if="success.message">
+                                {{agent.name}}'s agent account has been created.
+                            </div> -->
                             <hr>
-                            <div>
-                                <button type="submit" class="btn btn-lg btn-success text-center"
-                                    ng-disabled="!enabled">Save</button>
+                            <div ng-if="enabled">
+                                <button type="submit" class="btn btn-lg btn-success text-center">Save</button>
                             </div>
                         </form>
                     </div>
