@@ -1,0 +1,111 @@
+
+<div >
+    <div class="row">
+        <div class="col-xs-12">
+            <h3 class="page-header">Rappels Salaires EDSD</h3>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12">
+		    <table st-table="rappelsSalaires" st-safe-src="getRappelsSalairesEdsds" class="table table-stroped table-hover">
+    			<thead>
+        			<tr>
+        				<th ng-if="createdByField" st-sort="createdBy">Created By</th>
+                        <th st-sort="createdDate">Created date</th>
+        				<th st-sort="firstName">First name</th>
+        				<th st-sort="lastName">Last name</th>
+        				<th st-sort="accountName">Matricule</th>
+        				<th st-sort="computedRappelsSalaires">Computed rappels salaires</th>
+        				<th st-sort="startDate">Start date</th>
+        				<th st-sort="endDate">End date</th>
+        			</tr>
+        			<tr>
+        				<th colspan="9"><input st-search="" class="form-control" placeholder="search ..." type="text"/></th>
+        			</tr>
+    			</thead>
+    			<tbody>
+        			<tr ng-repeat="rappelsSalaire in rappelsSalaires" class="primes-table" ng-click="showDetails($event, rappelsSalaire, 'modal-rappels-salaires-content.html')">
+                        <td ng-if="rappelsSalaire.createdByFirstName"><a>
+                            {{ rappelsSalaire.createdByFirstName }}
+                            {{ rappelsSalaire.createdByLastName }},
+                            {{ rappelsSalaire.createdByUsername }}
+                        </a></td>
+        				<td><a>{{rappelsSalaire.createdDate || rappelsSalaire.edsd.createdDate  | date:'MMM d, y h:mm a'}}</a></td>
+        				<td><a>{{rappelsSalaire.belongsToRequester.firstName || rappelsSalaire.edsd.belongsToRequester.firstName}}</a></td>
+        				<td><a>{{rappelsSalaire.belongsToRequester.lastName || rappelsSalaire.edsd.belongsToRequester.lastName}}</a></td>
+        				<td><a>{{rappelsSalaire.belongsToRequester.accountNumber || rappelsSalaire.edsd.belongsToRequester.accountNumber}}</a></td>
+        				<td><a>{{rappelsSalaire.computedRappelsSalaires || rappelsSalaire.edsd.computedRappelsSalaires | currency : "FCFA " : 2}}</a></td>
+        				<td><a>{{rappelsSalaire.startDate || rappelsSalaire.edsd.startDate | date: 'mediumDate'}}</a></td>
+        				<td><a>{{rappelsSalaire.endDate || rappelsSalaire.edsd.endDate | date: 'MMM d, y'}}</a></td>
+        			</tr>
+    			</tbody>
+		    </table>
+        </div>
+	</div>
+</div>
+
+<script type="text/ng-template" id="modal-rappels-salaires-content.html">
+    <div class="modal-header">
+        <h3 class="modal-title" id="modal-title">
+            Rappels Salaires -
+            {{ selectedItem.belongsToRequester.firstName || selectedItem.edsd.belongsToRequester.firstName }}
+            {{ selectedItem.belongsToRequester.lastName || selectedItem.edsd.belongsToRequester.lastName }},
+            {{ selectedItem.belongsToRequester.accountNumber || selectedItem.edsd.belongsToRequester.accountNumber }}
+        </h3>
+    </div>
+    <div class="modal-body" id="modal-body">
+        <br />
+        <div class="row">
+            <div class="col-xs-12 col-sm-6 col-md-6">
+                <div class="form-group">
+                    <label>Created on: </label>
+                    <span class="form-control-static">
+                        {{ selectedItem.createdDate || selectedItem.edsd.createdDate | date:'MMM d, y h:mm a' }}
+                    </span>
+                </div>
+                <div class="form-group">
+                    <label>Satrt date: </label>
+                    <span class="form-control-static">
+                        {{ selectedItem.startDate || selectedItem.edsd.startDate | date: 'MMM d, y' }}
+                    </span>
+                </div>
+                <div class="form-group">
+                    <label>End date: </label>
+                    <span class="form-control-static">
+                        {{ selectedItem.endDate || selectedItem.edsd.endDate | date: 'MMM d, y'}}
+                    </span>
+                </div>
+                <div class="form-group">
+                    <label>Mois: </label>
+                    <span class="form-control-static">
+                        {{ selectedItem.numberOfMonths || selectedItem.edsd.numberOfMonths | number : 2 }}
+                    </span>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-6">
+                <div class="form-group">
+                    <label>Actual Rappels Salaires: </label>
+                    <span class="form-control-static">
+                        {{ selectedItem.actualRappelsSalaires || selectedItem.edsd.actualRappelsSalaires | number : 2 }}
+                    </span>
+                </div>
+                <div class="form-group">
+                    <label>Salaire de base: </label>
+                    <span class="form-control-static">
+                        {{ selectedItem.salaireDeBase || selectedItem.edsd.salaireDeBase | currency : "FCFA " : 2 }}
+                    </span>
+                </div>
+                <div class="form-group">
+                    <label>Computed Rappels Salaires: </label>
+                    <span class="form-control-static">
+                        {{ selectedItem.computedRappelsSalaires || selectedItem.edsd.computedRappelsSalaires | currency : "FCFA " : 2 }}
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-success" type="button" ng-click="ok()">OK</button>
+    </div>
+</script>

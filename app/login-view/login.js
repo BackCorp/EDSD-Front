@@ -32,7 +32,16 @@ angular.module('App.login', ['ngRoute','ngCookies', 'ngSanitize'])
                     storageService.setSession('hasLoggedIn', true);
                     storageService.setSession('firstName', response.principal.firstName);
                     storageService.setSession('lastName', response.principal.lastName);
-                    $location.path('/admin');
+                    if(response.principal.roles.some(role => {
+                        return role.role === "ADMIN";
+                    })) {
+                        $location.path('/admin');
+                        storageService.setSession('role', "ADMIN");
+                    } else {
+                        $location.path('/agent');
+                        console.log(response.principal);
+                        storageService.removeSession('role');
+                    }
                 },
                 function(response){
                     storageService.setSession('hasLoggedIn', false);

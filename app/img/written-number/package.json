@@ -1,0 +1,121 @@
+{
+  "_args": [
+    [
+      {
+        "raw": "written-number@^0.8.1",
+        "scope": null,
+        "escapedName": "written-number",
+        "name": "written-number",
+        "rawSpec": "^0.8.1",
+        "spec": ">=0.8.1 <0.9.0",
+        "type": "range"
+      },
+      "E:\\edsd_test\\edsd-front"
+    ]
+  ],
+  "_from": "written-number@>=0.8.1 <0.9.0",
+  "_id": "written-number@0.8.1",
+  "_inCache": true,
+  "_location": "/written-number",
+  "_nodeVersion": "6.9.1",
+  "_npmOperationalInternal": {
+    "host": "s3://npm-registry-packages",
+    "tmp": "tmp/written-number-0.8.1.tgz_1510138603574_0.7746150328312069"
+  },
+  "_npmUser": {
+    "name": "yamadapc",
+    "email": "tacla.yamada@gmail.com"
+  },
+  "_npmVersion": "5.5.1",
+  "_phantomChildren": {},
+  "_requested": {
+    "raw": "written-number@^0.8.1",
+    "scope": null,
+    "escapedName": "written-number",
+    "name": "written-number",
+    "rawSpec": "^0.8.1",
+    "spec": ">=0.8.1 <0.9.0",
+    "type": "range"
+  },
+  "_requiredBy": [
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/written-number/-/written-number-0.8.1.tgz",
+  "_shasum": "6ca4f248e06f929b46ce3ce9bb4779d18fc95426",
+  "_shrinkwrap": null,
+  "_spec": "written-number@^0.8.1",
+  "_where": "E:\\edsd_test\\edsd-front",
+  "author": {
+    "name": "Pedro Tacla Yamada"
+  },
+  "bugs": {
+    "url": "https://github.com/yamadapc/js-written-number/issues"
+  },
+  "config": {
+    "blanket": {
+      "data-cover-never": [
+        "node_modules"
+      ],
+      "pattern": [
+        "lib"
+      ],
+      "spec-cov": {
+        "threshold": 80,
+        "localThreshold": 80,
+        "lcovOutput": "lcov"
+      }
+    }
+  },
+  "dependencies": {},
+  "description": "Convert numbers to words - their written form.",
+  "devDependencies": {
+    "blanket": "1.1.7",
+    "grunt": "^1.0.1",
+    "grunt-browserify": "^5.0.0",
+    "grunt-cli": "^1.2.0",
+    "grunt-contrib-clean": "^1.0.0",
+    "grunt-contrib-uglify": "^2.3.0",
+    "mocha": "^3.2.0",
+    "mocha-spec-cov-alt": "^1.1.1",
+    "mversion": "^1.10.0",
+    "should": "^11.2.1"
+  },
+  "directories": {},
+  "dist": {
+    "integrity": "sha512-/JsYGK+h7t1aPtaxlm2dMXVsyJTaT0bakDHjdgrpuie3KLjF55J0Qx9u38o2Kt9eMUMuCfsZDwJnjntl0crYUw==",
+    "shasum": "6ca4f248e06f929b46ce3ce9bb4779d18fc95426",
+    "tarball": "https://registry.npmjs.org/written-number/-/written-number-0.8.1.tgz"
+  },
+  "gitHead": "08336d9c48f068142346e9b4c4a8950173f1579a",
+  "homepage": "https://github.com/yamadapc/js-written-number#readme",
+  "keywords": [
+    "written",
+    "number",
+    "english",
+    "int",
+    "word",
+    "words",
+    "numbers to words",
+    "human",
+    "spoken"
+  ],
+  "license": "MIT",
+  "main": "lib/index.js",
+  "maintainers": [
+    {
+      "name": "yamadapc",
+      "email": "tacla.yamada@gmail.com"
+    }
+  ],
+  "name": "written-number",
+  "optionalDependencies": {},
+  "readme": "ERROR: No README data found!",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yamadapc/js-written-number.git"
+  },
+  "scripts": {
+    "test": " mocha --require blanket -R mocha-spec-cov-alt"
+  },
+  "version": "0.8.1"
+}

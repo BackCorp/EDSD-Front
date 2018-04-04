@@ -1,0 +1,67 @@
+<div class="">
+    <h3>Primes</h3>
+    <hr />
+    <div class="width-90">
+        <h4>Primes liees au grade/categorie</h4>
+        <hr>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-4">
+                <div class="form-group">
+                    <label for="grade-category">Grade/Categorie: </label>
+                    <select class="form-control" id="grade-category"
+                        ng-model="selectedPrimesGrade"
+                        ng-options="primesByGrade.grade for primesByGrade in primesLieesAuGrade" required>
+                        <option></option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-4">
+                <div class="form-group">
+                    <label for="classe1">Classe: </label>
+                    <select class="form-control" id="classe1"
+                        ng-model="primesGrade" ng-change="setPrimesAndIndices(primesGrade, primesIndices, selectedPrimesGrade.grade)"
+                        ng-options="classes.classe for classes in selectedPrimesGrade.classes" required>
+                        <option></option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-4">
+                <div class="form-group">
+                    <label for="classe2">Montant: </label>
+                    <p class="form-control-static">{{ primesGrade.montant }}</p>
+                </div>
+            </div>
+        </div>
+        <br>
+        <h4>Primes liees aux indices</h4>
+        <hr>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-4">
+                <div class="form-group" >
+                    <label for="groupe">Classe: </label>
+                    <select class="form-control" id="groupe"
+                        ng-model="primesIndices" ng-change="setPrimesAndIndices(primesGrade, primesIndices, selectedPrimesGrade.grade)"
+                        ng-options="indices.classe for indices in primesLieesAuxIndices" required>
+                        <option></option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-4">
+                <div class="form-group">
+                    <label for="classe2">Groupe: </label>
+                    <p class="form-control-static">{{primesIndices.groupe}}</p>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-4">
+                <div class="form-group">
+                    <label for="classe2">Montant: </label>
+                    <div ng-repeat="indemnite in primesIndices.indemnites">
+                        <p class="form-control-static">{{ indemnite.name }}: {{ indemnite.montant }}</p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

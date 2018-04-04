@@ -34,7 +34,7 @@
                                 </div>
                                 <div class="col-xs-12 col-sm-6">
                                     <div class="form-group">
-                                        <label>Employee Number/User name: </label>
+                                        <label>Matricule: </label>
                                         <p class="form-control-static">{{agent.username}}</p>
                                     </div>
                                     <div class="form-group">
@@ -42,8 +42,8 @@
                                         <p class="form-control-static">{{agent.email}}</p>
                                     </div>
                                     <div class="form-group">
-                                        <label>Active: </label>
-                                        <p class="form-control-static label label-success">{{agent.active}}</p>
+                                        <label>Status: </label>
+                                        <p class="form-control-static label label-success">{{(agent.active) ? "Enabled" : "Disabled"}}</p>
                                     </div>
                                 </div>
                             </div>
@@ -67,14 +67,12 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div>
-                                    <!-- <div style="color:red; font-weight: bold;" ng-show="showRole.checkRadioButton()">
-                                        <span >AGENT role must be selected in order to create a new agent.</span>
-                                    </div> -->
-                                </div>
+                                
                                 <hr>
                                 <button type="submit" class="btn btn-lg btn-success text-center"
-                                    ng-disabled="showRole.disableButton()">Create</button>
+                                    ng-if="!showRole.checkRadioButton()"
+                                    ng-disabled="showRole.disableButton()">Create
+                                </button>
                             </div>
                             <div style="color:red; font-weight: bold;" ng-show="showRole.disableButton()">
                                 <span>{{ error.createagent }}</span>

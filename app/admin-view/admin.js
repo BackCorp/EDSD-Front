@@ -1,12 +1,13 @@
 'use strict';
 
-angular.module('App.admin', ['ngRoute', 'ngCookies', 'ngSanitize'])
+angular.module('App.admin', ['ngRoute', 'ngCookies', 'ngSanitize', 'ngMessages'])
 
 .config(['$routeProvider', function($routeProvider, $location, storageService) {
     $routeProvider.when('/admin', {
         resolve: {
             check: function($location, $cookies, storageService) {
-                if(!storageService.getSession('hasLoggedIn')) {
+                if(!storageService.getSession('hasLoggedIn') ||
+                (storageService.getSession('hasLoggedIn') && storageService.getSession('role')!=="ADMIN")) {
                     $location.path("/login");
                 } else {
                     storageService.setSession('previousRoute', '/admin');
@@ -18,7 +19,8 @@ angular.module('App.admin', ['ngRoute', 'ngCookies', 'ngSanitize'])
     }).otherwise({redirectTo: '/login'});
 }])
 
-.controller('AdminCtrl', function($scope, $location, $cookies, $http, $interval, headerService, storageService, agentService) {
+.controller('AdminCtrl', function($scope, $location, $cookies, $http, $timeout, $uibModal,
+    headerService, storageService, agentService, edsdService) {
     $scope.logout = function() {
         storageService.clear();
         $cookies.remove('XSRF-TOKEN');
@@ -32,13 +34,16 @@ angular.module('App.admin', ['ngRoute', 'ngCookies', 'ngSanitize'])
         $scope.adminTemplate = "admin-view/templates/" + template;
     };
 
-    $scope.asyncSearch = undefined;
-    $scope.selected = undefined;
-    $scope.selectedDisabled = undefined;
-    $scope.agent = undefined;
+    $scope.asyncSearch;
+    $scope.selected;
+    $scope.selectedDisabled;
+    $scope.agent;
     $scope.disabledAgent;
-    $scope.showRole = undefined;
+    $scope.showRole;
+    $scope.createdByField = true;
+    $scope.resetPassword={};
     $scope.error = {};
+    $scope.success={};
     $scope.agents;
 
     $scope.getAgents = function (search) {
@@ -46,22 +51,18 @@ angular.module('App.admin', ['ngRoute', 'ngCookies', 'ngSanitize'])
         return $http({
             method: 'GET',
             url: 'http://localhost:8080/api/agents/search/'+search
-        }).then(function(response) {
-            console.log(response.data);
-            return response.data.map(function(item) {
-                return {
-                    id: item.userId,
-                    name: item.firstName +" "+ item.lastName,
-                    username: item.username,
-                    firstName: item.firstName,
-                    lastName: item.lastName,
-                    midName: item.midName,
-                    email: item.email,
-                    roles: item.roles,
-                    active: item.active
-                };
-            });
-        });
+        }).then(
+            function(response) {
+                console.log(response.data);
+                return response.data.map(function(item) {
+                    item.name = item.firstName +" "+ item.lastName;
+                    return item;
+                });
+            },
+            function(error) {
+
+            }
+        );
     };
     $scope.getDisabledAgents = function (search) {
         headerService.setAuthHeader(storageService.getSession('session'));
@@ -102,7 +103,6 @@ angular.module('App.admin', ['ngRoute', 'ngCookies', 'ngSanitize'])
     $scope.onDisabledSelect = function($item, $model, $label, $event) {
         $scope.disabledSelected = true;
         $scope.disabledAgent = $model;
-        // $scope.showRole = roleSection($model);
     };
 
     function roleSection(model) {
@@ -164,13 +164,14 @@ angular.module('App.admin', ['ngRoute', 'ngCookies', 'ngSanitize'])
     $scope.activateAgent = function(model) {
         headerService.setAuthHeader(storageService.getSession('session'));
         var ag = agentService.getAgent().get({username: model.username}, function(ag) {
-            console.log(ag);
             ag.active = model.active;
             ag.$update(function(updated) {
-                console.log("acivated")
-                console.log(updated);
-                $scope.disabledAgent = updated;
-                $scope.disabledSelected = false;
+                $scope.success.message = true;
+                $timeout(function(){
+                    $scope.disabledAgent = updated;
+                    $scope.disabledSelected = false;
+                    $scope.success.message = false;
+                }, 5000);
             });
         });
     };
@@ -181,10 +182,12 @@ angular.module('App.admin', ['ngRoute', 'ngCookies', 'ngSanitize'])
             console.log(ag);
             ag.active = model.active;
             ag.$update(function(updated) {
-                console.log("deacivated")
-                console.log(updated);
-                $scope.agent = updated;
-                $scope.selected = false;
+                $scope.success.message = true;
+                $timeout(function(){
+                    $scope.agent = updated;
+                    $scope.selected = false;
+                    $scope.success.message = false;
+                }, 5000);
             });
         });
     };
@@ -193,8 +196,72 @@ angular.module('App.admin', ['ngRoute', 'ngCookies', 'ngSanitize'])
         headerService.setAuthHeader(storageService.getSession('session'));
         agentService.getAgent().query(function(allags) {
             $scope.allAgents = allags;
+            console.log(allags);
+        });
+    };
+
+    headerService.setAuthHeader(storageService.getSession('session'));
+    $http.get("http://localhost:8080/api/admin/stats").then(
+        function(response){
+            $scope.stats = response.data;
+            console.log($scope.stats);
+        },
+        function(response) {
+            console.log(response);
+        }
+    );
+
+    $scope.getAllPrimesEdsds = function() {
+        edsdService.getAllPrimesEdsds().query(function(allPrimes) {
+            $scope.getPrimesEdsds = allPrimes;
+            console.log(allPrimes);
+        });
+    };
+    $scope.getAllNonLogementEdsds = function() {
+        edsdService.getAllNonLogementEdsds().query(function(allNonLogementEdsds) {
+            $scope.getNonLogementEdsds = allNonLogementEdsds;
+            console.log(allNonLogementEdsds);
+        });
+    };
+    $scope.getAllRappelsSalairesEdsds = function() {
+        edsdService.getAllRappelsSalairesEdsds().query(function(allRappelsSalairesEdsds) {
+            $scope.getRappelsSalairesEdsds = allRappelsSalairesEdsds;
+            console.log(allRappelsSalairesEdsds);
+        });
+    };
+    $scope.passwordReset = function(model) {
+        headerService.setAuthHeader(storageService.getSession('session'));
+        var ag = agentService.resetPassword().get({username: model.username}, function(ag) {
+            console.log(ag);
+            ag.password = $scope.resetPassword.password;
+            ag.$update(function(updated) {
+                $scope.success.message = true;
+                $timeout(function(){
+                    $scope.agent = updated;
+                    $scope.selected = false;
+                    $scope.success.message = false;
+                    $scope.resetPassword={};
+                }, 4000);
+            });
         });
     }
+
+    $scope.showDetails = function($event, edsd, template) {
+        $event.preventDefault();
+        var modalInstance = $uibModal.open({
+            animation: true,
+            templateUrl: template,
+            controller: 'EdsdDetailsCtrl',
+            backdrop: 'static',
+            size: 'lg',
+            resolve: {
+                items: function () {
+                    return edsd;
+                }
+            }
+        });
+    };
+
 })
 
 .directive('typeaheadDirective', function() {

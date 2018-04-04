@@ -54,15 +54,27 @@ function userService($resource) {
 
 function agentService($resource) {
     var service = {};
-    // service.getAgents = function() {
-    //     return $resource('http://localhost:8080/api/agents/:username');
-    // },
     service.getAgent = function() {
         return $resource('http://localhost:8080/api/agents/:username', {username: '@username'},{
             update: {
                 method: 'PUT'
             }
         });
-    }
+    };
+    service.resetPassword = function() {
+        return $resource('http://localhost:8080/api/agents/reset/:username', {username: '@username'},{
+            update: {
+                method: 'PUT'
+            }
+        });
+    };
     return service;
 }
+
+// function requesterService($resource) {
+//     var service = {};
+//     service.getRequesters = function() {
+//         return $resource('http://localhost:8080/api/requesters');
+//     }
+//     return service;
+// }
