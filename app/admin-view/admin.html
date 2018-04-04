@@ -66,6 +66,9 @@
                                     <a ng-click="change('deactivate-agent.html')">Deactivate</a>
                                 </li>
                                 <li>
+                                    <a ng-click="change('reset-password.html');">Reset Password</a>
+                                </li>
+                                <li>
                                     <a ng-click="change('all-agent.html'); getAllAgents()">All</a>
                                 </li>
                             </ul>
@@ -74,21 +77,18 @@
                             <a href="#"><i class="fa fa-file-text-o" aria-hidden="true"></i> EDSD products<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="morris.html">All EDSD</a>
+                                    <a ng-click="change('all-primes-edsd.html'); getAllPrimesEdsds();">Primes</a>
                                 </li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Performance<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="morris.html">Per Agent</a>
+                                    <a ng-click="change('all-non-logement-edsd.html'); getAllNonLogementEdsds();">Non logements</a>
+                                </li>
+                                <li>
+                                    <a ng-click="change('all-rappels-salaires-edsd.html'); getAllRappelsSalairesEdsds();">Rappels Salaires</a>
                                 </li>
                             </ul>
-                            <!-- /.nav-second-level -->
                         </li>
                         <li>
-                            <a href="index.html"><i class="fa fa-history" aria-hidden="true"></i> Logs</a>
+                            <a class="nav-first-level" ng-click="change('admin-performance.html'); getAllAgents();"><i class="fa fa-bar-chart-o fa-fw"></i> Performance</span></a>
                         </li>
                     </ul>
                 </div>

@@ -80,5 +80,14 @@ function edsdService($resource) {
     service.getRappelsSalairesEdsd = function() {
         return $resource('http://localhost:8080/api/edsd/rappelsSalaires');
     }
+    service.getAllPrimesEdsds = function() {
+        return $resource('http://localhost:8080/api/agents/primes');
+    }
+    service.getAllNonLogementEdsds = function() {
+        return $resource('http://localhost:8080/api/agents/nonLogements');
+    }
+    service.getAllRappelsSalairesEdsds = function() {
+        return $resource('http://localhost:8080/api/agents/rappelsSalaires');
+    }
     return service;
 }

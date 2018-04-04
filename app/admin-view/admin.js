@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('App.admin', ['ngRoute', 'ngCookies', 'ngSanitize'])
+angular.module('App.admin', ['ngRoute', 'ngCookies', 'ngSanitize', 'ngMessages'])
 
 .config(['$routeProvider', function($routeProvider, $location, storageService) {
     $routeProvider.when('/admin', {
@@ -19,8 +19,8 @@ angular.module('App.admin', ['ngRoute', 'ngCookies', 'ngSanitize'])
     }).otherwise({redirectTo: '/login'});
 }])
 
-.controller('AdminCtrl', function($scope, $location, $cookies, $http, $timeout,
-    headerService, storageService, agentService) {
+.controller('AdminCtrl', function($scope, $location, $cookies, $http, $timeout, $uibModal,
+    headerService, storageService, agentService, edsdService) {
     $scope.logout = function() {
         storageService.clear();
         $cookies.remove('XSRF-TOKEN');
@@ -34,12 +34,14 @@ angular.module('App.admin', ['ngRoute', 'ngCookies', 'ngSanitize'])
         $scope.adminTemplate = "admin-view/templates/" + template;
     };
 
-    $scope.asyncSearch = undefined;
-    $scope.selected = undefined;
-    $scope.selectedDisabled = undefined;
-    $scope.agent = undefined;
+    $scope.asyncSearch;
+    $scope.selected;
+    $scope.selectedDisabled;
+    $scope.agent;
     $scope.disabledAgent;
-    $scope.showRole = undefined;
+    $scope.showRole;
+    $scope.createdByField = true;
+    $scope.resetPassword={};
     $scope.error = {};
     $scope.success={};
     $scope.agents;
@@ -208,6 +210,58 @@ angular.module('App.admin', ['ngRoute', 'ngCookies', 'ngSanitize'])
             console.log(response);
         }
     );
+
+    $scope.getAllPrimesEdsds = function() {
+        edsdService.getAllPrimesEdsds().query(function(allPrimes) {
+            $scope.getPrimesEdsds = allPrimes;
+            console.log(allPrimes);
+        });
+    };
+    $scope.getAllNonLogementEdsds = function() {
+        edsdService.getAllNonLogementEdsds().query(function(allNonLogementEdsds) {
+            $scope.getNonLogementEdsds = allNonLogementEdsds;
+            console.log(allNonLogementEdsds);
+        });
+    };
+    $scope.getAllRappelsSalairesEdsds = function() {
+        edsdService.getAllRappelsSalairesEdsds().query(function(allRappelsSalairesEdsds) {
+            $scope.getRappelsSalairesEdsds = allRappelsSalairesEdsds;
+            console.log(allRappelsSalairesEdsds);
+        });
+    };
+    $scope.passwordReset = function(model) {
+        headerService.setAuthHeader(storageService.getSession('session'));
+        var ag = agentService.resetPassword().get({username: model.username}, function(ag) {
+            console.log(ag);
+            ag.password = $scope.resetPassword.password;
+            ag.$update(function(updated) {
+                $scope.success.message = true;
+                $timeout(function(){
+                    $scope.agent = updated;
+                    $scope.selected = false;
+                    $scope.success.message = false;
+                    $scope.resetPassword={};
+                }, 4000);
+            });
+        });
+    }
+
+    $scope.showDetails = function($event, edsd, template) {
+        $event.preventDefault();
+        var modalInstance = $uibModal.open({
+            animation: true,
+            templateUrl: template,
+            controller: 'EdsdDetailsCtrl',
+            backdrop: 'static',
+            size: 'lg',
+            resolve: {
+                items: function () {
+                    return edsd;
+                }
+            }
+        });
+    };
+
 })
 
 .directive('typeaheadDirective', function() {

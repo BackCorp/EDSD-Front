@@ -96,4 +96,54 @@ angular.module('App', [
             }
         }
     }
-}]);
+}])
+
+.directive('primesEdsdDirective', function() {
+    return {
+        restrict: 'E',
+        templateUrl: 'components/commons/directives/primes-edsd-directive.html'
+    }
+})
+.directive('nonLogementEdsdDirective', function() {
+    return {
+        restrict: 'E',
+        templateUrl: 'components/commons/directives/non-logement-edsd-directive.html'
+    }
+})
+.directive('rappelsSalairesEdsdDirective', function() {
+    return {
+        restrict: 'E',
+        templateUrl: 'components/commons/directives/rappels-salaires-edsd-directive.html'
+    }
+})
+
+.controller('EdsdDetailsCtrl', ['$scope','$uibModalInstance', 'items', function($scope, $uibModalInstance, items) {
+    $scope.ok = function () {
+        $uibModalInstance.close();
+    };
+
+    $scope.selectedItem = items;
+
+    $scope.cancel = function () {
+        $uibModalInstance.dismiss();
+    };
+}])
+
+.directive("compareTo", function() {
+    return {
+        require: "ngModel",
+        scope: {
+            otherModelValue: "=compareTo"
+        },
+        link: function(scope, element, attributes, ngModel) {
+
+            ngModel.$validators.compareTo = function(modelValue) {
+                return modelValue == scope.otherModelValue;
+            };
+
+            scope.$watch("otherModelValue", function() {
+                ngModel.$validate();
+            });
+        }
+    };
+});

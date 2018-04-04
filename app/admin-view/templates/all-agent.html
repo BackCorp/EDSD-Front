@@ -24,7 +24,7 @@
         			</tr>
     			</thead>
     			<tbody>
-        			<tr ng-repeat="thisAgent in agents" class="primes-table" ng-click="showDetails($event, thisAgent, 'modal-agent-content.html');">
+        			<tr ng-repeat="thisAgent in agents" class="primes-table" ng-click="showDetails($event, thisAgent, '');">
         				<td>{{thisAgent.firstName}}</td>
         				<td>{{thisAgent.lastName}}</td>
         				<td>{{thisAgent.username}}</td>
@@ -39,49 +39,3 @@
         </div>
 	</div>
 </div>
-
-<script type="text/ng-template" id="modal-agent-content.html">
-    <div class="modal-header">
-        <h3 class="modal-title" id="modal-title">
-            Rappels Salaires -
-            {{ selectedItem.belongsToRequester.firstName }} {{ selectedItem.belongsToRequester.lastName }},
-            {{ selectedItem.belongsToRequester.accountNumber }}
-        </h3>
-    </div>
-    <div class="modal-body" id="modal-body">
-        <br />
-        <div class="row">
-            <div class="col-xs-12 col-sm-6 col-md-6">
-                <div class="form-group">
-                    <label>Created on: </label>
-                    <span class="form-control-static">{{ selectedItem.createdDate | date:'MMM d, y h:mm a' }}</span>
-                </div>
-                <div class="form-group">
-                    <label>Satrt date: </label>
-                    <span class="form-control-static">{{ selectedItem.startDate | date: 'MMM d, y' }}</span>
-                </div>
-                <div class="form-group">
-                    <label>End date: </label>
-                    <span class="form-control-static">{{ selectedItem.endDate | date: 'MMM d, y'}}</span>
-                </div>
-            </div>
-            <div class="col-xs-12 col-sm-6 col-md-6">
-                <div class="form-group">
-                    <label>Mois: </label>
-                    <span class="form-control-static">{{ selectedItem.numberOfMonths | number : 2 }}</span>
-                </div>
-                <div class="form-group">
-                    <label>Salaire de base: </label>
-                    <span class="form-control-static">{{ selectedItem.salaireDeBase | currency : "FCFA " : 2 }}</span>
-                </div>
-                <div class="form-group">
-                    <label>Computed Rappels Salaires: </label>
-                    <span class="form-control-static">{{ selectedItem.computedRappelsSalaires | currency : "FCFA " : 2 }}</span>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="modal-footer">
-        <button class="btn btn-success" type="button" ng-click="ok()">OK</button>
-    </div>
-</script>

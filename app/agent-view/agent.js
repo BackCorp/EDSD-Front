@@ -19,9 +19,9 @@ angular.module('App.agent', ['ngRoute', 'ngCookies', 'ngSanitize', 'smart-table'
 }])
 
 .controller('AgentCtrl', ['$scope','$location','$cookies','$http','$sce','$templateCache','$timeout',
-    '$window','$uibModal','headerService','storageService','requesterService','primesDataService','writtenNumberService',
+    '$window','$uibModal','headerService','storageService','primesDataService','writtenNumberService',
     function($scope, $location, $cookies, $http, $sce, $templateCache,$timeout,$window,$uibModal,
-        headerService, storageService, requesterService, primesDataService, writtenNumberService) {
+        headerService, storageService, primesDataService, writtenNumberService) {
 
     $scope.logout = function() {
         storageService.clear();
@@ -200,17 +200,21 @@ angular.module('App.agent', ['ngRoute', 'ngCookies', 'ngSanitize', 'smart-table'
         $scope.primesGrade.grade = selectedPrimesGrade;
     }
 
-    $scope.processEdsd = function($event, primesGrade) {
-        $scope.primesIndices.startDate = $scope.date.startDate;
-        $scope.primesIndices.endDate = $scope.date.endDate;
-        $scope.primesGrade.endDate = $scope.date.endDate;
-        $scope.primesGrade.startDate = $scope.date.startDate;
-        $scope.nonLogement.startDate = $scope.date.startDate;
-        $scope.nonLogement.endDate = $scope.date.endDate;
-        $scope.rappelsSalaires.startDate = $scope.date.startDate;
-        $scope.rappelsSalaires.endDate = $scope.date.endDate;
-        $scope.retenues.startDate = $scope.date.startDate;
-        $scope.retenues.endDate = $scope.date.endDate;
+    $scope.processEdsd = function() {
+        if($scope.edsdModules.primes) {
+            $scope.primesIndices.startDate = $scope.date.startDate;
+            $scope.primesIndices.endDate = $scope.date.endDate;
+            $scope.primesGrade.endDate = $scope.date.endDate;
+            $scope.primesGrade.startDate = $scope.date.startDate;
+        }
+        if($scope.edsdModules.nonLogement) {
+            $scope.nonLogement.startDate = $scope.date.startDate;
+            $scope.nonLogement.endDate = $scope.date.endDate;
+        }
+        if($scope.edsdModules.rappelsSalaires) {
+            $scope.rappelsSalaires.startDate = $scope.date.startDate;
+            $scope.rappelsSalaires.endDate = $scope.date.endDate;
+        }
         $scope.print = setEdsdPrint();
         $scope.change("primes-edsd-print.html");
     };
@@ -221,8 +225,8 @@ angular.module('App.agent', ['ngRoute', 'ngCookies', 'ngSanitize', 'smart-table'
         $scope.change("process-edsd.html");
     };
 
-    $scope.primes = {};
-    $scope.primes.message = null;
+    // $scope.primes = {};
+    // $scope.primes.message = null;
 
     $scope.getWrittenNumber = function(number, lang) {
         if(number < 0) {
@@ -296,11 +300,11 @@ angular.module('App.agent', ['ngRoute', 'ngCookies', 'ngSanitize', 'smart-table'
                     $scope.primesIndices={};
                     $scope.nonLogement={};
                     $scope.rappelsSalaires={}
-                    $scope.retenues=null;
+                    $scope.retenues={};
                     $scope.requester={};
                     $scope.edsdModules={};
                     $scope.selected = false;
-                    $scope.change('my-primes-edsd.html');
+                    $scope.change('process-edsd.html');
                 }, 8000 );
             }, function(resp) {
                 console.log(resp);
@@ -339,26 +343,9 @@ angular.module('App.agent', ['ngRoute', 'ngCookies', 'ngSanitize', 'smart-table'
                 }
             }
         });
-
-        modalInstance.result.then(function (selectedItem) {
-
-        }, function () {
-            $log.info('Modal dismissed at: ' + new Date());
-        });
     };
 
-}])
-
-.controller('EdsdDetailsCtrl', ['$scope','$uibModalInstance', 'items', function($scope, $uibModalInstance, items) {
-    $scope.ok = function () {
-        $uibModalInstance.close();
-    };
-
-    $scope.selectedItem = items;
-
-    $scope.cancel = function () {
-        $uibModalInstance.dismiss();
-    };
+    $scope.createdByField = false;
 }])
 
 .directive('typeaheadFindRequester', function() {
@@ -374,7 +361,6 @@ angular.module('App.agent', ['ngRoute', 'ngCookies', 'ngSanitize', 'smart-table'
         templateUrl: 'agent-view/directives/date-picker.html'
     }
 })
-
 
 .directive('primes', function() {
     return {
