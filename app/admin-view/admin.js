@@ -108,7 +108,7 @@ angular.module('App.admin', ['ngRoute', 'ngCookies', 'ngSanitize', 'ngMessages']
     function roleSection(model) {
         return {
             section: function() {
-                return model.roles.every(item => {
+                return model.roles.every(function(item) {
                     return item.role !== "ADMIN";
                 });
             },
