@@ -60,7 +60,7 @@ angular.module('App.agent', ['ngRoute', 'ngCookies', 'ngSanitize', 'smart-table'
         headerService.setAuthHeader(storageService.getSession('session'));
         return $http({
             method: 'GET',
-            url: 'http://localhost:8080/api/requesters/search/' + search
+            url: 'https://edsd2.herokuapp.com/api/requesters/search/' + search
         }).then(
             function(response) {
                 console.log(response)
@@ -280,7 +280,7 @@ angular.module('App.agent', ['ngRoute', 'ngCookies', 'ngSanitize', 'smart-table'
         headerService.setAuthHeader(storageService.getSession('session'));
         $http({
             method: 'POST',
-            url: 'http://localhost:8080/api/edsd',
+            url: 'https://edsd2.herokuapp.com/api/edsd',
             data: {
                 primesGrade: ($scope.edsdModules.primes) ? $scope.primesGrade : null,
                 primesIndices: ($scope.edsdModules.primes) ? $scope.primesIndices : null,

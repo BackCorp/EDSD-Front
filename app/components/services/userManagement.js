@@ -20,7 +20,7 @@ function userService($resource) {
         return name;
     }
     service.authUser = function() {
-        return $resource("http://localhost:8080/api/login/:currentUser");
+        return $resource("https://edsd2.herokuapp.com/api/login/:currentUser");
     }
     service.setCurrentUser = function(user) {
         currentUser = user;
@@ -55,14 +55,14 @@ function userService($resource) {
 function agentService($resource) {
     var service = {};
     service.getAgent = function() {
-        return $resource('http://localhost:8080/api/agents/:username', {username: '@username'},{
+        return $resource('https://edsd2.herokuapp.com/api/agents/:username', {username: '@username'},{
             update: {
                 method: 'PUT'
             }
         });
     };
     service.resetPassword = function() {
-        return $resource('http://localhost:8080/api/agents/reset/:username', {username: '@username'},{
+        return $resource('https://edsd2.herokuapp.com/api/agents/reset/:username', {username: '@username'},{
             update: {
                 method: 'PUT'
             }
@@ -70,11 +70,3 @@ function agentService($resource) {
     };
     return service;
 }
-
-// function requesterService($resource) {
-//     var service = {};
-//     service.getRequesters = function() {
-//         return $resource('http://localhost:8080/api/requesters');
-//     }
-//     return service;
-// }

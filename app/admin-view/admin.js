@@ -50,7 +50,7 @@ angular.module('App.admin', ['ngRoute', 'ngCookies', 'ngSanitize', 'ngMessages']
         headerService.setAuthHeader(storageService.getSession('session'));
         return $http({
             method: 'GET',
-            url: 'http://localhost:8080/api/agents/search/'+search
+            url: 'https://edsd2.herokuapp.com/api/agents/search/'+search
         }).then(
             function(response) {
                 console.log(response.data);
@@ -68,7 +68,7 @@ angular.module('App.admin', ['ngRoute', 'ngCookies', 'ngSanitize', 'ngMessages']
         headerService.setAuthHeader(storageService.getSession('session'));
         return $http({
             method: 'GET',
-            url: 'http://localhost:8080/api/agents/disabled/search/'+search
+            url: 'https://edsd2.herokuapp.com/api/agents/disabled/search/'+search
         }).then(function(response) {
             console.log(response.data);
             return response.data.map(function(item) {
@@ -201,7 +201,7 @@ angular.module('App.admin', ['ngRoute', 'ngCookies', 'ngSanitize', 'ngMessages']
     };
 
     headerService.setAuthHeader(storageService.getSession('session'));
-    $http.get("http://localhost:8080/api/admin/stats").then(
+    $http.get("https://edsd2.herokuapp.com/api/admin/stats").then(
         function(response){
             $scope.stats = response.data;
             console.log($scope.stats);

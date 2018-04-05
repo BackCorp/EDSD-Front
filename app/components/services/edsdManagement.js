@@ -72,22 +72,22 @@ angular.module('services.edsdManagement', [
 function edsdService($resource) {
     var service = {};
     service.getPrimesEdsd = function() {
-        return $resource('http://localhost:8080/api/edsd/primes');
+        return $resource('https://edsd2.herokuapp.com/api/edsd/primes');
     }
     service.getNonLogementEdsd = function() {
-        return $resource('http://localhost:8080/api/edsd/nonLogements');
+        return $resource('https://edsd2.herokuapp.com/api/edsd/nonLogements');
     }
     service.getRappelsSalairesEdsd = function() {
-        return $resource('http://localhost:8080/api/edsd/rappelsSalaires');
+        return $resource('https://edsd2.herokuapp.com/api/edsd/rappelsSalaires');
     }
     service.getAllPrimesEdsds = function() {
-        return $resource('http://localhost:8080/api/agents/primes');
+        return $resource('https://edsd2.herokuapp.com/api/agents/primes');
     }
     service.getAllNonLogementEdsds = function() {
-        return $resource('http://localhost:8080/api/agents/nonLogements');
+        return $resource('https://edsd2.herokuapp.com/api/agents/nonLogements');
     }
     service.getAllRappelsSalairesEdsds = function() {
-        return $resource('http://localhost:8080/api/agents/rappelsSalaires');
+        return $resource('https://edsd2.herokuapp.com/api/agents/rappelsSalaires');
     }
     return service;
 }
