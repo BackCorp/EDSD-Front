@@ -113,7 +113,7 @@ angular.module('App.admin', ['ngRoute', 'ngCookies', 'ngSanitize', 'ngMessages']
                 });
             },
             checkRadioButton: function() {
-                return model.roles.some(item => {
+                return model.roles.some(function(item) {
                     return item.role === "AGENT";
                 });
             },
@@ -132,7 +132,7 @@ angular.module('App.admin', ['ngRoute', 'ngCookies', 'ngSanitize', 'ngMessages']
 
     $scope.createAgent = function(model) {
         headerService.setAuthHeader(storageService.getSession('session'));
-        if(!model.roles.some(role => {
+        if(!model.roles.some(function(role) {
             return role.role === "AGENT";
         })) {
             $scope.ag = agentService.getAgent().get({username: model.username}, function() {
