@@ -14,11 +14,12 @@
     "karma-junit-reporter": "^0.4.1",
     "protractor": "^4.0.9"
   },
+  "main":"server.js",
   "scripts": {
     "postinstall": "./node_modules/bower/bin/bower install",
     "update-deps": "npm update",
     "prestart": "npm install",
-    "start": "http-server -a localhost -p 8000 -c-1 ./app",
+    "start": "node server.js"
     "pretest": "npm install",
     "test": "karma start karma.conf.js",
     "test-single-run": "karma start karma.conf.js --single-run",
@@ -29,7 +30,7 @@
     "update-index-async": "node -e \"var fs=require('fs'),indexFile='app/index-async.html',loaderFile='app/bower_components/angular-loader/angular-loader.min.js',loaderText=fs.readFileSync(loaderFile,'utf-8').split(/sourceMappingURL=angular-loader.min.js.map/).join('sourceMappingURL=bower_components/angular-loader/angular-loader.min.js.map'),indexText=fs.readFileSync(indexFile,'utf-8').split(/\\/\\/@@NG_LOADER_START@@[\\s\\S]*\\/\\/@@NG_LOADER_END@@/).join('//@@NG_LOADER_START@@\\n'+loaderText+'    //@@NG_LOADER_END@@');fs.writeFileSync(indexFile,indexText);\""
   },
   "dependencies": {
-    "express": "^4.16.3",
-    "written-number": "^0.8.1"
+    "ejs": "~1.0.0",
+    "express": "^4.16.3"
   }
 }
