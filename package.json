@@ -16,7 +16,7 @@
   },
   "main":"server.js",
   "scripts": {
-    "postinstall": "./node_modules/bower/bin/bower install",
+    "postinstall": "bower install",
     "update-deps": "npm update",
     "prestart": "npm install",
     "start": "node server.js",

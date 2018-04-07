@@ -16,7 +16,6 @@ angular.module('App', [
 .config(['$locationProvider', '$routeProvider', '$httpProvider',
     function($locationProvider, $routeProvider, $httpProvider) {
     $httpProvider.defaults.headers.post['Content-Type'] = 'application/json; charset=utf-8';
-    //$httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
     $locationProvider.hashPrefix('!');
     $routeProvider.otherwise({redirectTo: '/login'});
 }])
