@@ -1,12 +1,9 @@
 
-<link href="admin-view/sb-admin.css" rel="stylesheet">
 <link rel="stylesheet" href="agent-view/agent.css">
-<link rel="stylesheet" href="admin-view/sb-admin.css">
+<script src="lib/js/sb-admin.js"></script>
 
 <div ng-controller="AgentCtrl" class="">
-
     <div id="wrapper">
-
         <!-- Navigation -->
         <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
             <div class="navbar-header">
@@ -27,12 +24,10 @@
                         <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
-                        <li><a href="#"><i class="fa fa-user fa-fw"></i> {{firstName}} {{lastName}} </a>
-                        </li>
-                        <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
+                        <li><a><i class="fa fa-user fa-fw"></i> {{firstName}} {{lastName}} </a>
                         </li>
                         <li class="divider"></li>
-                        <li><a ng-click="logout()"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                        <li><a href="#" ng-click="logout()"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
                         </li>
                     </ul>
                     <!-- /.dropdown-user -->
@@ -73,8 +68,6 @@
         </div>
     </div>
 </div>
-
-<script src="admin-view/sb-admin.js"></script>
 
 <script type="text/ng-template" id="requesterTemplate.html">
     <a tabindex="2" class="uib-typeahead-match" ng-click="selectMatch()">

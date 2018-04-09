@@ -2,41 +2,50 @@
 <!--[if lt IE 7]>      <html lang="en" ng-app="myApp" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html lang="en" ng-app="myApp" class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html lang="en" ng-app="myApp" class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html lang="en" ng-app="App" class="no-js"> <!--<![endif]-->
+<!--[if gt IE 8]><!--> <html lang="en" ng-app="App" class="no-js" > <!--<![endif]-->
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>EDSD Etat Des Sommes Dues</title>
     <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="lib/css/normalize.css">
-    <link rel="stylesheet" href="lib/css/main.css">
-    <link rel="stylesheet" href="app.css">
-    <link href="lib/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="lib/vendor/bootstrap4/css/bootstrap4.min.css" rel="stylesheet" id="login-theme">
     <link href="lib/vendor/font-awesome/css/font-awesome.css" rel="stylesheet">
+    <link rel="stylesheet" href="lib/css/main.css">
+
+    <link href="app.css" rel="stylesheet" >
+    <link href="lib/vendor/magnific-popup/magnific-popup.css" rel="stylesheet">
 
     <link rel="stylesheet" href="lib/vendor/metisMenu/metisMenu.min.css" >
     <script src="lib/js/modernizr-2.8.3.min.js"></script>
 
+    <link href="lib/css/sb-admin.css" rel="stylesheet">
+    <link rel="stylesheet" href="lib/css/normalize.css">
     <link rel='stylesheet' type="text/css" href="agent-view/print-edsd.css" media="print">
 </head>
-<body>
+<body id="page-top">
+    <!--[if lt IE 7]>
+        <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
 
-  <!--[if lt IE 7]>
-      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-  <![endif]-->
-
-    <div ng-view class="ng-cloak"></div>
+    <div ng-view class="ng-cloak" ></div>
 
     <script src="lib/vendor/jquery/jquery-3.3.1.min.js"></script>
     <script src="lib/vendor/bootstrap/js/bootstrap.min.js"></script>
+
+    <!-- login -->
+    <script src="lib/vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="lib/vendor/scrollreveal/scrollreveal.min.js"></script>
+    <script src="lib/vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
+
     <script src="lib/js/angular.min.js"></script>
     <script src="lib/js/angular-route.min.js"></script>
     <script src="lib/js/angular-resource.min.js"></script>
     <script src="lib/js/angular-cookies.min.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.11/angular-animate.js"></script>
+    <script src="lib/js/angular-animate.min.js"></script>
     <script src="lib/js/angular-sanitize.min.js"></script>
-    <script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-2.5.0.js"></script>
+    <script src="lib/js/ui-bootstrap-tpls-2.5.0.min.js"></script>
     <script src="lib/js/angular-messages.min.js"></script>
 
     <!-- Services -->
@@ -48,8 +57,7 @@
     <script src="lib/vendor/smart-table/smart-table.min.js"></script>
     <script src="lib/vendor/i18n/angular-locale_fr-cm.js"></script>
     <script src="lib/vendor/metisMenu/metisMenu.min.js"></script>
-    <script src="lib/vendor/jsPDF/jsPDF.js"></script>
-    <script src="lib/vendor/base64/angular-base64.min.js"></script>
+
     <script src="lib/vendor/written-number/written-number.min.js"></script>
 
     <!-- app -->
@@ -57,6 +65,7 @@
     <script src="login-view/login.js"></script>
     <script src="admin-view/admin.js"></script>
     <script src="agent-view/agent.js"></script>
+    <script src="lib/js/sb-admin.js"></script>
 
 </body>
 </html>

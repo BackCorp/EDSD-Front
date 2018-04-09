@@ -2,22 +2,30 @@
 
 angular.module('App.login', ['ngRoute','ngCookies', 'ngSanitize'])
 
-.config(['$routeProvider', function($routeProvider, $location, storageService) {
+.config(['$routeProvider', function($routeProvider, $location, $window, torageService) {
 
     $routeProvider.when('/login', {
         resolve: {
-            check: function($location, storageService) {
+            check: function($location, storageService, $window) {
                 if(storageService.getSession('hasLoggedIn')) {
                     $location.path(storageService.getSession("previousRoute"));
+                } else {
+                    var theme = $window.document.getElementById("login-theme");
+                    if(theme) { theme.href="lib/vendor/bootstrap4/css/bootstrap4.min.css"; }
                 }
             },
         },
-        templateUrl: 'login-view/login.html',
+        templateUrl: 'login-view/landing-page.html',
         controller: 'LoginCtrl'
     });
 }])
 
-.controller('LoginCtrl', function($scope, $location, $http, headerService, storageService, userService) {
+.controller('LoginCtrl', function($scope, $location, $http, $window, headerService,
+    storageService, userService) {
+
+    $scope.login={};
+    $scope.login.theme = true;
+
 
     $scope.login = function() {
         if($scope.username && $scope.password) {
@@ -32,6 +40,11 @@ angular.module('App.login', ['ngRoute','ngCookies', 'ngSanitize'])
                     storageService.setSession('hasLoggedIn', true);
                     storageService.setSession('firstName', response.principal.firstName);
                     storageService.setSession('lastName', response.principal.lastName);
+                    $scope.login.failed = false;
+                    // $window.document.styleSheets[0].disabled = true;
+                    // console.log($window.document.getElementById("login-theme"));
+                    $window.document.getElementById("login-theme").href="lib/vendor/bootstrap/css/bootstrap.min.css";
+                    // $("link[href*='bootstrap4.min.css']").remove();
                     if(response.principal.roles.some(function(role) {
                         return role.role === "ADMIN";
                     })) {
@@ -45,7 +58,7 @@ angular.module('App.login', ['ngRoute','ngCookies', 'ngSanitize'])
                 },
                 function(response){
                     storageService.setSession('hasLoggedIn', false);
-                    $scope.loginFailed = true;
+                    $scope.login.failed = true;
                 }
             );
         }

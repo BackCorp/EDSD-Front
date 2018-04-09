@@ -2,13 +2,17 @@
 
 angular.module('App.agent', ['ngRoute', 'ngCookies', 'ngSanitize', 'smart-table'])
 
-.config(['$routeProvider', function($routeProvider, $location, storageService) {
+.config(['$routeProvider', function($routeProvider, $location, $window, storageService) {
     $routeProvider.when('/agent', {
         resolve: {
-            check: function($location, $cookies, storageService) {
+            check: function($location, $cookies, $window, storageService) {
+                var theme = $window.document.getElementById("login-theme");
                 if(!storageService.getSession('hasLoggedIn')) {
+                    if(theme) { theme.href="lib/vendor/bootstrap/css/bootstrap.min.css"; }
                     $location.path("/login");
                 } else {
+                    var theme = $window.document.getElementById("login-theme");
+                    if(theme) { theme.href="lib/vendor/bootstrap/css/bootstrap.min.css"; }
                     storageService.setSession('previousRoute', '/agent');
                 }
             },
@@ -25,7 +29,6 @@ angular.module('App.agent', ['ngRoute', 'ngCookies', 'ngSanitize', 'smart-table'
 
     $scope.logout = function() {
         storageService.clear();
-        $cookies.remove('XSRF-TOKEN');
         $location.path("/login");
     };
 
@@ -63,7 +66,6 @@ angular.module('App.agent', ['ngRoute', 'ngCookies', 'ngSanitize', 'smart-table'
             url: 'https://edsd2.herokuapp.com/api/requesters/search/' + search
         }).then(
             function(response) {
-                console.log(response)
                 return response.data.map(function(item){
                     item.name = item.firstName +" "+ item.lastName
                     return item;
@@ -78,7 +80,6 @@ angular.module('App.agent', ['ngRoute', 'ngCookies', 'ngSanitize', 'smart-table'
     $scope.onRequesterSelect = function($item, $model, $label, $event) {
         $scope.selected = true;
         $scope.requester = $model;
-        // $scope.showRole = roleSection($model);
     }
 
     //-------------- Date --------------//
@@ -102,18 +103,18 @@ angular.module('App.agent', ['ngRoute', 'ngCookies', 'ngSanitize', 'smart-table'
     };
 
     $scope.dateOptions = {
-      // dateDisabled: ,
-      formatYear: 'yy',
-      maxDate: new Date(2020, 5, 22),
-      minDate: new Date(),
-      startingDay: 1
+        dateDisabled: disabled,
+        formatYear: 'yy',
+        maxDate: new Date(2020, 5, 22),
+        minDate: new Date(),
+        startingDay: 1
     };
 
-    // Disable weekend selection
     function disabled(data) {
+        var today = new Date();
         var date = data.date,
         mode = data.mode;
-        return mode === 'day' && (date.getDay() === 0 || date.getDay() === 6);
+        return mode === 'day' && (today < date);
     }
 
     $scope.toggleMin = function() {
@@ -225,9 +226,6 @@ angular.module('App.agent', ['ngRoute', 'ngCookies', 'ngSanitize', 'smart-table'
         $scope.change("process-edsd.html");
     };
 
-    // $scope.primes = {};
-    // $scope.primes.message = null;
-
     $scope.getWrittenNumber = function(number, lang) {
         if(number < 0) {
             return "Moins " + writtenNumberService.getWrittenNumber($scope.round(Math.abs(number)), lang);
@@ -291,7 +289,6 @@ angular.module('App.agent', ['ngRoute', 'ngCookies', 'ngSanitize', 'smart-table'
             }
         }).then(
             function(resp) {
-                console.log(resp);
                 $scope.edsdModules.print = "Your EDSD has been successfully processed.";
                 $scope.edsdModules.error = false;
                 $window.print();
@@ -307,7 +304,6 @@ angular.module('App.agent', ['ngRoute', 'ngCookies', 'ngSanitize', 'smart-table'
                     $scope.change('process-edsd.html');
                 }, 8000 );
             }, function(resp) {
-                console.log(resp);
                 $scope.edsdModules.error = resp.data.body;
             }
         );
@@ -320,13 +316,10 @@ angular.module('App.agent', ['ngRoute', 'ngCookies', 'ngSanitize', 'smart-table'
 
     headerService.setAuthHeader(storageService.getSession('session'));
     $scope.getPrimesEdsds = edsdService.getPrimesEdsd().query(function(primesEdsd) {
-        console.log(primesEdsd);
     });
     $scope.getNonLogementEdsds = edsdService.getNonLogementEdsd().query(function(nonLogement) {
-        console.log(nonLogement);
     });
     $scope.getRappelsSalairesEdsds = edsdService.getRappelsSalairesEdsd().query(function(rappelsSalaires) {
-        console.log(rappelsSalaires);
     });
 
     $scope.showDetails = function($event, edsd, template) {

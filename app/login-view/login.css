@@ -1,10 +1,21 @@
 html {
-  background: url("/img/ongola-dark.jpg") no-repeat center center fixed;
+  /* background: url("/img/ongola2.jpeg") no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
-  overflow: hidden;
+  overflow: hidden; */
+  /* background-color:  #f4f4fc; */
+}
+
+#title-login {
+    font-family: 'Helvetica', 'Arial', sans-serif;
+    color: #3a913a;
+    font-size: 1.3em;
+}
+
+#header-section {
+    margin-top: 20px;
 }
 
 img{
@@ -26,11 +37,10 @@ img{
   width: 100px;
   height: 100px;
   border-radius: 50%;
-  background: rgba(92,184,92,.8);
-  /*rgba(3,3,3,.8);*/
+  background: rgba(71, 173, 71,1);
   overflow: hidden;
   opacity: 0.9;
-  box-shadow: 10px 10px 30px #000;
+  box-shadow: 2px 2px 2px #999;
 }
 
 /* Login container */
@@ -44,8 +54,8 @@ img{
   width: 260px;
   height: 260px;
   border-radius: 5px;
-  background: rgba(5,5,5,0.7);
-  box-shadow: 1px 1px 50px #000;
+ background: rgba(5,5,5,0.6);
+  box-shadow: 2px 2px 2px #999;
   display: none;
 }
 
@@ -94,10 +104,10 @@ input{
   display: block;
   margin: 9px auto;
   font-size: 17px;
-  color: #fff !important;
+  /* color: #fff !important; */
   padding: 8px;
   border-radius: 6px;
-  border: none;
+  border-color: #f7f7f9 !important;
   background: rgba(3,3,3,.1);
   -webkit-transition: all 2s ease-in-out;
   -moz-transition: all 2s ease-in-out;
@@ -105,9 +115,9 @@ input{
   transition: all 0.2s ease-in-out;
 }
 
-.form-group.form-control {
+/* .form-group.form-control {
     color: white !important;
-}
+} */
 
 input {
     color: #6fe712 !important;
@@ -118,7 +128,6 @@ input {
 
 input::-webkit-input-placeholder,
 textarea::-webkit-input-placeholder {
-  color: white !important;
   text-shadow: none;
   -webkit-text-fill-color: initial;
 }
@@ -149,11 +158,6 @@ a{
 
 a:hover{
   opacity: 0.9;
-}
-
-#remember-container{
-  position: relative;
-  margin: -5px 20px;
 }
 
 .checkbox {
@@ -197,7 +201,7 @@ a:hover{
 }
 
 #forgotten{
-    color: grey;
+    color: white;
     margin-top: 8px;
     cursor: pointer;
 }
@@ -216,12 +220,17 @@ a:hover{
   width: 260px;
   height: 180px;
   border-radius: 10px;
-  background: rgba(5,5,5,0.7);
-  /*rgba(3,3,3,0.25); */
-  box-shadow: 1px 1px 50px #000;
+  background: rgba(5,5,5,0.6);
+  box-shadow: 2px 2px 2px #999;
   display: none;
 }
 
 .orange-btn{
   background: rgba(87,198,255,.5);
+}
+
+@media only screen and (max-width: 995px) {
+    #title {
+        display: none;
+    }
 }

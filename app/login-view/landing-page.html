@@ -1,0 +1,280 @@
+
+<link href="login-view/creative.css" rel="stylesheet">
+
+    <!-- Plugin CSS -->
+
+      <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+      <link href='https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+
+<div ng-controller="LoginCtrl">
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand js-scroll-trigger" href="#page-top">
+                <img src="img/logo-edsd.png" alt="EDSD logo" id="logo-img" width="53%">
+            </a>
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="#about">A Propos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="#services">Produits EDSD </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="#contact">Contacter</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="#signin">Se connecter</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <header class="masthead text-center text-white d-flex">
+        <div class="container my-auto">
+            <div class="row">
+                <div class="col-lg-10 mx-auto" style="text-align:center; margin:15% auto;">
+                    <h2 class="text-uppercase"><strong>Etats Des Sommes Dues</strong></h2>
+                    <p class="text-faded mb-1">Cette application permet de calculer les primes, retenues,
+                        logements non perçues et rappels salaires</p>
+                    <p class="text-faded mb-1"><b>Ministère de la Santé Publique</b></p>
+                    <p class="text-faded mb-5">Cameroun</p>
+                    <a class="btn btn-success btn-xl js-scroll-trigger" href="#signin">Se connecter</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="about-section" id="about">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-10 mx-auto">
+                    <p class="text-center"><img src="img/logo-armoirie.png" alt=""></p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-8 mx-auto text-center">
+                    <h2 class="section-heading ">EDSD - Etats Des Sommes Dues</h2>
+                    <hr class="my-4">
+                    <p class=" mb-4">L'application EDSD sera utilisé par les agents
+                        du Ministère de la santé pour le calcule des primes,
+                        retenues, logements non perçues et rappels salaires des employés. </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="services">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2 class="section-heading">Produits EDSD</h2>
+                    <hr class="my-4">
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-6 text-center">
+                    <div class="service-box mt-5 mx-auto">
+                        <i class="fa fa-4x fa-diamond text-primary mb-3 sr-icons"></i>
+                        <h3 class="mb-3">Primes</h3>
+                        <p class="text-muted mb-0">Le mandatement des différentes primes
+                            de santé est calculé par l'agent du minitere.
+                            L'agent identifiera les primes correspondant au grade et à l’indice.
+                            Le montant final des primes sera utiliseé pour determiner la somme a mandater.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 text-center">
+                    <div class="service-box mt-5 mx-auto">
+                        <i class="fa fa-4x fa fa-money text-primary mb-3 sr-icons"></i>
+                        <h3 class="mb-3">Retenues</h3>
+                        <p class="text-muted mb-0">
+                            Si le bénéficiaire de l’état des sommes dues avait bénéficié
+                            d’une prime à laquelle il n’avait pas droit (d’après le décret sur les primes)
+                            pendant la période de calcul, le montant mensuel de cette prime est
+                            tenue en compte durant les calculs.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 text-center">
+                    <div class="service-box mt-5 mx-auto">
+                        <i class="fa fa-4x fa-building-o text-primary mb-3 sr-icons"></i>
+                        <h3 class="mb-3">Logements non perçues</h3>
+                        <p class="text-muted mb-0">
+                            Si le non logement entre dans le calcul, la formule utilisé par
+                            l'agent du Ministère va determiner le pourcentage de la sommes due.
+                            Le résultat ainsi obtenu correspond au mandatement
+                            de l’indemnité de logement non perçue.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 text-center">
+                    <div class="service-box mt-5 mx-auto">
+                        <i class="fa fa-4x fa-university text-primary mb-3 sr-icons"></i>
+                        <h3 class="mb-3">Rappels Salaires</h3>
+                        <p class="text-muted mb-0">
+                            Si le rappel salaire entre dans le calcul, la formule utilisé par
+                            l'agent du Ministère va determiner la sommes due.
+                            Le résultat ainsi obtenu correspond au mandatement
+                            de l’indemnité du rappel salaire.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact"  class="bg-dark text-white">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto text-center">
+                    <h2 class="section-heading">Nous contacter</h2>
+                    <hr class="my-4">
+                    <p class="mb-5">Contacter votre supeviseur si vous voulez
+                        reinitialiser votre mot de passe.
+                    </p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-3 ml-auto text-center">
+                    <i class="fa fa-map-marker fa-4x sr-contact"></i>
+                    <address>
+                        <p><strong>Ministère de la Santé Publique</strong></p>
+                        <span>N°8, Rue 3038 quartier du Lac</span><br />
+                        <span>Yaoundé III, Cameroun</span>
+                    </address>
+                </div>
+                <div class="col-lg-3 mr-auto text-center">
+                    <i class="fa fa-phone fa-3x mb-3 sr-contact"></i>
+                    <p>(00237) 222 23 04 68 </p>
+                </div>
+                <div class="col-lg-3 mr-auto text-center">
+                    <i class="fa fa-globe fa-3x mb-3 sr-contact"></i>
+                    <p><a href="http://www.minsante.cm/site/?q=fr">MINSANTE</a></p>
+                </div>
+                <div class="col-lg-3 mr-auto text-center">
+                    <i class="fa fa-envelope-o fa-3x mb-3 sr-contact"></i>
+                    <p>
+                        <a href="http://minsante.cm/roundcube/">Send us an email</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="bg-primary masthead d-flex" id="signin">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 col-md-6 col-lg-4 mx-auto text-center">
+                    <h1 class="text-center login-title">Sign in</h1><br />
+                    <div >
+                        <form name="login-form" ng-submit="login()">
+                            <div class="form-group">
+                                <input type="text" class="form-control" ng-model="username"
+                                placeholder="employee number / matricule" required autofocus>
+                            </div>
+                            <div class="form-group">
+                                <input type="password" class="form-control" ng-model="password"
+                                placeholder="password" required>
+                            </div>
+                            <button type="submit" class="btn btn-success btn-xl btn-block">Se connecter</button>
+                        </form>
+                    </div>
+                    <br />
+                    <div ng-if="login.failed">
+                        <div class="alert alert-danger alert-dismissable">
+                          <a class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                          <strong>Erreur!</strong> L'un des parametres entres
+                          n'est pas correcte. Veillez réessayer.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script type="text/javascript">
+    (function($) {
+      "use strict"; // Start of use strict
+
+      // Smooth scrolling using jQuery easing
+      $('a.js-scroll-trigger[href*="#"]:not([href="#"])').click(function() {
+        if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
+          var target = $(this.hash);
+          target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
+          if (target.length) {
+            $('html, body').animate({
+              scrollTop: (target.offset().top - 57)
+            }, 1000, "easeInOutExpo");
+            return false;
+          }
+        }
+      });
+
+      // Closes responsive menu when a scroll trigger link is clicked
+      $('.js-scroll-trigger').click(function() {
+        $('.navbar-collapse').collapse('hide');
+      });
+
+      // Activate scrollspy to add active class to navbar items on scroll
+      $('body').scrollspy({
+        target: '#mainNav',
+        offset: 57
+      });
+
+      // Collapse Navbar
+      var navbarCollapse = function() {
+        if ($("#mainNav") && $("#mainNav").offset() && $("#mainNav").offset().top > 100) {
+          $("#mainNav").addClass("navbar-shrink");
+        } else {
+          $("#mainNav").removeClass("navbar-shrink");
+        }
+      };
+      // Collapse now if page is not at top
+      navbarCollapse();
+      // Collapse the navbar when page is scrolled
+      $(window).scroll(navbarCollapse);
+
+      // Scroll reveal calls
+      window.sr = ScrollReveal();
+      sr.reveal('.sr-icons', {
+        duration: 600,
+        scale: 0.3,
+        distance: '0px'
+      }, 200);
+      sr.reveal('.sr-button', {
+        duration: 1000,
+        delay: 200
+      });
+      sr.reveal('.sr-contact', {
+        duration: 600,
+        scale: 0.3,
+        distance: '0px'
+      }, 300);
+
+      // Magnific popup calls
+      $('.popup-gallery').magnificPopup({
+        delegate: 'a',
+        type: 'image',
+        tLoading: 'Loading image #%curr%...',
+        mainClass: 'mfp-img-mobile',
+        gallery: {
+          enabled: true,
+          navigateByImgClick: true,
+          preload: [0, 1]
+        },
+        image: {
+          tError: '<a href="%url%">The image #%curr%</a> could not be loaded.'
+        }
+      });
+
+    })(jQuery);
+    </script>
+</div>

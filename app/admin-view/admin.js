@@ -2,14 +2,17 @@
 
 angular.module('App.admin', ['ngRoute', 'ngCookies', 'ngSanitize', 'ngMessages'])
 
-.config(['$routeProvider', function($routeProvider, $location, storageService) {
+.config(['$routeProvider', function($routeProvider, $location, $window, storageService) {
     $routeProvider.when('/admin', {
         resolve: {
-            check: function($location, $cookies, storageService) {
+            check: function($location, $cookies, storageService, $window) {
+                var theme = $window.document.getElementById("login-theme");
                 if(!storageService.getSession('hasLoggedIn') ||
                 (storageService.getSession('hasLoggedIn') && storageService.getSession('role')!=="ADMIN")) {
+                    if(theme) { theme.href="lib/vendor/bootstrap4/css/bootstrap4.min.css"; }
                     $location.path("/login");
                 } else {
+                    if(theme) { theme.href="lib/vendor/bootstrap/css/bootstrap.min.css"; }
                     storageService.setSession('previousRoute', '/admin');
                 }
             },
@@ -19,11 +22,11 @@ angular.module('App.admin', ['ngRoute', 'ngCookies', 'ngSanitize', 'ngMessages']
     }).otherwise({redirectTo: '/login'});
 }])
 
-.controller('AdminCtrl', function($scope, $location, $cookies, $http, $timeout, $uibModal,
+.controller('AdminCtrl', function($scope, $location, $cookies, $window, $http, $timeout, $uibModal,
     headerService, storageService, agentService, edsdService) {
+
     $scope.logout = function() {
         storageService.clear();
-        $cookies.remove('XSRF-TOKEN');
         $location.path("/login");
     };
 

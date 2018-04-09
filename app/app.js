@@ -5,7 +5,6 @@ angular.module('App', [
   'ngCookies',
   'ngAnimate',
   'ngSanitize',
-  'base64',
   'ui.bootstrap',
   'services',
   'App.login',
@@ -120,9 +119,7 @@ angular.module('App', [
     $scope.ok = function () {
         $uibModalInstance.close();
     };
-
     $scope.selectedItem = items;
-
     $scope.cancel = function () {
         $uibModalInstance.dismiss();
     };
@@ -135,11 +132,9 @@ angular.module('App', [
             otherModelValue: "=compareTo"
         },
         link: function(scope, element, attributes, ngModel) {
-
             ngModel.$validators.compareTo = function(modelValue) {
                 return modelValue == scope.otherModelValue;
             };
-
             scope.$watch("otherModelValue", function() {
                 ngModel.$validate();
             });
