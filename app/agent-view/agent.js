@@ -302,7 +302,7 @@ angular.module('App.agent', ['ngRoute', 'ngCookies', 'ngSanitize', 'smart-table'
                     $scope.edsdModules={};
                     $scope.selected = false;
                     $scope.change('process-edsd.html');
-                }, 8000 );
+                }, 4000 );
             }, function(resp) {
                 $scope.edsdModules.error = resp.data.body;
             }

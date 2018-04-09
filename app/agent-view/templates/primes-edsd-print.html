@@ -353,11 +353,18 @@
     </section>
 
     <hr id="last-line"/><br />
-    <div ng-if="edsdModules.error" class="alert alert-danger error">
+    <div ng-if="edsdModules.error" class="alert alert-danger">
         {{ edsdModules.error }}
     </div>
-    <div ng-if="edsdModules.print" class="alert alert-success error">
+    <div ng-if="edsdModules.print" class="alert alert-success">
         {{ edsdModules.print }}
+    </div>
+    <div data-loading class="spinner">
+        <div class="loading-spiner text-center">
+            <i class="fa fa-spinner fa-spin fa-4x black-spinner"></i>
+            <p class="text-center">Loading ...</p>
+        </div>
+        <br /><br />
     </div>
     <div class="buttons">
         <button type="submit" class="btn btn-lg text-center"
@@ -369,4 +376,5 @@
             ng-disabled="" ng-click="cancelEdsdProcess()">Cancel
         </button>
     </div>
+    <br /><br />
 </div>
