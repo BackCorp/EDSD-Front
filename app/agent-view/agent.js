@@ -8,11 +8,10 @@ angular.module('App.agent', ['ngRoute', 'ngCookies', 'ngSanitize', 'smart-table'
             check: function($location, $cookies, $window, storageService) {
                 var theme = $window.document.getElementById("login-theme");
                 if(!storageService.getSession('hasLoggedIn')) {
-                    if(theme) { theme.href="lib/vendor/bootstrap/css/bootstrap.min.css"; }
+                    if(theme) { theme.href="lib/vendor/bootstrap4/css/bootstrap4.min.css"; }
                     $location.path("/login");
                 } else {
-                    var theme = $window.document.getElementById("login-theme");
-                    if(theme) { theme.href="lib/vendor/bootstrap/css/bootstrap.min.css"; }
+                    if(theme) { theme.href=""; }
                     storageService.setSession('previousRoute', '/agent');
                 }
             },
