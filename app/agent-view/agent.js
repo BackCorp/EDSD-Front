@@ -48,6 +48,7 @@ angular.module('App.agent', ['ngRoute', 'ngCookies', 'ngSanitize', 'smart-table'
     $scope.retenues={};
     $scope.rappelsSalaires={};
     $scope.print={};
+    $scope.primes={};
     $scope.date={};
 
     $scope.modelOptions = {
