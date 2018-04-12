@@ -12,7 +12,7 @@ angular.module('App.admin', ['ngRoute', 'ngCookies', 'ngSanitize', 'ngMessages']
                     if(theme) { theme.href="lib/vendor/bootstrap4/css/bootstrap4.min.css"; }
                     $location.path("/login");
                 } else {
-                    if(theme) { theme.href="lib/vendor/bootstrap/css/bootstrap.min.css"; }
+                    if(theme) { theme.href=""; }
                     storageService.setSession('previousRoute', '/admin');
                 }
             },
