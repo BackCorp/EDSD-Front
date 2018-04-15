@@ -50,6 +50,11 @@ angular.module('App.agent', ['ngRoute', 'ngCookies', 'ngSanitize', 'smart-table'
     $scope.print={};
     $scope.primes={};
     $scope.date={};
+    $scope.toggle={section1: true, section2: false};
+
+    // $scope.test = function() {
+    //     console.log("tested");
+    // }
 
     $scope.modelOptions = {
         debounce: {

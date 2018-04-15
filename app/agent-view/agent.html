@@ -17,27 +17,37 @@
         <ul class="navbar-nav navbar-sidenav" id="accordion" style="margin-top: -10px;">
             <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard" >
                 <div style="margin: 30px 40px 40px 20px;">
-                    <a class="navbar-brand" href="index.html">
+                    <a class="navbar-brand" href="#">
                         <img src="img/logo-edsd.png" class="img-thumbnail" alt="" style="width: 15%;">
                         <span style="margin-left: 20px; color: #868e96; font-weight: bold;">EDSD</span>
                     </a>
                 </div>
             </li>
-            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard" style="border-bottom: 0.4px solid #26303c;">
-                <a class="nav-link" href="index.html">
+            <li class="nav-item" ng-click="toggle.section1 = true; toggle.section2=false;"
+            data-toggle="tooltip" data-placement="right" title="Dashboard"
+            ng-class="{ 'bg-success': toggle.section1 , '': toggle }"
+            style="border-bottom: 0.4px solid #26303c;" >
+                <a class="nav-link" ng-class="{ 'text-white': toggle.section1, '': !toggle }">
                     <i class="fa fa-file-text-o"></i>
-                    <span class="nav-link-text"> Créer EDSD </span>
+                    <span class="nav-link-text" >Créer EDSD</span>
                 </a>
             </li>
-            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Components" style="border-bottom: 0.4px solid #26303c;">
-                <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" data-target="#collapseComponents"
-                    href="" data-parent="#accordion">
-                    <i class="fa fa-folder-o"></i><span class="nav-link-text"> Mes EDSD</span>
+            <li class="nav-item" ng-click="toggle.section2 = true; toggle.section1=false;"
+                data-toggle="tooltip" data-placement="right" title="Mes EDSD"
+                ng-class="{ 'bg-success': toggle.section2, '': !toggle }"
+                style="border-bottom: 0.4px solid #26303c;">
+                <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse"
+                    data-target="#mes-edsd" href="" data-parent="#accordion"
+                    ng-class="{ 'text-white': toggle.section2, '': !toggle }">
+                    <i class="fa fa-folder-o"></i>
+                    <span class="nav-link-text">
+                        Mes EDSD
+                    </span>
                 </a>
-                <ul class="sidenav-second-level collapse" id="collapseComponents">
-                    <li><a href="navbar.html">Primes</a></li>
-                    <li><a href="cards.html">Non logements</a></li>
-                    <li><a href="cards.html">Rappels Salaires</a></li>
+                <ul class="sidenav-second-level collapse" id="mes-edsd">
+                    <li><a ng-click="change('my-primes.html')">Primes</a></li>
+                    <li><a ng-click="change('my-non-logement.html')">Non logements</a></li>
+                    <li><a ng-click="change('my-rappels-salaires.html')">Rappels Salaires</a></li>
                 </ul>
             </li>
         </ul>
@@ -59,7 +69,7 @@
 
 
 <div class="content-wrapper" >
-    <div >
+    <div class="container">
         <div ng-include="agentTemplate" ></div>
     </div>
     <footer class="sticky-footer">
