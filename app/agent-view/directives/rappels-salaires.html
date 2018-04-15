@@ -1,12 +1,12 @@
 <div>
-    <h3>Rappels Salaires</h3>
-    <hr />
+    <h4>Rappels Salaires</h4>
+    <hr style="border: 0.3px solid #e9e8e5;"/>
     <div class="width-90">
         <br />
         <div class="row" >
             <div class="col-xs-12 col-md-4">
                 <div class="form-group" lang="fr">
-                    <label for="rappels-salaires">Salaire de base: </label>
+                    <label for="rappels-salaires" class="color">Salaire de base: </label>
                     <input type="number" ng-min="0" class="form-control"
                         name="rappelsSalaires" ng-model="rappelsSalaires.salaireDeBase"
                         ng-change="bindSalaires(rappelsSalaires.salaireDeBase)" step="any" required>

@@ -11,7 +11,7 @@ angular.module('App.agent', ['ngRoute', 'ngCookies', 'ngSanitize', 'smart-table'
                     if(theme) { theme.href="lib/vendor/bootstrap4/css/bootstrap4.min.css"; }
                     $location.path("/login");
                 } else {
-                    if(theme) { theme.href=""; }
+                    // if(theme) { theme.href=""; }
                     storageService.setSession('previousRoute', '/agent');
                 }
             },

@@ -1,70 +1,94 @@
-
+<!-- style="background: #91BF44;" -->
+ <!-- style="background: #303C4C;"> -->
 <link rel="stylesheet" href="agent-view/agent.css">
-<script src="lib/js/sb-admin.js"></script>
 
-<div ng-controller="AgentCtrl" class="">
-    <div id="wrapper">
-        <!-- Navigation -->
-        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="index.html">EDSD Agent v1.0.0</a>
-            </div>
-            <!-- /.navbar-header -->
+<div class="" style="background: #303C4C;">
 
-            <ul class="nav navbar-top-links navbar-right">
-                <!-- /.dropdown -->
-                <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown">
-                        <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
+<!-- Navigation-->
+<nav class="navbar navbar-expand-lg navbar-dark" id="mainNav" style="background: #F9F8F4; border-bottom: 1px solid #e9e8e5;">
+
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" style="background: #868e96;"
+        data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon" ></span>
+    </button>
+    <br>
+
+    <div class="collapse navbar-collapse" id="navbarResponsive" >
+        <ul class="navbar-nav navbar-sidenav" id="accordion" style="margin-top: -10px;">
+            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard" >
+                <div style="margin: 30px 40px 40px 20px;">
+                    <a class="navbar-brand" href="index.html">
+                        <img src="img/logo-edsd.png" class="img-thumbnail" alt="" style="width: 15%;">
+                        <span style="margin-left: 20px; color: #868e96; font-weight: bold;">EDSD</span>
                     </a>
-                    <ul class="dropdown-menu dropdown-user">
-                        <li><a><i class="fa fa-user fa-fw"></i> {{firstName}} {{lastName}} </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li><a href="#" ng-click="logout()"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
-                        </li>
-                    </ul>
-                    <!-- /.dropdown-user -->
-                </li>
-                <!-- /.dropdown -->
-            </ul>
-            <!-- /.navbar-top-links -->
+                </div>
+            </li>
+            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard" style="border-bottom: 0.4px solid #26303c;">
+                <a class="nav-link" href="index.html">
+                    <i class="fa fa-file-text-o"></i>
+                    <span class="nav-link-text"> Créer EDSD </span>
+                </a>
+            </li>
+            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Components" style="border-bottom: 0.4px solid #26303c;">
+                <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" data-target="#collapseComponents"
+                    href="" data-parent="#accordion">
+                    <i class="fa fa-folder-o"></i><span class="nav-link-text"> Mes EDSD</span>
+                </a>
+                <ul class="sidenav-second-level collapse" id="collapseComponents">
+                    <li><a href="navbar.html">Primes</a></li>
+                    <li><a href="cards.html">Non logements</a></li>
+                    <li><a href="cards.html">Rappels Salaires</a></li>
+                </ul>
+            </li>
+        </ul>
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <!-- /.dropdown-user -->
+                <div class="btn-group user">
+                    <a class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fa fa-user fa-fw"></i> {{firstName}} {{lastName}}
+                    </a>
+                    <div class="dropdown-menu" style="padding: 10px;">
+                        <a href="" ng-click="logout()"><i class="fa fa-sign-out fa-fw color" data-toggle="modal"      data-target="#exampleModal"></i> Logout</a>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</nav>
 
-            <div class="navbar-default sidebar wrapper" role="navigation" >
-                <div class="sidebar-nav navbar-collapse">
-                    <ul class="nav" id="side-menu">
-                        <li class="sidebar-search">
-                            <div><span style="font-size: 1.1em;" class="label label-default">{{firstName}} {{lastName}}</span></div>
-                        </li>
-                        <li>
-                            <a class="nav-first-level" ng-click="change('process-edsd.html')"><i class="fa fa-file-text-o"></i> Process EDSD</a>
-                        </li>
-                        <li>
-                            <a class="nav-first-level"><i class="fa fa-file-text-o" aria-hidden="true"></i> My EDSD products<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-                                <li>
-                                    <a ng-click="change('my-primes.html')">Primes</a>
-                                </li>
-                                <li>
-                                    <a ng-click="change('my-non-logement.html')">Non logement</a>
-                                </li>
-                                <li>
-                                    <a ng-click="change('my-rappels-salaires.html')">Rappels Salaires</a>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
+
+<div class="content-wrapper" >
+    <div >
+        <div ng-include="agentTemplate" ></div>
+    </div>
+    <footer class="sticky-footer">
+        <div class="container">
+            <div class="text-center color">
+                <small>Copyright © EDSD 2018</small>
+            </div>
+        </div>
+    </footer>
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fa fa-angle-up"></i>
+    </a>
+    <!-- Logout Modal-->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    <a class="btn btn-primary" href="login.html">Logout</a>
                 </div>
             </div>
-        </nav>
-        <div id="page-wrapper">
-            <div ng-include="agentTemplate"></div>
         </div>
     </div>
 </div>

@@ -1,34 +1,38 @@
 <div class="">
-    <h4>Selectionnez les dates</h4>
-    <hr>
+    <h4 class="color">Sélectionnez les dates</h4>
+    <hr style="border: 0.3px solid #e9e8e5;"/>
     <div class="row">
-        <div class="col-xs-12 col-sm-12 col-md-4">
-            <label for="start-date">Start date: </label>
+        <div class="col-xs-12 col-sm-12 col-md-4 color">
+            <label for="start-date">Date de début : </label>
             <p class="input-group">
                 <input type="text" class="form-control" uib-datepicker-popup="{{format}}"
                     ng-model="date.startDate" is-open="popup1.opened" datepicker-options="dateOptions"
                     name="start-date" id="start-date" ng-required="true" close-text="Close" ng-change="checkDates()"
                     alt-input-formats="altInputFormats"/>
                 <span class="input-group-btn">
-                <button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
-            </span>
+                    <button type="button" class="btn .bg-light" ng-click="open1()">
+                        <i class="fa fa-calendar" aria-hidden="true"></i>
+                    </button>
+                </span>
             </p>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-4"></div>
-        <div class="col-xs-12 col-sm-12 col-md-4">
-            <label for="end-date">End date: </label>
+        <div class="col-xs-12 col-sm-12 col-md-4 color">
+            <label for="end-date">Date de fin : </label>
             <p class="input-group">
                 <input type="text" class="form-control" uib-datepicker-popup="{{format}}"
                 ng-model="date.endDate" is-open="popup2.opened" datepicker-options="dateOptions"
                 name="end-date" id="end-date" ng-required="true" close-text="Close" ng-change="checkDates()"
                 alt-input-formats="altInputFormats"/>
                 <span class="input-group-btn">
-                    <button type="button" class="btn btn-default" ng-click="open2()"><i class="glyphicon glyphicon-calendar"></i></button>
+                    <button type="button" class="btn btn-default" ng-click="open2()">
+                        <i class="fa fa-calendar" aria-hidden="true"></i>
+                    </button>
                 </span>
             </p>
         </div>
         <p class="error" ng-show="primesGrade.startDate && primesGrade.endDate && (primesGrade.startDate - primesGrade.endDate >= 0)">
-            "Start date" should not be equal to or greater than "End date"
+            "Date de début" ne devrait pas être supérieur ou égal à la "Date de fin"
         </p>
     </div><br><br>
 </div>

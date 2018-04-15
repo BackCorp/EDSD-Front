@@ -12,6 +12,7 @@ hr {
   max-width: 50px;
   border-width: 3px;
   border-color: #408cef;
+  margin: 0 auto !important;
 }
 
 hr.light {
@@ -47,9 +48,9 @@ h6 {
     background: #fffbf4;
 }
 
-.bg-primary {
+/* .bg-primary {
   background-color: #408cef !important;
-}
+} */
 
 .spinner {
     width: 100%;
@@ -227,7 +228,12 @@ header.masthead p {
   font-weight: 300;
 }
 
-@media (min-width: 768px) {
+@media (max-width: 767px) {
+  header.masthead p {
+    font-size: 1.15rem;
+  }
+}
+@media (min-width: 768px) and (max-width: 991px){
   header.masthead p {
     font-size: 1.15rem;
   }
@@ -271,10 +277,10 @@ header.masthead p {
   padding: 1rem 2rem;
 }
 
-.btn-primary {
+/* .btn-primary {
   background-color: #408cef;
   border-color: #408cef;
-}
+} */
 
 .btn-primary:hover, .btn-primary:focus, .btn-primary:active {
   color: #fff;

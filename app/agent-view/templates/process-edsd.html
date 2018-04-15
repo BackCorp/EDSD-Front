@@ -1,238 +1,255 @@
 
-<div>
+<div style="margin: 50px;">
     <div class="row">
         <div class="col-lg-12">
-            <h3 class="page-header">Process EDSD</h3>
+            <h3 class="page-header color">Créer EDSD</h3>
         </div>
     </div>
-
-    <div class="row">
-        <div class="col-lg-12">
+    <hr>
+    <div>
+        <section>
             <typeahead-find-requester></typeahead-find-requester>
-            <br><br>
-            <div ng-show="selected">
-                <div class="row collapse-margin">
+        </section>
+        <br>
+
+        <div ng-show="selected" style="margin: 15px;">
+            <section>
+                <div class="row collapse-margin box-shadow color" style="background: white;">
                     <div class="col-xs-12 col-sm-6">
-                        <div class="form-group">
-                            <label>Matricule: </label>
-                            <span class="form-control-static">{{requester.accountNumber}}</span>
-                        </div>
-                        <div class="form-group">
-                            <label>First name: </label>
-                            <span class="form-control-static">{{requester.firstName}}</span>
-                        </div>
-                        <div class="form-group">
-                            <label>Last name: </label>
-                            <span class="form-control-static">{{requester.lastName}}</span>
-                        </div>
+                        <table class="table table-responsive borderless">
+                            <thead>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Matricule : </td>
+                                    <td>{{requester.accountNumber}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Prenom : </td>
+                                    <td>{{requester.firstName}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Nom : </td>
+                                    <td>{{requester.lastName}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                     <div class="col-xs-12 col-sm-6">
-                        <div class="form-group">
-                            <label>Sex: </label>
-                            <span class="form-control-static">{{requester.genre}}</span>
-                        </div>
-                        <div class="form-group">
-                            <label>Date of birth: </label>
-                            <span class="form-control-static">{{requester.dob | date:'MMM d, y'}}</span>
-                        </div>
-                        <div class="form-group">
-                            <label>Occupied organic position: </label>
-                            <span class="form-control-static">{{requester.occupiedOrganicPosition}}</span>
-                        </div>
+                        <table class="table table-responsive borderless">
+                            <thead>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Sexe : </td>
+                                    <td>{{requester.genre}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Date de naissance : </td>
+                                    <td>{{requester.dob | date:'MMM d, y'}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Occupation organique : </td>
+                                    <td>{{requester.occupiedOrganicPosition}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div><br>
                 </div>
+            </section>
+            <br>
+            <section>
                 <div>
-                    <div class="panel-group">
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h4 class="panel-title">
-                                    <a data-toggle="collapse" href="/agent#birth-info">
-                                        Birth information
-                                    </a>
-                                </h4>
-                            </div>
-                            <div id="birth-info" class="panel-collapse collapse">
-                                <br>
-                                <div class="row collapse-margin">
-                                    <div class="col-xs-12 col-sm-6">
-                                        <div class="form-group">
-                                            <label>Date of birth: </label>
-                                            <span class="form-control-static">{{requester.dob | date:'MMM d, y'}}</span>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Place of birth: </label>
-                                            <span class="form-control-static">{{requester.placeOfBirth}}</span>
-                                        </div>
-                                    </div>
-                                    <div class="col-xs-12 col-sm-6">
-                                        <div class="form-group">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="panel-group">
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h4 class="panel-title">
-                                    <a data-toggle="collapse" href="/agent#employment-info">
-                                        Employment information
-                                    </a>
-                                </h4>
-                            </div>
-                            <div id="employment-info" class="panel-collapse collapse">
-                                <br>
-                                <div class="row collapse-margin">
-                                    <div class="col-xs-12 col-sm-6">
-                                        <div class="form-group">
-                                            <label>Appointment type: </label>
-                                            <span class="form-control-static">{{requester.appointmentType}}</span>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Category at recruitment: </label>
-                                            <span class="form-control-static">{{requester.categoryAtRecruitment}}</span>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Current Category: </label>
-                                            <span class="form-control-static">{{requester.currentCategory}}</span>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Current grade: </label>
-                                            <span class="form-control-static">{{requester.currentGrade}}</span>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Current index: </label>
-                                            <span class="form-control-static">{{requester.currentIndex}}</span>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Current situation: </label>
-                                            <span class="form-control-static">{{requester.currentSituation}}</span>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Date of appointment or assignment: </label>
-                                            <span class="form-control-static">{{requester.dateOfAppointmentOrAssignment | date: 'MMM d, y'}}</span>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Field of work: </label>
-                                            <span class="form-control-static">{{requester.fieldOfWork}}</span>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Structure: </label>
-                                            <span class="form-control-static wrap">{{requester.structure}}</span>
-                                        </div>
-                                    </div>
-                                    <div class="col-xs-12 col-sm-6">
-                                        <div class="form-group">
-                                            <label>Gade at recruitment: </label>
-                                            <span class="form-control-static">{{requester.gradeAtRecruitment}}</span>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Health District: </label>
-                                            <span class="form-control-static">{{requester.healthDistrict}}</span>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Occupied organic position: </label>
-                                            <span class="form-control-static">{{requester.occupiedOrganicPosition}}</span>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Rank position: </label>
-                                            <span class="form-control-static">{{requester.rankPosition}}</span>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Recruitment date: </label>
-                                            <span class="form-control-static">{{requester.recruitmentDate | date: 'MMM d, y'}}</span>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Reference appointment or assignment: </label>
-                                            <span class="form-control-static">{{requester.referenceAppointmentOrAssignment}}</span>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Region: </label>
-                                            <span class="form-control-static">{{requester.region}}</span>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Status: </label>
-                                            <span class="form-control-static">{{requester.status}}</span>
-                                        </div>
-                                    </div>
-                                </div>
+                    <h5>
+                        <a style="text-decoration-color: #91BF44" href="/agent#birth-info" data-toggle="collapse" data-target="#birth-info" aria-expanded="false" aria-controls="birth-info"> <span class="text-success">Birth information</span>
+                        </a>
+                    </h5>
+                    <div id="birth-info" class="collapse box-shadow">
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-6">
+                                <table class="table table-responsive borderless">
+                                    <thead>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Date de naissance : </td>
+                                            <td>{{requester.dob | date:'MMM d, y'}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Lieu de naissance : </td>
+                                            <td>{{requester.placeOfBirth}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
                 </div>
+            </section>
+            <br>
+            <section>
+                <div>
+                    <h5>
+                        <a style="text-decoration-color: #91BF44" href="/agent#employment-info" data-toggle="collapse" data-target="#employment-info" aria-expanded="false" aria-controls="employment-info"> <span class="text-success">Employment information</span>
+                        </a>
+                    </h5>
+                    <div id="employment-info" class="collapse box-shadow">
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-6">
+                                <table class="table table-responsive borderless">
+                                    <thead></thead>
+                                    <thbody>
+                                        <tr>
+                                            <td>Appointment type : </td>
+                                            <td>{{requester.appointmentType}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Category at recruitment : </td>
+                                            <td>{{requester.categoryAtRecruitment}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Current Category : </td>
+                                            <td>{{requester.currentCategory}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Current grade : </td>
+                                            <td>{{requester.currentGrade}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Current index : </td>
+                                            <td>{{requester.currentIndex}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Current situation : </td>
+                                            <td>{{requester.currentSituation}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Date of appointment or assignment : </td>
+                                            <td>{{requester.dateOfAppointmentOrAssignment | date: 'MMM d, y'}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Field of work : </td>
+                                            <td>{{requester.fieldOfWork}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Structure : </td>
+                                            <td>{{requester.structure}}</td>
+                                        </tr>
+                                    </thbody>
+                                </table>
+                            </div>
+                            <div class="col-xs-12 col-sm-6">
+                                <table class="table table-responsive borderless">
+                                    <thead></thead>
+                                    <thbody>
+                                        <tr>
+                                            <td>Gade at recruitment :</td>
+                                            <td>{{requester.gradeAtRecruitment}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Health District : </td>
+                                            <td>{{requester.healthDistrict}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Occupied organic position :</td>
+                                            <td>{{requester.occupiedOrganicPosition}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Rank position : </td>
+                                            <td>{{requester.rankPosition}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Recruitment date : </td>
+                                            <td>{{requester.recruitmentDate | date: 'MMM d, y'}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Reference appointment or assignment : </td>
+                                            <td>{{requester.referenceAppointmentOrAssignment}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Region : </td>
+                                            <td>{{requester.region}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Status : </td>
+                                            <td>{{requester.status}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section>
+                <div class="edsd-section">
+                    <br>
+                    <form class="" name="edsdForm" ng-submit="processEdsd()">
+                        <date-picker></date-picker>
+                        <h4 class="color">Sélectionnez le(s) EDSD a calculer</h4>
+                        <hr />
 
-                <section>
-                    <div class="edsd-section">
-                        <br>
-                        <form class="" name="edsdForm" ng-submit="processEdsd()">
-
-                            <date-picker></date-picker>
-
-                            <h4>Selectionnez le(s) EDSD a calculer</h4>
+                        <div class="row" style="margin: 0 auto;">
+                            <div class="col-xs-12 col-md-4">
+                                <label class="checkbox-inline material-checkbox color">
+                                    <input type="checkbox" name="primesModule"
+                                        ng-model="edsdModules.primes"><span>Primes</span>
+                                </label>
+                            </div>
+                            <div class="col-xs-12 col-md-4">
+                                <label class="checkbox-inline material-checkbox color">
+                                    <input type="checkbox" name="nonLogementModule"
+                                        ng-model="edsdModules.nonLogement"><span>Non logements</span>
+                                </label>
+                            </div>
+                            <div class="col-xs-12 col-md-4">
+                                <label class="checkbox-inline material-checkbox color">
+                                    <input type="checkbox" name="rappelsSalairesModule"
+                                    ng-model="edsdModules.rappelsSalaires"><span>Rappels salaires</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div ng-if="edsdModules.primes">
                             <hr />
                             <div class="row" style="margin: 0 auto;">
-                                <div class="col-xs-12 col-md-4">
-                                    <label class="checkbox-inline">
-                                        <input type="checkbox" name="primesModule"
-                                            ng-model="edsdModules.primes">Primes
-                                    </label>
-                                </div>
-                                <div class="col-xs-12 col-md-4">
-                                    <label class="checkbox-inline">
-                                        <input type="checkbox" name="nonLogementModule"
-                                            ng-model="edsdModules.nonLogement">Non logement
-                                    </label>
-                                </div>
-                                <div class="col-xs-12 col-md-4">
-                                    <label class="checkbox-inline">
-                                        <input type="checkbox" name="rappelsSalairesModule"
-                                        ng-model="edsdModules.rappelsSalaires">Rappels salaires
+                                <div class="col-xs-12 col-md-3">
+                                    <label class="checkbox-inline material-checkbox">
+                                        <input type="checkbox" name="retenuesModule"
+                                            ng-model="edsdModules.retenues" ng-checked="false">
+                                            <span><b>Avec retenues</b></span>
                                     </label>
                                 </div>
                             </div>
-                            <div ng-if="edsdModules.primes">
-                                <hr />
-                                <div class="row" style="margin: 0 auto;">
-                                    <div class="col-xs-12 col-md-3">
-                                        <label class="checkbox-inline">
-                                            <input type="checkbox" name="retenuesModule"
-                                                ng-model="edsdModules.retenues" ng-checked="false">
-                                                <b>Avec retenues</b>
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
+                        </div>
+                        <hr />
+                        <div class="" ng-if="edsdModules.primes">
+                            <br />
+                            <primes></primes>
+                        </div>
+                        <div class="" ng-if="edsdModules.primes && edsdModules.retenues">
+                            <br />
+                            <retenues></retenues>
+                        </div>
+                        <div class="" ng-if="edsdModules.nonLogement">
+                            <br />
+                            <non-logement></non-logement>
+                        </div>
+                        <div class="" ng-if="edsdModules.rappelsSalaires">
+                            <br />
+                            <rappels-salaires></rappels-salaires>
+                        </div>
+                        <br>
+                        <br><br>
+                        <div ng-if="edsdModules.primes || edsdModules.nonLogement || edsdModules.rappelsSalaires">
                             <hr />
-                            <div class="" ng-if="edsdModules.primes">
-                                <br />
-                                <primes></primes>
-                            </div>
-                            <div class="" ng-if="edsdModules.primes && edsdModules.retenues">
-                                <br />
-                                <retenues></retenues>
-                            </div>
-                            <div class="" ng-if="edsdModules.nonLogement">
-                                <br />
-                                <non-logement></non-logement>
-                            </div>
-                            <div class="" ng-if="edsdModules.rappelsSalaires">
-                                <br />
-                                <rappels-salaires></rappels-salaires>
-                            </div>
-                            <br>
-                            <br><br>
-                            <div ng-if="edsdModules.primes || edsdModules.nonLogement || edsdModules.rappelsSalaires">
-                                <hr />
-                                <button type="submit" class="btn btn-lg text-center"
-                                    ng-class="true ? 'btn btn-success' : 'btn btn-default'"
-                                    ng-disabled="">Process EDSD</button>
-                            </div>
-                            <br><br><br>
-                        </form>
-                    </div>
-                </section>
-            </div>
+                            <button type="submit" class="btn btn-lg text-center"
+                                ng-class="true ? 'btn btn-success' : 'btn btn-default'"
+                                ng-disabled="">Créer EDSD</button>
+                        </div>
+                        <br><br><br>
+                    </form>
+                </div>
+            </section>
         </div>
     </div>
 </div>
