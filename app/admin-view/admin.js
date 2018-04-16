@@ -21,7 +21,7 @@ angular.module('App.admin', ['ngRoute', 'ngCookies', 'ngSanitize', 'ngMessages']
     }).otherwise({redirectTo: '/login'});
 }])
 
-.controller('AdminCtrl', function($scope, $location, $cookies, $window, $http, $timeout, $uibModal,
+.controller('AdminCtrl', function($scope, $location, $cookies, $window, $http, $timeout, $interval, $uibModal,
     headerService, storageService, agentService, edsdService) {
 
     $scope.clicked = {};
@@ -50,6 +50,7 @@ angular.module('App.admin', ['ngRoute', 'ngCookies', 'ngSanitize', 'ngMessages']
     $scope.showRole;
     $scope.createdByField = true;
     $scope.resetPassword={};
+    $scope.seconds = 4000;
     $scope.error = {};
     $scope.success={};
     $scope.agents;
@@ -277,12 +278,15 @@ angular.module('App.admin', ['ngRoute', 'ngCookies', 'ngSanitize', 'ngMessages']
             ag.password = $scope.resetPassword.password;
             ag.$update(function(updated) {
                 $scope.success.message = true;
+                $interval(function() {
+                    $scope.seconds-=1000;
+                }, 1000);
                 $timeout(function(){
                     $scope.agent = updated;
                     $scope.selected = false;
                     $scope.success.message = false;
                     $scope.resetPassword={};
-                }, 4000);
+                }, 5000);
             });
         });
     }
