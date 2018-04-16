@@ -1,41 +1,43 @@
-<div>
-    <div class="row">
+<div class="mx-5 my-5">
+    <div class="row color">
         <div class="col-xs-12">
-            <h3 class="page-header">All Agents</h3>
+            <h3 class="page-header">Tous les agents</h3>
         </div>
     </div>
-
-    <div class="row">
-        <div class="col-xs-12">
-		    <table st-table="agents" st-safe-src="allAgents" class="table table-stroped table-hover">
-    			<thead>
-        			<tr>
-        				<th st-sort="firstName">First name</th>
-        				<th st-sort="lastName">Last name</th>
-        				<th st-sort="username">Matricule</th>
-        				<th st-sort="active">status</th>
-        				<th st-sort="role">Role</th>
-        				<th st-sort="nonLogementEdsd">Non logement EDSD</th>
-        				<th st-sort="primesEdsd">Primes EDSD</th>
-        				<th st-sort="rappelsSalairesEdsd">Rappels Salaires EDSD</th>
-        			</tr>
-        			<tr>
-        				<th colspan="9"><input st-search="" class="form-control" placeholder="search ..." type="text"/></th>
-        			</tr>
-    			</thead>
-    			<tbody>
-        			<tr ng-repeat="thisAgent in agents" class="primes-table" ng-click="showDetails($event, thisAgent, '');">
-        				<td>{{thisAgent.firstName}}</td>
-        				<td>{{thisAgent.lastName}}</td>
-        				<td>{{thisAgent.username}}</td>
-        				<td>{{(thisAgent.active)? "Enabled" : "Disabled"}}</td>
-        				<td>{{thisAgent.roles[0].role}}</td>
-        				<td>{{thisAgent.nonLogementEdsd.length}}</td>
-        				<td>{{thisAgent.primesEdsd.length}}</td>
-        				<td>{{thisAgent.rappelsSalairesEdsd.length}}</td>
-        			</tr>
-    			</tbody>
-		    </table>
-        </div>
+    <hr>
+    <div class="mb-5">
+        <section class="row">
+            <div class="col-xs-12 color box-shadow mb-5" style="min-width: 100%">
+    		    <table st-table="agents" st-safe-src="allAgents" class="table table-stroped table-hover">
+        			<thead>
+            			<tr>
+            				<th st-sort="firstName">Prenom</th>
+            				<th st-sort="lastName">Nom</th>
+            				<th st-sort="username">Matricule</th>
+            				<th st-sort="active">Statut</th>
+            				<th st-sort="role">Role</th>
+            				<th st-sort="nonLogementEdsd">Non logements EDSD</th>
+            				<th st-sort="primesEdsd">Primes EDSD</th>
+            				<th st-sort="rappelsSalairesEdsd">Rappels Salaires EDSD</th>
+            			</tr>
+            			<tr>
+            				<th colspan="9"><input st-search="" class="form-control" placeholder="search ..." type="text"/></th>
+            			</tr>
+        			</thead>
+        			<tbody>
+            			<tr ng-repeat="thisAgent in agents" class="primes-table" ng-click="showDetails($event, thisAgent, '');">
+            				<td>{{thisAgent.firstName}}</td>
+            				<td>{{thisAgent.lastName}}</td>
+            				<td>{{thisAgent.username}}</td>
+            				<td>{{(thisAgent.active)? "Enabled" : "Disabled"}}</td>
+            				<td>{{thisAgent.roles[0].role}}</td>
+            				<td>{{thisAgent.nonLogementEdsd.length}}</td>
+            				<td>{{thisAgent.primesEdsd.length}}</td>
+            				<td>{{thisAgent.rappelsSalairesEdsd.length}}</td>
+            			</tr>
+        			</tbody>
+    		    </table>
+            </div>
+        </section>
 	</div>
 </div>
