@@ -2,7 +2,7 @@
 <div style="margin: 50px;">
     <div class="row">
         <div class="col-xs-12">
-            <h3 class="page-header color">Créer EDSD</h3>
+            <h3 class="page-header color">Créer un EDSD</h3>
         </div>
     </div>
     <hr>
@@ -240,7 +240,8 @@
                         </div>
                         <br>
                         <br><br>
-                        <div ng-if="edsdModules.primes || edsdModules.nonLogement || edsdModules.rappelsSalaires">
+                        <div ng-if="(edsdModules.primes || edsdModules.nonLogement || edsdModules.rappelsSalaires)
+                        && (date.startDate && date.endDate && (date.startDate - date.endDate < 0))">
                             <hr />
                             <button type="submit" class="btn btn-lg text-center"
                                 ng-class="true ? 'btn btn-success' : 'btn btn-default'"

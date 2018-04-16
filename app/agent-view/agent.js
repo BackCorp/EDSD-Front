@@ -88,12 +88,6 @@ angular.module('App.agent', ['ngRoute', 'ngCookies', 'ngSanitize', 'smart-table'
     }
 
     //-------------- Date --------------//
-    $scope.dt1;
-    $scope.today = function() {
-        $scope.dt1 = new Date();
-        $scope.dt2 = new Date();
-    };
-
     $scope.clear1 = function() {
       $scope.dt1 = null;
     };
@@ -135,13 +129,6 @@ angular.module('App.agent', ['ngRoute', 'ngCookies', 'ngSanitize', 'smart-table'
 
     $scope.open2 = function() {
       $scope.popup2.opened = true;
-    };
-
-    $scope.setDate = function(year, month, day) {
-        $scope.dt1 = new Date(year, month, day);
-    };
-    $scope.setDate = function(year, month, day) {
-        $scope.dt2 = new Date(year, month, day);
     };
 
     $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
