@@ -31,7 +31,7 @@ angular.module('App.admin', ['ngRoute', 'ngCookies', 'ngSanitize', 'ngMessages']
 
     $scope.logout = function() {
         storageService.clear();
-        $window.document.body.style.background = '#303C4C';
+        $window.document.body.style.background = '';
         $location.path("/login");
     };
 
