@@ -8,6 +8,7 @@ angular.module('App', [
   'ngSanitize',
   'ui.bootstrap',
   'ui.bootstrap.tpls',
+  'gridshore.c3js.chart',
   'services',
   'App.login',
   'App.admin',

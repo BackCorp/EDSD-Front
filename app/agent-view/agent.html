@@ -1,11 +1,10 @@
-<!-- style="background: #91BF44;" -->
- <!-- style="background: #303C4C;"> -->
+
 <link rel="stylesheet" href="agent-view/agent.css">
 
-<div class="" style="background: #303C4C;">
+<div class="" style="background: #303C4C; margin-bottom: 0px; ">
 
-<!-- Navigation-->
-<nav class="navbar navbar-expand-lg navbar-dark" id="mainNav" style="background: #F9F8F4; border-bottom: 1px solid #e9e8e5;">
+    <!-- Navigation-->
+    <nav class="navbar navbar-expand-lg navbar-dark" id="mainNav" style="background: #F9F8F4; border-bottom: 1px solid #e9e8e5;">
 
     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" style="background: #868e96;"
         data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
@@ -14,7 +13,7 @@
     <br>
 
     <div class="collapse navbar-collapse" id="navbarResponsive" >
-        <ul class="navbar-nav navbar-sidenav" id="accordion" style="margin-top: -10px;">
+        <ul class="navbar-nav navbar-sidenav" id="accordion" style="margin-top: -10px; min-height: 100%;;">
             <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard" >
                 <div style="margin: 30px 40px 40px 20px;">
                     <a class="navbar-brand" href="#">
@@ -23,7 +22,7 @@
                     </a>
                 </div>
             </li>
-            <li class="nav-item" ng-click="toggle.section1 = true; toggle.section2=false;"
+            <li class="nav-item" ng-click="toggle.section1 = true; toggle.section2=false; change('process-edsd.html');"
             data-toggle="tooltip" data-placement="right" title="Dashboard"
             ng-class="{ 'bg-success': toggle.section1 , '': toggle }"
             style="border-bottom: 0.4px solid #26303c;" >
@@ -51,6 +50,7 @@
                 </ul>
             </li>
         </ul>
+
         <ul class="navbar-nav ml-auto">
             <li class="nav-item">
                 <!-- /.dropdown-user -->
@@ -68,35 +68,36 @@
 </nav>
 
 
-<div class="content-wrapper" >
-    <div class="container">
-        <div ng-include="agentTemplate" ></div>
-    </div>
-    <footer class="sticky-footer">
-        <div class="container">
-            <div class="text-center color">
-                <small>Copyright © EDSD 2018</small>
-            </div>
+    <div class="content-wrapper" >
+        <div class="">
+            <div ng-include="agentTemplate" ></div>
         </div>
-    </footer>
-    <!-- Scroll to Top Button-->
-    <a class="scroll-to-top rounded" href="#page-top">
-        <i class="fa fa-angle-up"></i>
-    </a>
-    <!-- Logout Modal-->
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
+        <footer class="sticky-footer">
+            <div class="container">
+                <div class="text-center color">
+                    <small>Copyright © EDSD 2018</small>
                 </div>
-                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="login.html">Logout</a>
+            </div>
+        </footer>
+        <!-- Scroll to Top Button-->
+        <a class="scroll-to-top rounded" href="#page-top">
+            <i class="fa fa-angle-up"></i>
+        </a>
+        <!-- Logout Modal-->
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                        <a class="btn btn-primary" href="login.html">Logout</a>
+                    </div>
                 </div>
             </div>
         </div>

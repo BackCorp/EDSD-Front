@@ -1,69 +1,68 @@
 
-<div>
+<div style="margin: 50px;">
     <div class="row">
         <div class="col-lg-12">
-            <h1 class="page-header">Activate Agent</h1>
+            <h1 class="page-header color">Activer un agent</h1>
         </div>
     </div>
-
-    <div class="row">
-        <div class="col-lg-12">
+    <hr>
+    <div>
+        <section>
             <typeahead-directive-disabled></typeahead-directive-disabled>
-            <br>
-            <div ng-show="disabledSelected">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        Employee details
+        </section>
+        <br>
+        <section ng-show="disabledSelected">
+            <form role="form" name="activateagent" ng-submit="activateAgent(disabledAgent)" class="box-shadow">
+                <div class="row ">
+                    <div class="col-xs-12 col-sm-6">
+                        <table class="table table-responsive borderless">
+                            <thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Prenom: </td>
+                                        <td>{{disabledAgent.firstName}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Nom: </td>
+                                        <td>{{disabledAgent.lastName}}</td>
+                                    </tr>
+                                </tbody>
+                            </thead>
+                        </table>
                     </div>
-                    <div class="panel-body">
-                        <form role="form" name="activateagent" ng-submit="activateAgent(disabledAgent)">
-                            <div class="row">
-                                <div class="col-xs-12 col-sm-6">
-                                    <div class="form-group">
-                                        <label>Name: </label>
-                                        <p class="form-control-static">{{disabledAgent.firstName}}</p>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Middle Name: </label>
-                                        <p class="form-control-static">{{disabledAgent.midName}}</p>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Last Name: </label>
-                                        <p class="form-control-static">{{disabledAgent.lastName}}</p>
-                                    </div>
-                                </div>
-                                <div class="col-xs-12 col-sm-6">
-                                    <div class="form-group">
-                                        <label>Employee Number/User name: </label>
-                                        <p class="form-control-static">{{disabledAgent.username}}</p>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>E-mail address: </label>
-                                        <p class="form-control-static">{{disabledAgent.email}}</p>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="checkbox" ng-class="enabled ? 'btn btn-success' : 'btn btn-default'">
-                                            <label><input type="checkbox" ng-model="enabled"
-                                                ng-click="setDisabledActive(enabled)" required>
-                                                <b>Activate Agent</b></label>
-                                        </div>
-                                    </div>
-                                </div>
+                    <div class="col-xs-12 col-sm-6">
+                        <table class="table table-responsive borderless">
+                            <thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Employee Number/User name: </td>
+                                        <td>{{disabledAgent.username}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>E-mail address: </td>
+                                        <td>{{disabledAgent.email}}</td>
+                                    </tr>
+                                </tbody>
+                            </thead>
+                        </table>
+                        <div class="form-group">
+                            <div class="checkbox" ng-class="enabled ? 'btn btn-success text-light' : 'btn btn-outline-success'">
+                                <label class="material-checkbox">
+                                    <input type="checkbox" ng-model="enabled" ng-click="setDisabledActive(enabled)" required><span ng-class="enabled ? 'text-light' : 'text-dark'"><b>Activer l'agent</b></span>
+                                </label>
                             </div>
-                            <div class="alert alert-success" ng-if="success.message ">
-                                <p>{{ disabledAgent.firstName }} {{ disabledAgent.lastName }}'s account has been activated </p>
-                            </div>
-                            <!-- <div class="alert alert-success" ng-if="success.message">
-                                {{agent.name}}'s agent account has been created.
-                            </div> -->
-                            <hr>
-                            <div ng-if="enabled">
-                                <button type="submit" class="btn btn-lg btn-success text-center">Save</button>
-                            </div>
-                        </form>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
+                <div class="alert alert-success" ng-if="success.message ">
+                    <p>Le compte de {{ disabledAgent.firstName }} {{ disabledAgent.lastName }} a été activé.</p>
+                </div>
+                <div ng-if="enabled">
+                    <hr>
+                    <button type="submit" class="btn btn-lg btn-success text-center">Save</button>
+                    <br><br>
+                </div>
+            </form>
+        </section>
     </div>
 </div>

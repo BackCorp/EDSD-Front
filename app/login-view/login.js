@@ -9,9 +9,6 @@ angular.module('App.login', ['ngRoute','ngCookies', 'ngSanitize'])
             check: function($location, storageService, $window) {
                 if(storageService.getSession('hasLoggedIn')) {
                     $location.path(storageService.getSession("previousRoute"));
-                } else {
-                    var theme = $window.document.getElementById("login-theme");
-                    if(theme) { theme.href="lib/vendor/bootstrap4/css/bootstrap4.min.css"; }
                 }
             },
         },
@@ -25,7 +22,6 @@ angular.module('App.login', ['ngRoute','ngCookies', 'ngSanitize'])
 
     $scope.login={};
     $scope.login.theme = true;
-
 
     $scope.login = function() {
         if($scope.username && $scope.password) {
@@ -41,10 +37,7 @@ angular.module('App.login', ['ngRoute','ngCookies', 'ngSanitize'])
                     storageService.setSession('firstName', response.principal.firstName);
                     storageService.setSession('lastName', response.principal.lastName);
                     $scope.login.failed = false;
-                    // $window.document.styleSheets[0].disabled = true;
-                    // console.log($window.document.getElementById("login-theme"));
-                    $window.document.getElementById("login-theme").href="lib/vendor/bootstrap/css/bootstrap.min.css";
-                    // $("link[href*='bootstrap4.min.css']").remove();
+                    $window.document.body.style.background = '#303C4C';
                     if(response.principal.roles.some(function(role) {
                         return role.role === "ADMIN";
                     })) {

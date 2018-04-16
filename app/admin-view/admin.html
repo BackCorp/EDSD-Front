@@ -1,94 +1,107 @@
 <link rel="stylesheet" href="admin-view/admin.css">
-<script src="lib/js/sb-admin.js"></script>
+<!-- Load c3.css -->
+<link href="lib/vendor/c3/css/c3.min.css" rel="stylesheet">
 
-<div ng-controller="AdminCtrl" class="">
-    <div id="wrapper">
-        <!-- Navigation -->
-        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="index.html">EDSD Admin v1.0.0</a>
-            </div>
-            <!-- /.navbar-header -->
 
-            <ul class="nav navbar-top-links navbar-right">
-                <!-- /.dropdown -->
-                <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown">
-                        <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
-                    </a>
-                    <ul class="dropdown-menu dropdown-user">
-                        <li><a><i class="fa fa-user fa-fw"></i> {{firstName}} {{lastName}} </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li><a href="#" ng-click="logout()"><i class="fa fa-sign-out fa-fw"></i> Logout</a></li>
-                    </ul>
-                    <!-- /.dropdown-user -->
+<div class="" style="background: #303C4C; margin-bottom: 0px; ">
+
+    <!-- Navigation-->
+    <nav class="navbar navbar-expand-lg navbar-dark" id="mainNav" style="background: #F9F8F4; border-bottom: 1px solid #e9e8e5;">
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" style="background: #868e96;"
+            data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon" ></span>
+        </button>
+        <br>
+        <div class="collapse navbar-collapse" id="navbarResponsive" >
+            <ul class="navbar-nav navbar-sidenav" id="accordion" style="margin-top: -10px; min-height: 100%;;">
+                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard" >
+                    <div style="margin: 30px 40px 40px 20px;">
+                        <a class="navbar-brand" href="#">
+                            <img src="img/logo-edsd.png" class="img-thumbnail" alt="" style="width: 15%;">
+                            <span style="margin-left: 20px; color: #868e96; font-weight: bold;">EDSD Admin</span>
+                        </a>
+                    </div>
                 </li>
-                <!-- /.dropdown -->
-            </ul>
-            <!-- /.navbar-top-links -->
-
-            <div class="navbar-default sidebar wrapper" role="navigation" >
-                <div class="sidebar-nav navbar-collapse">
-                    <ul class="nav" id="side-menu">
-                        <li class="sidebar-search">
-                            <div><span style="font-size: 1.1em;" class="label label-default">{{firstName}} {{lastName}}!</span></div>
-                        </li>
-                        <li>
-                            <a class="nav-first-level" ng-click="change('admin-dashboard.html')"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
-                        </li>
-                        <li>
-                            <a href="#"><i class="fa fa-id-badge" aria-hidden="true"></i>&nbsp; Agents<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-                                <li>
-                                    <a ng-click="change('create-agent.html')">Create</a>
-                                </li>
-                                <li>
-                                    <a ng-click="change('edit-agent.html')">Edit</a>
-                                </li>
-                                <li>
-                                    <a ng-click="change('activate-agent.html')">Activate</a>
-                                </li>
-                                <li>
-                                    <a ng-click="change('deactivate-agent.html')">Deactivate</a>
-                                </li>
-                                <li>
-                                    <a ng-click="change('reset-password.html');">Reset Password</a>
-                                </li>
-                                <li>
-                                    <a ng-click="change('all-agent.html'); getAllAgents()">All</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="#"><i class="fa fa-file-text-o" aria-hidden="true"></i> EDSD products<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-                                <li>
-                                    <a ng-click="change('all-primes-edsd.html'); getAllPrimesEdsds();">Primes</a>
-                                </li>
-                                <li>
-                                    <a ng-click="change('all-non-logement-edsd.html'); getAllNonLogementEdsds();">Non logements</a>
-                                </li>
-                                <li>
-                                    <a ng-click="change('all-rappels-salaires-edsd.html'); getAllRappelsSalairesEdsds();">Rappels Salaires</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a class="nav-first-level" ng-click="change('admin-performance.html'); getAllAgents();"><i class="fa fa-bar-chart-o fa-fw"></i> Performance</span></a>
-                        </li>
+                <li class="nav-item" ng-click="toggle.section1 = true; toggle.section2=false; change('admin-dashboard.html');"
+                data-toggle="tooltip" data-placement="right" title="Dashboard"
+                ng-class="{ 'bg-success': toggle.section1 , '': toggle }"
+                style="border-bottom: 0.4px solid #26303c;" >
+                    <a class="nav-link" ng-class="{ 'text-white': toggle.section1, '': !toggle }">
+                        <i class="fa fa-file-text-o"></i>
+                        <span class="nav-link-text" >Dashboard</span>
+                    </a>
+                </li>
+                <li class="nav-item" ng-click="toggle.section2 = true; toggle.section1=false;"
+                    data-toggle="tooltip" data-placement="right" title="Agents"
+                    ng-class="{ 'bg-success': toggle.section2, '': !toggle }"
+                    style="border-bottom: 0.4px solid #26303c;">
+                    <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse"
+                        data-target="#agents" href="" data-parent="#accordion"
+                        ng-class="{ 'text-white': toggle.section2, '': !toggle }">
+                        <i class="fa fa-cogs" aria-hidden="true"></i>
+                        <span class="nav-link-text">
+                            Agents
+                        </span>
+                    </a>
+                    <ul class="sidenav-second-level collapse" id="agents">
+                        <li><a href="" ng-click="change('create-agent.html')">Créer</a></li>
+                        <li><a href="" ng-click="change('edit-agent.html')">Modifier</a></li>
+                        <li><a href="" ng-click="change('activate-agent.html')">Activer</a></li>
+                        <li><a href="" ng-click="change('deactivate-agent.html')">Deactiver</a></li>
+                        <li><a href="" ng-click="change('reset-password.html');">Réinitialiser</a></li>
+                        <li><a href="" ng-click="change('all-agent.html'); getAllAgents()">Afficher les agents</a></li>
                     </ul>
+                </li>
+            </ul>
+
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <!-- /.dropdown-user -->
+                    <div class="btn-group user">
+                        <a class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fa fa-user fa-fw"></i> {{firstName}} {{lastName}}
+                        </a>
+                        <div class="dropdown-menu" style="padding: 10px;">
+                            <a href="" ng-click="logout()"><i class="fa fa-sign-out fa-fw color" data-toggle="modal"      data-target="#exampleModal"></i> Logout</a>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="content-wrapper" >
+        <div class="">
+            <div ng-include="adminTemplate"></div>
+        </div>
+        <footer class="sticky-footer">
+            <div class="container">
+                <div class="text-center color">
+                    <small>Copyright © EDSD 2018</small>
                 </div>
             </div>
-        </nav>
-        <div id="page-wrapper">
-            <div ng-include="adminTemplate"></div>
+        </footer>
+        <!-- Scroll to Top Button-->
+        <a class="scroll-to-top rounded" href="#page-top">
+            <i class="fa fa-angle-up"></i>
+        </a>
+        <!-- Logout Modal-->
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                        <a class="btn btn-primary" href="login.html">Logout</a>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

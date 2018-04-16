@@ -6,13 +6,12 @@ angular.module('App.admin', ['ngRoute', 'ngCookies', 'ngSanitize', 'ngMessages']
     $routeProvider.when('/admin', {
         resolve: {
             check: function($location, $cookies, storageService, $window) {
-                var theme = $window.document.getElementById("login-theme");
                 if(!storageService.getSession('hasLoggedIn') ||
                 (storageService.getSession('hasLoggedIn') && storageService.getSession('role')!=="ADMIN")) {
-                    if(theme) { theme.href="lib/vendor/bootstrap4/css/bootstrap4.min.css"; }
+                    $window.document.body.style.background = '';
                     $location.path("/login");
                 } else {
-                    if(theme) { theme.href=""; }
+                    $window.document.body.style.background = '#303C4C';
                     storageService.setSession('previousRoute', '/admin');
                 }
             },
@@ -25,8 +24,14 @@ angular.module('App.admin', ['ngRoute', 'ngCookies', 'ngSanitize', 'ngMessages']
 .controller('AdminCtrl', function($scope, $location, $cookies, $window, $http, $timeout, $uibModal,
     headerService, storageService, agentService, edsdService) {
 
+    $scope.clicked = {};
+    $scope.showClick = function(data) {
+        $scope.clicked = data;
+    };
+
     $scope.logout = function() {
         storageService.clear();
+        $window.document.body.style.background = '#303C4C';
         $location.path("/login");
     };
 
@@ -48,6 +53,22 @@ angular.module('App.admin', ['ngRoute', 'ngCookies', 'ngSanitize', 'ngMessages']
     $scope.error = {};
     $scope.success={};
     $scope.agents;
+    $scope.toggle={section1: true, section2: false};
+    $scope.charts={};
+    $scope.charts.edsd={};
+    $scope.charts.edsd.donutPoints=[];
+    $scope.charts.edsd.donutColumns=[];
+    $scope.charts.users={};
+    $scope.charts.users.donutPoints=[];
+    $scope.charts.users.donutColumns=[];
+
+
+    $scope.charts.users.formatDonut = function formatDonut(value, ratio, id) {
+        return d3.format('A')(value);
+    };
+    $scope.charts.edsd.formatDonut = function formatDonut(value, ratio, id) {
+        return d3.format('E')(value);
+    };
 
     $scope.getAgents = function (search) {
         headerService.setAuthHeader(storageService.getSession('session'));
@@ -205,9 +226,26 @@ angular.module('App.admin', ['ngRoute', 'ngCookies', 'ngSanitize', 'ngMessages']
 
     headerService.setAuthHeader(storageService.getSession('session'));
     $http.get("https://edsd2.herokuapp.com/api/admin/stats").then(
-        function(response){
-            $scope.stats = response.data;
-            console.log($scope.stats);
+        function(response) {
+            $scope.charts.edsd.donutPoints = [
+                {primes: response.data.primesEdsdCount},
+                {nonLogemnents: response.data.nonLogementEdsdCount},
+                {rappelsSalaires: response.data.rappelsSalairesEdsdCount}
+            ];
+            $scope.charts.edsd.donutColumns = [
+                {"id":"primes", "type":"donut", "name":"Primes"},
+                {"id":"nonLogemnents","type":"donut","name":"Non logements"},
+                {"id":"rappelsSalaires","type":"donut","name":"Rappels Salaires"}
+            ];
+            $scope.charts.users.donutPoints = [
+                {disabledAgents: response.data.disabledAgentCount},
+                {enabledAgents: response.data.enabledAgentCount}
+            ];
+            $scope.charts.users.donutColumns = [
+                {"id":"disabledAgents", "type":"donut", "name":"Agents non actifs","color":"#d62728"},
+                {"id":"enabledAgents","type":"donut","name":"Agents actifs","color":"#2CA02C"}
+            ];
+            console.log(response.data);
         },
         function(response) {
             console.log(response);

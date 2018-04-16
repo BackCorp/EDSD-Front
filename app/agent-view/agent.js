@@ -6,12 +6,11 @@ angular.module('App.agent', ['ngRoute', 'ngCookies', 'ngSanitize', 'smart-table'
     $routeProvider.when('/agent', {
         resolve: {
             check: function($location, $cookies, $window, storageService) {
-                var theme = $window.document.getElementById("login-theme");
                 if(!storageService.getSession('hasLoggedIn')) {
-                    if(theme) { theme.href="lib/vendor/bootstrap4/css/bootstrap4.min.css"; }
+                    $window.document.body.style.background = '';
                     $location.path("/login");
                 } else {
-                    // if(theme) { theme.href=""; }
+                    $window.document.body.style.background = '#303C4C';
                     storageService.setSession('previousRoute', '/agent');
                 }
             },
@@ -28,6 +27,7 @@ angular.module('App.agent', ['ngRoute', 'ngCookies', 'ngSanitize', 'smart-table'
 
     $scope.logout = function() {
         storageService.clear();
+        $window.document.body.style.background = '';
         $location.path("/login");
     };
 
@@ -39,8 +39,8 @@ angular.module('App.agent', ['ngRoute', 'ngCookies', 'ngSanitize', 'smart-table'
         $scope.agentTemplate = "agent-view/templates/" + template;
     };
 
-    $scope.asyncSearch = undefined;
-    $scope.selected = undefined;
+    $scope.asyncSearch;
+    $scope.selected;
     $scope.edsdModules={};
     $scope.primesGrade={};
     $scope.primesIndices={};

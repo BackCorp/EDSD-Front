@@ -1,144 +1,31 @@
 
-<div class="row">
-    <div class="col-lg-12">
-        <h1 class="page-header">Dashboard</h1>
-    </div>
-    <!-- /.col-lg-12 -->
-</div>
-<!-- /.row -->
-<div class="row">
-    <div class="col-xs-6 col-sm-4 col-md-3">
-        <div class="panel panel-green">
-            <div class="panel-heading">
-                <div class="row">
-                    <div class="col-xs-3">
-                        <i class="fa fa-file-text-o fa-5x"></i>
-                    </div>
-                    <div class="col-xs-9 text-right">
-                        <div class="huge">{{stats.primesEdsdCount}}</div>
-                        <div>Primes EDSD</div>
-                    </div>
-                </div>
-            </div>
-            <a href="#">
-                <div class="panel-footer">
-                    <span class="pull-left">View Details</span>
-                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                    <div class="clearfix"></div>
-                </div>
-            </a>
+<div style="margin: 50px;">
+    <div class="row">
+        <div class="col-xs-12">
+            <h1 class="page-header color">Dashboard</h1>
         </div>
     </div>
-    <div class="col-xs-6 col-sm-4 col-md-3">
-        <div class="panel panel-yellow">
-            <div class="panel-heading">
-                <div class="row">
-                    <div class="col-xs-3">
-                        <i class="fa fa-file-o fa-5x"></i>
-                    </div>
-                    <div class="col-xs-9 text-right">
-                        <div class="huge">{{stats.nonLogementEdsdCount}}</div>
-                        <div>Non logements EDSD</div>
-                    </div>
-                </div>
+    <hr class="color"><br>
+    <div class="row ">
+        <div class="col-xs-12 col-md-6">
+            <div class="box-shadow">
+                <div class="text-center color">EDSD complétés</div>
+                <c3chart bindto-id="donut-edsd-chart"
+                    chart-data="charts.edsd.donutPoints" chart-columns="charts.edsd.donutColumns">
+                    <chart-legend show-legend="true"/>
+                    <chart-donut title="EDSD" width="60" show-label="true" expand="true"     label-format-function="charts.edsd.formatDonut"/>
+                </c3chart>
             </div>
-            <a href="#">
-                <div class="panel-footer">
-                    <span class="pull-left">View Details</span>
-                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                    <div class="clearfix"></div>
-                </div>
-            </a>
+        </div>
+        <div class="col-xs-12 col-md-6">
+            <div class="box-shadow">
+                <div class="text-center color">Agents</div>
+                <c3chart bindto-id="donut-user-chart" chart-data="charts.users.donutPoints" chart-columns="charts.users.donutColumns" sort-data="null">
+                    <chart-legend show-legend="true"/>
+                    <chart-donut title="Agents" width="60" show-label="true" expand="true"   label-format-function="charts.users.formatDonut" threshold-label="0.1"/>
+                </c3chart>
+            </div>
         </div>
     </div>
-    <div class="col-xs-6 col-sm-4 col-md-3">
-        <div class="panel panel-info">
-            <div class="panel-heading">
-                <div class="row">
-                    <div class="col-xs-3">
-                        <i class="fa fa-file-archive-o fa-5x"></i>
-                    </div>
-                    <div class="col-xs-9 text-right">
-                        <div class="huge">{{stats.rappelsSalairesEdsdCount}}</div>
-                        <div>Rap. Salaires EDSD</div>
-                    </div>
-                </div>
-            </div>
-            <a href="#">
-                <div class="panel-footer">
-                    <span class="pull-left">View Details</span>
-                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                    <div class="clearfix"></div>
-                </div>
-            </a>
-        </div>
-    </div>
-</div>
-<div class="row">
-    <div class="col-xs-6 col-sm-4 col-md-3">
-        <div class="panel panel-green">
-            <div class="panel-heading">
-                <div class="row">
-                    <div class="col-xs-3">
-                        <i class="fa fa-user-o fa-5x"></i>
-                    </div>
-                    <div class="col-xs-9 text-right">
-                        <div class="huge">{{stats.enabledAgentCount}}</div>
-                        <div>Enabled Agents</div>
-                    </div>
-                </div>
-            </div>
-            <a href="#">
-                <div class="panel-footer">
-                    <span class="pull-left">View Details</span>
-                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                    <div class="clearfix"></div>
-                </div>
-            </a>
-        </div>
-    </div>
-    <div class="col-xs-6 col-sm-4 col-md-3">
-        <div class="panel panel-red">
-            <div class="panel-heading">
-                <div class="row">
-                    <div class="col-xs-3">
-                        <i class="fa fa-user-o fa-5x"></i>
-                    </div>
-                    <div class="col-xs-9 text-right">
-                        <div class="huge">{{stats.disabledAgentCount}}</div>
-                        <div>Disabled Agents</div>
-                    </div>
-                </div>
-            </div>
-            <a href="#">
-                <div class="panel-footer">
-                    <span class="pull-left">View Details</span>
-                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                    <div class="clearfix"></div>
-                </div>
-            </a>
-        </div>
-    </div>
-    <div class="col-xs-6 col-sm-4 col-md-3">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <div class="row">
-                    <div class="col-xs-3">
-                        <i class="fa fa-user-o fa-5x"></i>
-                    </div>
-                    <div class="col-xs-9 text-right">
-                        <div class="huge">{{stats.requesterCount}}</div>
-                        <div>Requesters</div>
-                    </div>
-                </div>
-            </div>
-            <a href="#">
-                <div class="panel-footer">
-                    <span class="pull-left">View Details</span>
-                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                    <div class="clearfix"></div>
-                </div>
-            </a>
-        </div>
-    </div>
+    <br><br>
 </div>

@@ -1,27 +1,30 @@
 
-<div >
+<div style="margin: 50px">
     <div class="row">
         <div class="col-xs-12">
-            <h3 class="page-header">Primes EDSD</h3>
+            <h3 class="page-header color">Primes EDSD</h3>
         </div>
     </div>
-
+    <br>
     <div class="row">
-        <div class="col-xs-12">
-		    <table st-table="primes" st-safe-src="getPrimesEdsds" class="table table-stroped table-hover">
+        <div class="col-xs-12 color box-shadow mb-5" style="min-width: 100%">
+            <br>
+		    <table st-table="primes" st-safe-src="getPrimesEdsds" class="table table-stroped table-hover" >
     			<thead>
         			<tr>
-        				<th ng-if="createdByField" st-sort="createdBy">Created By</th>
-        				<th st-sort="createdDate">Created date</th>
-        				<th st-sort="firstName">First name</th>
-        				<th st-sort="lastName">Last name</th>
+        				<th ng-if="createdByField" st-sort="createdBy">Créée par</th>
+        				<th st-sort="createdDate">Date of creation</th>
+        				<th st-sort="firstName">Prénom</th>
+        				<th st-sort="lastName">Nom</th>
         				<th st-sort="accountName">Matricule</th>
-        				<th st-sort="computedPrimes">Computed primes</th>
-        				<th st-sort="startDate">Start date</th>
-        				<th st-sort="endDate">End date</th>
+        				<th st-sort="computedPrimes">Prime Calculée </th>
+        				<th st-sort="startDate">Date de début</th>
+        				<th st-sort="endDate">Date de fin</th>
         			</tr>
         			<tr>
-        				<th colspan="9"><input st-search="" class="form-control" placeholder="search ..." type="text"/></th>
+        				<th colspan="12">
+                            <input st-search="" class="form-control color" placeholder="search ..." type="text"/>
+                        </th>
         			</tr>
     			</thead>
     			<tbody>
