@@ -1,48 +1,48 @@
-
-<div style="margin: 50px">
-    <div class="row">
+<div class="mx-5 my-5">
+    <div class="row color">
         <div class="col-xs-12">
             <h3 class="page-header color">Rappels Salaires EDSD</h3>
         </div>
     </div>
-    <br>
-    <div class="row">
-        <div class="col-xs-12 color box-shadow mb-5" style="min-width: 100%">
-            <br>
-		    <table st-table="rappelsSalaires" st-safe-src="getRappelsSalairesEdsds" class="table table-stroped table-hover">
-    			<thead>
-        			<tr>
-                        <th ng-if="createdByField" st-sort="createdBy">Créée par</th>
-        				<th st-sort="createdDate">Date of creation</th>
-        				<th st-sort="firstName">Prénom</th>
-        				<th st-sort="lastName">Nom</th>
-        				<th st-sort="accountName">Matricule</th>
-                        <th st-sort="computedPrimes">Prime Calculée </th>
-        				<th st-sort="startDate">Date de début</th>
-        				<th st-sort="endDate">Date de fin</th>
-        			</tr>
-        			<tr>
-        				<th colspan="9"><input st-search="" class="form-control" placeholder="search ..." type="text"/></th>
-        			</tr>
-    			</thead>
-    			<tbody>
-        			<tr ng-repeat="rappelsSalaire in rappelsSalaires" class="primes-table" ng-click="showDetails($event, rappelsSalaire, 'modal-rappels-salaires-content.html')">
-                        <td ng-if="rappelsSalaire.createdByFirstName"><a>
-                            {{ rappelsSalaire.createdByFirstName }}
-                            {{ rappelsSalaire.createdByLastName }},
-                            {{ rappelsSalaire.createdByUsername }}
-                        </a></td>
-        				<td><a>{{rappelsSalaire.createdDate || rappelsSalaire.edsd.createdDate  | date:'MMM d, y h:mm a'}}</a></td>
-        				<td><a>{{rappelsSalaire.belongsToRequester.firstName || rappelsSalaire.edsd.belongsToRequester.firstName}}</a></td>
-        				<td><a>{{rappelsSalaire.belongsToRequester.lastName || rappelsSalaire.edsd.belongsToRequester.lastName}}</a></td>
-        				<td><a>{{rappelsSalaire.belongsToRequester.accountNumber || rappelsSalaire.edsd.belongsToRequester.accountNumber}}</a></td>
-        				<td><a>{{rappelsSalaire.computedRappelsSalaires || rappelsSalaire.edsd.computedRappelsSalaires | currency : "FCFA " : 2}}</a></td>
-        				<td><a>{{rappelsSalaire.startDate || rappelsSalaire.edsd.startDate | date: 'mediumDate'}}</a></td>
-        				<td><a>{{rappelsSalaire.endDate || rappelsSalaire.edsd.endDate | date: 'MMM d, y'}}</a></td>
-        			</tr>
-    			</tbody>
-		    </table>
-        </div>
+    <hr>
+    <div class="mb-5">
+        <section class="row">
+            <div class="col-xs-12 color box-shadow mb-5" style="min-width: 100%">
+    		    <table st-table="rappelsSalaires" st-safe-src="getRappelsSalairesEdsds" class="table table-stroped table-hover">
+        			<thead>
+            			<tr>
+                            <th ng-if="createdByField" st-sort="createdBy">Créée par</th>
+            				<th st-sort="createdDate">Date de creation</th>
+            				<th st-sort="firstName">Prénom</th>
+            				<th st-sort="lastName">Nom</th>
+            				<th st-sort="accountName">Matricule</th>
+                            <th st-sort="computedPrimes">Rap. Sal. Calculé </th>
+            				<th st-sort="startDate">Date de début</th>
+            				<th st-sort="endDate">Date de fin</th>
+            			</tr>
+            			<tr>
+            				<th colspan="9"><input st-search="" class="form-control" placeholder="search ..." type="text"/></th>
+            			</tr>
+        			</thead>
+        			<tbody>
+            			<tr ng-repeat="rappelsSalaire in rappelsSalaires" class="primes-table" ng-click="showDetails($event, rappelsSalaire, 'modal-rappels-salaires-content.html')">
+                            <td ng-if="rappelsSalaire.createdByFirstName"><a>
+                                {{ rappelsSalaire.createdByFirstName }}
+                                {{ rappelsSalaire.createdByLastName }},
+                                {{ rappelsSalaire.createdByUsername }}
+                            </a></td>
+            				<td><a>{{rappelsSalaire.createdDate || rappelsSalaire.edsd.createdDate  | date:'MMM d, y h:mm a'}}</a></td>
+            				<td><a>{{rappelsSalaire.belongsToRequester.firstName || rappelsSalaire.edsd.belongsToRequester.firstName}}</a></td>
+            				<td><a>{{rappelsSalaire.belongsToRequester.lastName || rappelsSalaire.edsd.belongsToRequester.lastName}}</a></td>
+            				<td><a>{{rappelsSalaire.belongsToRequester.accountNumber || rappelsSalaire.edsd.belongsToRequester.accountNumber}}</a></td>
+            				<td><a>{{rappelsSalaire.computedRappelsSalaires || rappelsSalaire.edsd.computedRappelsSalaires | currency : "FCFA " : 2}}</a></td>
+            				<td><a>{{rappelsSalaire.startDate || rappelsSalaire.edsd.startDate | date: 'mediumDate'}}</a></td>
+            				<td><a>{{rappelsSalaire.endDate || rappelsSalaire.edsd.endDate | date: 'MMM d, y'}}</a></td>
+            			</tr>
+        			</tbody>
+    		    </table>
+            </div>
+        </section>
 	</div>
 </div>
 
