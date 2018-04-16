@@ -6,15 +6,28 @@
     </div>
     <hr>
     <div class="mb-5">
+        <section class="my-5">
+            <c3chart bindto-id="performance-edsd" chart-data="charts.perform.datapoints"
+            chart-columns="charts.perform.datacolumns"
+             chart-x="charts.perform.datax">
+                <chart-bar ratio="0.5"/>
+                <chart-axes values-x="x"/>
+                <chart-axis>
+                    <chart-axis-x axis-position="outer-center"
+                    axis-label="EDSD Performances par agent" axis-type="category"/>
+                </chart-axis>
+            </c3chart>
+        </section>
+        <br>
         <section class="row">
             <div class="col-xs-12 color box-shadow mb-5" style="min-width: 100%">
     		    <table st-table="agents" st-safe-src="allAgents" class="table table-stroped table-hover">
         			<thead>
             			<tr>
             				<th st-sort="username">Agent</th>
-            				<th st-sort="firstName">Primes</th>
-            				<th st-sort="accountName">Non logement</th>
-            				<th st-sort="computedPrimes">Rappels salaires</th>
+            				<th st-sort="primes">Primes</th>
+            				<th st-sort="nonLogement">Non logement</th>
+            				<th st-sort="rappelsSalaires">Rappels salaires</th>
             			</tr>
             			<tr>
             				<th colspan="9"><input st-search="" class="form-control" placeholder="search ..." type="text"/></th>

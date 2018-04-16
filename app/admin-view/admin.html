@@ -22,7 +22,7 @@
                         </a>
                     </div>
                 </li>
-                <li class="nav-item" ng-click="toggle.section1 = true;toggle.section2=false;toggle.section3=false; change('admin-dashboard.html');"
+                <li class="nav-item" ng-click="toggle.section1=true;toggle.section2=toggle.section3=toggle.section4=false; change('admin-dashboard.html');"
                 data-toggle="tooltip" data-placement="right" title="Dashboard"
                 ng-class="{ 'bg-success': toggle.section1 , '': toggle.section1 }"
                 style="border-bottom: 0.4px solid #26303c;" >
@@ -31,7 +31,7 @@
                         <span class="nav-link-text" >Dashboard</span>
                     </a>
                 </li>
-                <li class="nav-item" ng-click="toggle.section2 = true; toggle.section1=false;toggle.section3=false;"
+                <li class="nav-item" ng-click="toggle.section2=true;toggle.section1=toggle.section3=toggle.section4=false;"
                     data-toggle="tooltip" data-placement="right" title="Agents"
                     ng-class="{ 'bg-success': toggle.section2, '': !toggle.section2 }"
                     style="border-bottom: 0.4px solid #26303c;">
@@ -52,7 +52,8 @@
                         <li><a href="" ng-click="change('all-agent.html'); getAllAgents()">Afficher les agents</a></li>
                     </ul>
                 </li>
-                <li class="nav-item" ng-click="toggle.section3=true; toggle.section1=false; toggle.section2=false;"
+                <li class="nav-item"
+                    ng-click="toggle.section3=true;toggle.section1=toggle.section2=toggle.section4=false;"
                     data-toggle="tooltip" data-placement="right" title="Produits EDSD"
                     ng-class="{ 'bg-success': toggle.section3, '': !toggle.section3 }"
                     style="border-bottom: 0.4px solid #26303c;">
@@ -73,7 +74,7 @@
                 <li class="nav-item" ng-click="change('admin-performance.html'); getAllAgents();
                 toggle.section4=true;toggle.section1=false;toggle.section2=false;toggle.section3=false;"
                 data-toggle="tooltip" data-placement="right" title="Performances"
-                ng-class="{ 'bg-success': toggle.section4 , '': toggle.section4 }"
+                ng-class="{ 'bg-success': toggle.section4 , '': !toggle.section4 }"
                 style="border-bottom: 0.4px solid #26303c;" >
                     <a class="nav-link" ng-class="{ 'text-white': toggle.section4, '': !toggle.section4 }">
                         <i class="fa fa-bar-chart" aria-hidden="true"></i>
@@ -85,11 +86,14 @@
                 <li class="nav-item">
                     <!-- /.dropdown-user -->
                     <div class="btn-group user">
-                        <a class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <a href="" class="dropdown-toggle no-decoration" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
                             <i class="fa fa-user fa-fw"></i> {{firstName}} {{lastName}}
                         </a>
                         <div class="dropdown-menu" style="padding: 10px;">
-                            <a href="" ng-click="logout()"><i class="fa fa-sign-out fa-fw color" data-toggle="modal"      data-target="#exampleModal"></i> Logout</a>
+                            <a href="" ng-click="logout()"><i class="fa fa-sign-out fa-fw color"></i>
+                                Logout
+                            </a>
                         </div>
                     </div>
                 </li>
@@ -98,9 +102,7 @@
     </nav>
 
     <div class="content-wrapper" >
-        <div class="">
-            <div ng-include="adminTemplate"></div>
-        </div>
+        <div ng-include="adminTemplate"></div>
         <footer class="sticky-footer">
             <div class="container">
                 <div class="text-center color">
@@ -112,24 +114,6 @@
         <a class="scroll-to-top rounded" href="#!/admin#page-top">
             <i class="fa fa-angle-up"></i>
         </a>
-        <!-- Logout Modal-->
-        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">×</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-                    <div class="modal-footer">
-                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                        <a class="btn btn-primary" href="login.html">Logout</a>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
 </div>
 

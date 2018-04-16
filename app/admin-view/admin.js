@@ -54,7 +54,7 @@ angular.module('App.admin', ['ngRoute', 'ngCookies', 'ngSanitize', 'ngMessages']
     $scope.error = {};
     $scope.success={};
     $scope.agents;
-    $scope.toggle={section1: true, section2: false};
+    $scope.toggle={section1: true};
     $scope.charts={};
     $scope.charts.edsd={};
     $scope.charts.edsd.donutPoints=[];
@@ -62,7 +62,14 @@ angular.module('App.admin', ['ngRoute', 'ngCookies', 'ngSanitize', 'ngMessages']
     $scope.charts.users={};
     $scope.charts.users.donutPoints=[];
     $scope.charts.users.donutColumns=[];
-
+    $scope.charts.perform={};
+    $scope.charts.perform.datax={"id":"x"};
+    $scope.charts.perform.datapoints=[];
+    $scope.charts.perform.datacolumns = [
+        {"id": "primes", "type": "bar", "name": "Primes"},
+        {"id": "nonLogements", "type": "bar", "name": "Non Logements"},
+        {"id": "rappelsSalaires", "type": "bar", "name": "Rappels Salaires"}
+    ];
 
     $scope.charts.users.formatDonut = function formatDonut(value, ratio, id) {
         return d3.format('A')(value);
@@ -220,8 +227,17 @@ angular.module('App.admin', ['ngRoute', 'ngCookies', 'ngSanitize', 'ngMessages']
     $scope.getAllAgents = function() {
         headerService.setAuthHeader(storageService.getSession('session'));
         agentService.getAgent().query(function(allags) {
+            $scope.charts.perform.datapoints=[];
             $scope.allAgents = allags;
             console.log(allags);
+            allags.forEach(function(agent) {
+                $scope.charts.perform.datapoints.push({
+                    "x": agent.firstName+" "+agent.lastName,
+                    "primes": agent.primesEdsd.length,
+                    "nonLogements": agent.nonLogementEdsd.length,
+                    "rappelsSalaires": agent.rappelsSalairesEdsd.length
+                });
+            });
         });
     };
 

@@ -60,6 +60,10 @@ table.borderless td,table.borderless th {
     color: #868e96 !important;
 }
 
+.no-decoration {
+    text-decoration: none !important;
+}
+
 /* Calendar */
 .fa-svg-icon {
     display: inline-block;
