@@ -26,7 +26,7 @@
                 data-toggle="tooltip" data-placement="right" title="Dashboard"
                 ng-class="{ 'bg-success': toggle.section1 , '': toggle.section1 }"
                 style="border-bottom: 0.4px solid #26303c;" >
-                    <a class="nav-link" ng-class="{ 'text-white': toggle.section1, '': !toggle }">
+                    <a class="nav-link" ng-class="{ 'text-white': toggle.section1, '': !toggle.section1 }">
                         <i class="fa fa-file-text-o"></i>
                         <span class="nav-link-text" >Dashboard</span>
                     </a>
@@ -37,7 +37,7 @@
                     style="border-bottom: 0.4px solid #26303c;">
                     <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse"
                         data-target="#agents" href="" data-parent="#accordion"
-                        ng-class="{ 'text-white': toggle.section2, '': !toggle }">
+                        ng-class="{ 'text-white': toggle.section2, '': !toggle.section2 }">
                         <i class="fa fa-cogs" aria-hidden="true"></i>
                         <span class="nav-link-text">
                             Agents
@@ -69,6 +69,16 @@
                         <li><a href="" ng-click="change('all-non-logement-edsd.html'); getAllNonLogementEdsds();">Non logements</a></li>
                         <li><a href="" ng-click="change('all-rappels-salaires-edsd.html'); getAllRappelsSalairesEdsds();">Rappels Salaires</a></li>
                     </ul>
+                </li>
+                <li class="nav-item" ng-click="change('admin-performance.html'); getAllAgents();
+                toggle.section4=true;toggle.section1=false;toggle.section2=false;toggle.section3=false;"
+                data-toggle="tooltip" data-placement="right" title="Performances"
+                ng-class="{ 'bg-success': toggle.section4 , '': toggle.section4 }"
+                style="border-bottom: 0.4px solid #26303c;" >
+                    <a class="nav-link" ng-class="{ 'text-white': toggle.section4, '': !toggle.section4 }">
+                        <i class="fa fa-bar-chart" aria-hidden="true"></i>
+                        <span class="nav-link-text" >Performances</span>
+                    </a>
                 </li>
             </ul>
             <ul class="navbar-nav ml-auto">

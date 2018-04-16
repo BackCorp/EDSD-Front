@@ -1,36 +1,38 @@
-<div >
-    <div class="row">
+<div class="mx-5 my-5">
+    <div class="row color">
         <div class="col-xs-12">
-            <h3 class="page-header">Performance</h3>
+            <h3 class="page-header">Performances</h3>
         </div>
     </div>
-
-    <div class="row">
-        <div class="col-xs-12">
-		    <table st-table="agents" st-safe-src="allAgents" class="table table-stroped table-hover">
-    			<thead>
-        			<tr>
-        				<th st-sort="username">Agent</th>
-        				<th st-sort="firstName">Primes</th>
-        				<th st-sort="accountName">Non logement</th>
-        				<th st-sort="computedPrimes">Rappels salaires</th>
-        			</tr>
-        			<tr>
-        				<th colspan="9"><input st-search="" class="form-control" placeholder="search ..." type="text"/></th>
-        			</tr>
-    			</thead>
-    			<tbody>
-                    <tr ng-repeat="agent in agents" class="primes-table">
-                        <td >
-                            {{ agent.firstName }}
-                            {{ agent.lastName }},
-                            {{ agent.username }}</td>
-        				<td>{{ agent.primesEdsd.length }}</td>
-        				<td>{{ agent.nonLogementEdsd.length }}</td>
-        				<td>{{ agent.rappelsSalairesEdsd.length }}</td>
-        			</tr>
-    			</tbody>
-		    </table>
-        </div>
-	</div>
+    <hr>
+    <div class="mb-5">
+        <section class="row">
+            <div class="col-xs-12 color box-shadow mb-5" style="min-width: 100%">
+    		    <table st-table="agents" st-safe-src="allAgents" class="table table-stroped table-hover">
+        			<thead>
+            			<tr>
+            				<th st-sort="username">Agent</th>
+            				<th st-sort="firstName">Primes</th>
+            				<th st-sort="accountName">Non logement</th>
+            				<th st-sort="computedPrimes">Rappels salaires</th>
+            			</tr>
+            			<tr>
+            				<th colspan="9"><input st-search="" class="form-control" placeholder="search ..." type="text"/></th>
+            			</tr>
+        			</thead>
+        			<tbody>
+                        <tr ng-repeat="agent in agents" class="primes-table">
+                            <td >
+                                {{ agent.firstName }}
+                                {{ agent.lastName }},
+                                {{ agent.username }}</td>
+            				<td>{{ agent.primesEdsd.length }}</td>
+            				<td>{{ agent.nonLogementEdsd.length }}</td>
+            				<td>{{ agent.rappelsSalairesEdsd.length }}</td>
+            			</tr>
+        			</tbody>
+    		    </table>
+            </div>
+	    </section>
+    </div>
 </div>
