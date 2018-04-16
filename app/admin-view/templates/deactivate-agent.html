@@ -1,66 +1,64 @@
-
-<div>
+<div class="mx-5">
     <div class="row">
         <div class="col-lg-12">
-            <h1 class="page-header color">Deactivate Agent</h1>
+            <h1 class="page-header color">Désactiver un Agent</h1>
         </div>
     </div>
-
-    <div class="row">
-        <div class="col-lg-12">
+    <hr>
+    <div>
+        <section>
             <typeahead-directive></typeahead-directive>
-            <br>
-            <div ng-show="selected">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        Employee details
+        </section>
+        <br><br>
+        <section ng-show="selected" class="mb-5">
+            <form role="form" name="deactivateagent" ng-submit="deactivateAgent(agent)" class="box-shadow">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-6">
+                        <table class="table table-responsive borderless">
+                            <thead></thead>
+                            <tbody>
+                                <tr>
+                                    <td>Prenom : </td>
+                                    <td>{{agent.firstName}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Nom : </td>
+                                    <td>{{agent.lastName}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
-                    <div class="panel-body">
-                        <form role="form" name="deactivateagent" ng-submit="deactivateAgent(agent)">
-                            <div class="row">
-                                <div class="col-xs-12 col-sm-6">
-                                    <div class="form-group">
-                                        <label>Name: </label>
-                                        <p class="form-control-static">{{agent.firstName}}</p>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Middle Name: </label>
-                                        <p class="form-control-static">{{agent.midName}}</p>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Last Name: </label>
-                                        <p class="form-control-static">{{agent.lastName}}</p>
-                                    </div>
-                                </div>
-                                <div class="col-xs-12 col-sm-6">
-                                    <div class="form-group">
-                                        <label>Matricule: </label>
-                                        <p class="form-control-static">{{agent.username}}</p>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>E-mail address: </label>
-                                        <p class="form-control-static">{{agent.email}}</p>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="checkbox" ng-class="enabled ? 'btn btn-success' : 'btn btn-default'">
-                                            <label><input type="checkbox" ng-model="enabled"
-                                                ng-click="setActiveDisabled(enabled)" required>
-                                                <b>Deactivate Agent</b></label>
-                                        </div>
-                                    </div>
-                                </div>
+                    <div class="col-xs-12 col-sm-6">
+                        <table class="table table-responsive borderless">
+                            <thead></thead>
+                            <tbody>
+                                <tr>
+                                    <td>Matricule : </td>
+                                    <td>{{agent.username}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Courriel : </td>
+                                    <td>{{agent.email}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="form-group">
+                            <div class="checkbox" ng-class="enabled ? 'btn btn-success text-light' : 'btn btn-outline-success'">
+                                <label class="material-checkbox">
+                                    <input type="checkbox" ng-model="enabled" ng-click="setActiveDisabled(enabled)" required><span ng-class="enabled ? 'text-light' : 'text-dark'"><b>Désactiver l'agent</b></span>
+                                </label>
                             </div>
-                            <div class="alert alert-success" ng-if="success.message">
-                                {{agent.firstName}} {{agent.lastName}}'s agent account has been deactivated.
-                            </div>
-                            <hr>
-                            <div ng-if="enabled">
-                                <button type="submit" class="btn btn-lg btn-success text-center">Save</button>
-                            </div>
-                        </form>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
+                <div class="alert alert-success" ng-if="success.message">
+                    Le compte de {{agent.firstName}} {{agent.lastName}} a ete désactivé.
+                </div>
+                <div ng-if="enabled">
+                    <hr>
+                    <button type="submit" class="btn btn-lg btn-success text-center">Désactiver</button>
+                </div>
+            </form>
+        </section>
     </div>
 </div>
