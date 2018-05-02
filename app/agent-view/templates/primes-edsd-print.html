@@ -32,15 +32,15 @@
     <hr><br />
 
     <section class="text-center main-title">
-        <h5><b>ETAT DES SOMMES DUES N<sup>o</sup> ___________ MINSANTE/SG/DRH/SDSP/BSPFPD</b></h5>
+        <h5><b>ETATS DES SOMMES DUES N<sup>o</sup> ___________ MINSANTE/SG/DRH/SDSP/BSPFPD</b></h5>
     </section>
     <br />
     <section id="recap" class="text-center" >
         <div >
             <p style="text-indent:50px;">
-                A Monsieur <b>{{ requester.firstName }} {{ requester.midName }} {{ requester.lastName }},
+                A <b>{{ requester.firstName }} {{ requester.midName }} {{ requester.lastName }},
                 {{ requester.currentGrade }}, Matricule {{ requester.accountNumber }}</b>,
-                en service au Ministere de la Sante Publique pour la mandatement
+                en service au Ministere de la Sante Publique pour le mandatement
                 des primes conformement aux pieces jointes en souche.
             </p>
         </div>
@@ -359,7 +359,7 @@
     <div ng-if="edsdModules.print" class="alert alert-success">
         {{ edsdModules.print }}
     </div>
-    <div data-loading class="spinner" style="background: #5cb85c; color: white;">
+    <div data-loading class="spinner">
         <div class="loading-spiner text-center">
             <i class="fa fa-spinner fa-spin fa-4x black-spinner"></i>
             <p class="text-center">Loading ...</p>
@@ -373,7 +373,7 @@
         </button>
         <button type="submit" class="btn btn-lg text-center"
             ng-class="false ? 'btn btn-success' : 'btn btn-default'"
-            ng-disabled="" ng-click="cancelEdsdProcess()">Cancel
+            ng-disabled="" ng-click="cancelEdsdProcess()">Annuler
         </button>
     </div>
     <br /><br />

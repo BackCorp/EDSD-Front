@@ -214,7 +214,8 @@ angular.module('App.agent', ['ngRoute', 'ngCookies', 'ngSanitize', 'smart-table'
 
     $scope.cancelEdsdProcess = function() {
         $scope.edsdModules.retenues = false;
-        $scope.primes.message = false;
+        $scope.edsdModules.error = false;
+        $scope.edsdModules.print = false;
         $scope.change("process-edsd.html");
     };
 
